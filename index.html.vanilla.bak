@@ -1,0 +1,2425 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitGuide — Modern Fitness, Anatomy & Nutrition Educational Platform</title>
+  <meta name="description" content="Beginner-friendly fitness and nutrition platform to explore exercises, anatomical body parts, benefits, risks, and macronutrient/micronutrient guides.">
+  
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#090e1a',
+              card: '#151f38',
+              emerald: '#10b981',
+              orange: '#f97316',
+              blue: '#38bdf8'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Persistent Health Disclaimer Banner -->
+  <div class="bg-gradient-to-r from-emerald-950/70 via-slate-900 to-amber-950/70 border-b border-slate-700/60 text-slate-300 text-xs py-2 px-4 text-center">
+    <div class="max-w-7xl mx-auto flex items-center justify-center gap-2">
+      <span class="text-emerald-400 font-bold">Disclaimer:</span>
+      <span>FitGuide provides general educational fitness & nutrition information. Recommendations vary between individuals and do not replace professional medical or dietary consultation.</span>
+    </div>
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header class="glass-nav sticky top-0 z-50 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- Logo -->
+        <a href="#home" data-nav-target="home" class="flex items-center gap-2.5 group">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 font-black text-xl shadow-md group-hover:scale-105 transition-transform">
+            ⚡
+          </div>
+          <div>
+            <span class="text-xl font-black font-heading tracking-tight text-white flex items-center">
+              Fit<span class="text-emerald-400">Guide</span>
+            </span>
+            <span class="text-[10px] text-slate-400 -mt-1 block uppercase tracking-widest font-semibold">Learn & Train</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden lg:flex items-center space-x-1 xl:space-x-1.5 text-xs font-medium">
+          <a href="#home" data-nav-target="home" class="px-2.5 py-1.5 rounded-md transition-colors text-slate-300 hover:text-white">Home</a>
+          <a href="#exercises" data-nav-target="exercises" class="px-2.5 py-1.5 rounded-md transition-colors text-slate-300 hover:text-white">Exercises</a>
+          <a href="#bodyparts" data-nav-target="bodyparts" class="px-2.5 py-1.5 rounded-md transition-colors text-slate-300 hover:text-white">Interactive Body</a>
+          <a href="#height" data-nav-target="height" class="px-2.5 py-1.5 rounded-md transition-colors text-teal-400 font-bold hover:text-teal-300 flex items-center gap-1">
+            <span>📏</span> Height
+          </a>
+          <a href="#women" data-nav-target="women" class="px-2.5 py-1.5 rounded-md transition-colors text-pink-400 font-bold hover:text-pink-300 flex items-center gap-1" title="Mature Cycle, Hormones & Pregnancy Care">
+            <span>🌸</span> Women's Health
+          </a>
+          <a href="#diseases" data-nav-target="diseases" class="px-2.5 py-1.5 rounded-md transition-colors text-amber-400 font-bold hover:text-amber-300 flex items-center gap-1" title="Diseases, Dietary Cures & Medicines">
+            <span>🩺</span> Disease Cures
+          </a>
+          <a href="#diet" data-nav-target="diet" class="px-2.5 py-1.5 rounded-md transition-colors text-emerald-400 font-bold hover:text-emerald-300 flex items-center gap-1" title="Balanced Daily Diet Plans for Men & Women">
+            <span>🥗</span> Healthy Diets
+          </a>
+          <a href="#nutrition" data-nav-target="nutrition" class="px-2.5 py-1.5 rounded-md transition-colors text-slate-300 hover:text-white">Nutrition</a>
+          <a href="#foods" data-nav-target="foods" class="px-2.5 py-1.5 rounded-md transition-colors text-slate-300 hover:text-white">Foods</a>
+          <a href="#calculator" data-nav-target="calculator" class="px-2.5 py-1.5 rounded-md transition-colors text-slate-300 hover:text-white">Calculator</a>
+          <a href="#tracker" data-nav-target="tracker" class="px-2.5 py-1.5 rounded-md transition-colors text-slate-300 hover:text-white">Tracker</a>
+          <a href="#gyms" data-nav-target="gyms" class="px-2.5 py-1.5 rounded-md transition-colors text-emerald-400 font-bold hover:text-emerald-300 flex items-center gap-1">
+            <span>📍</span> Gyms
+          </a>
+        </nav>
+
+        <!-- Right Header Actions -->
+        <div class="flex items-center gap-2 sm:gap-2.5">
+          <!-- FitBot AI Header Button -->
+          <button id="header-fitbot-btn" onclick="toggleFitBot()" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg border border-purple-500/50 bg-gradient-to-r from-purple-500/20 via-indigo-500/20 to-teal-500/20 text-purple-300 hover:text-white text-xs font-bold hover:from-purple-500/30 hover:to-teal-500/30 transition-all cursor-pointer shadow-sm" title="Chat with FitBot AI Coach">
+            <span class="animate-pulse">🤖</span> <span class="hidden sm:inline">FitBot AI</span>
+          </button>
+
+          <!-- QR Login & Share Button -->
+          <button id="qr-login-btn" onclick="openQrModal()" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg border border-teal-500/50 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 text-emerald-300 hover:text-white text-xs font-bold hover:from-emerald-500/30 hover:to-teal-500/30 transition-all cursor-pointer shadow-sm" title="Scan QR Code to Login or Share Link with Relatives">
+            <span>📱</span> <span class="hidden sm:inline" id="header-user-status">QR Login & Share</span>
+          </button>
+
+          <!-- WhatsApp Quick Chat Button -->
+          <a href="https://wa.me/919014430474?text=Hi%20FitGuide%2C%20I%20have%20a%20fitness%20and%20nutrition%20question!" target="_blank" rel="noopener noreferrer"
+            class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-emerald-500/40 bg-emerald-500/15 text-emerald-400 text-xs font-bold hover:bg-emerald-500/25 transition-all" title="WhatsApp: +91 9014430474">
+            <span>💬</span> <span class="hidden md:inline">WhatsApp</span>
+          </a>
+
+          <!-- Gmail Direct Mail Button -->
+          <a href="mailto:venkateshvemula8897@gmail.com?subject=FitGuide%20Fitness%20%26%20Nutrition%20Inquiry"
+            class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-700 bg-slate-800/80 text-slate-300 text-xs font-medium hover:border-slate-500 hover:text-white transition-all" title="Email: venkateshvemula8897@gmail.com">
+            <span>✉️</span> <span class="hidden md:inline">Gmail</span>
+          </a>
+
+          <!-- Global Search trigger button -->
+          <button onclick="openModal('global-search-modal')" class="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-700 bg-slate-800/80 text-xs text-slate-300 hover:border-emerald-500 hover:text-white transition-all cursor-pointer" title="Quick Search (Ctrl+K)">
+            <span>🔍 Search...</span>
+            <kbd class="hidden xl:inline-block px-1.5 py-0.5 text-[10px] font-mono bg-slate-900 border border-slate-700 rounded text-slate-400">Ctrl+K</kbd>
+          </button>
+
+          <!-- Favorites Drawer Button -->
+          <button id="open-favorites-btn" class="relative p-2 rounded-lg border border-slate-700 bg-slate-800/80 text-slate-200 hover:text-white hover:border-slate-600 transition-all cursor-pointer" title="Saved Favorites">
+            <span>❤️</span>
+            <span id="fav-count-badge" style="display:none;" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 text-slate-950 font-black text-[10px] items-center justify-center">0</span>
+          </button>
+
+          <!-- Dark/Light Theme Toggle -->
+          <button id="theme-toggle-btn" class="p-2 rounded-lg border border-slate-700 bg-slate-800/80 text-slate-200 hover:text-white hover:border-slate-600 transition-all cursor-pointer" title="Toggle Theme">
+            <span id="theme-icon">☀️</span>
+          </button>
+
+          <!-- Mobile Hamburger Toggle -->
+          <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg border border-slate-700 bg-slate-800/80 text-slate-200 hover:text-white transition-all">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer Menu -->
+    <div id="mobile-nav-menu" class="hidden lg:hidden border-b border-slate-700 bg-slate-900/95 px-4 pt-2 pb-4 space-y-1 text-sm font-medium">
+      <button onclick="toggleFitBot(); document.getElementById('mobile-nav-menu')?.classList.add('hidden');" class="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-lg bg-gradient-to-r from-purple-500/20 to-indigo-500/20 border border-purple-500/40 text-purple-300 font-bold text-xs hover:bg-purple-500/25 mb-1 cursor-pointer">
+        <span class="flex items-center gap-2"><span>🤖</span> <span>FitBot AI 24/7 Smart Health Coach</span></span>
+        <span class="px-1.5 py-0.5 rounded bg-purple-500/30 text-[10px] text-purple-200">Active</span>
+      </button>
+      <button onclick="openQrModal()" class="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-lg bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-teal-500/40 text-teal-300 font-bold text-xs hover:bg-teal-500/25 mb-1 cursor-pointer">
+        <span class="flex items-center gap-2"><span>📱</span> <span>QR Code Login & Share with Relatives</span></span>
+        <span>➔</span>
+      </button>
+      <a href="#home" data-nav-target="home" class="block px-3 py-2 rounded-md text-slate-200 hover:bg-slate-800">Home</a>
+      <a href="#women" data-nav-target="women" class="block px-3 py-2 rounded-md text-pink-400 font-bold hover:bg-slate-800">🌸 Women's Health (Mature Cycle & Pregnancy)</a>
+      <a href="#diseases" data-nav-target="diseases" class="block px-3 py-2 rounded-md text-amber-400 font-bold hover:bg-slate-800">🩺 Disease Cures & Dietary Treatments (Men & Women)</a>
+      <a href="#diet" data-nav-target="diet" class="block px-3 py-2 rounded-md text-emerald-400 font-bold hover:bg-slate-800">🥗 Healthy Balanced Daily Diets (Both Genders)</a>
+      <a href="#height" data-nav-target="height" class="block px-3 py-2 rounded-md text-teal-400 font-bold hover:bg-slate-800">📏 Height & Growth Guide</a>
+      <a href="#exercises" data-nav-target="exercises" class="block px-3 py-2 rounded-md text-slate-200 hover:bg-slate-800">Exercises</a>
+      <a href="#bodyparts" data-nav-target="bodyparts" class="block px-3 py-2 rounded-md text-slate-200 hover:bg-slate-800">Interactive Body</a>
+      <a href="#nutrition" data-nav-target="nutrition" class="block px-3 py-2 rounded-md text-slate-200 hover:bg-slate-800">Nutrition Guide</a>
+      <a href="#foods" data-nav-target="foods" class="block px-3 py-2 rounded-md text-slate-200 hover:bg-slate-800">Food Database</a>
+      <a href="#calculator" data-nav-target="calculator" class="block px-3 py-2 rounded-md text-slate-200 hover:bg-slate-800">Daily Calculator</a>
+      <a href="#tracker" data-nav-target="tracker" class="block px-3 py-2 rounded-md text-slate-200 hover:bg-slate-800">Daily Tracker & Workouts</a>
+      <a href="#gyms" data-nav-target="gyms" class="block px-3 py-2 rounded-md text-emerald-400 font-bold hover:bg-slate-800">📍 Find Fitness Gyms (Gajuwaka & Vizag)</a>
+      <div class="pt-2 border-t border-slate-800 flex gap-2">
+        <a href="https://wa.me/919014430474?text=Hi%20FitGuide%2C%20I%20have%20a%20fitness%20and%20nutrition%20question!" target="_blank" class="w-1/2 text-center py-2 bg-emerald-500/20 text-emerald-400 rounded-lg text-xs font-bold">
+          💬 WhatsApp
+        </a>
+        <a href="mailto:venkateshvemula8897@gmail.com?subject=FitGuide%20Fitness%20Inquiry" class="w-1/2 text-center py-2 bg-slate-800 text-slate-200 rounded-lg text-xs font-bold">
+          ✉️ Gmail
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       SECTION 1: HOME PAGE
+       ========================================================================= -->
+  <section id="section-home" class="app-section active">
+    <!-- Hero Banner -->
+    <div class="relative overflow-hidden py-16 sm:py-24 border-b border-slate-800">
+      <div class="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:24px_24px]"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs font-semibold mb-6">
+          <span>✨</span> Beginner-Friendly Fitness & Nutrition Intelligence
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black font-heading tracking-tight text-white mb-6">
+          Train Smart. <span class="text-gradient-emerald">Eat Better.</span> <br class="hidden sm:inline">Live Stronger.
+        </h1>
+
+        <p class="max-w-2xl mx-auto text-base sm:text-lg text-slate-300 mb-10 leading-relaxed">
+          Master exercise execution, understand your body anatomy, discover recovery-boosting foods, and calculate your scientific nutritional requirements without extreme diets.
+        </p>
+
+        <!-- Home Global Search Bar -->
+        <div class="max-w-xl mx-auto relative mb-8">
+          <div class="relative">
+            <input type="text" id="home-search-input" placeholder="Search an exercise (e.g. push-ups, squats) or food (e.g. paneer, dal, iron)..."
+              class="w-full pl-12 pr-4 py-4 rounded-2xl bg-slate-800/90 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 shadow-lg text-sm">
+            <span class="absolute left-4 top-4 text-slate-400 text-lg">🔍</span>
+          </div>
+          <div id="home-search-results" class="search-results-floating hidden text-left"></div>
+        </div>
+
+        <!-- Call to Action Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-4 mb-12">
+          <a href="#exercises" data-nav-target="exercises" class="btn-primary text-sm py-3 px-6 rounded-xl">
+            Explore Exercises ➔
+          </a>
+          <a href="#nutrition" data-nav-target="nutrition" class="btn-secondary text-sm py-3 px-6 rounded-xl">
+            Explore Nutrition 🥑
+          </a>
+          <a href="#calculator" data-nav-target="calculator" class="btn-orange text-sm py-3 px-6 rounded-xl">
+            Calculate Daily Macros 📊
+          </a>
+        </div>
+
+        <!-- FitBot AI Quick Coach Banner -->
+        <div class="max-w-3xl mx-auto mb-10 p-5 rounded-2xl bg-gradient-to-r from-purple-950/60 via-slate-900 to-indigo-950/60 border border-purple-500/40 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4 text-left">
+          <div class="flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-2xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-2xl shrink-0 shadow-inner">
+              🤖
+            </div>
+            <div>
+              <div class="flex items-center gap-2 mb-0.5">
+                <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                  NEW • 24/7 AI COACH
+                </span>
+                <span class="text-xs text-emerald-400 font-bold flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Online
+                </span>
+              </div>
+              <h4 class="text-sm sm:text-base font-extrabold text-white">Have fitness, cycle, pregnancy, or disease diet questions?</h4>
+              <p class="text-xs text-slate-300 mt-0.5">Ask FitBot AI anytime for evidence-based workouts, clinical dietary precautions & medicines.</p>
+            </div>
+          </div>
+          <button onclick="openFitBot()" class="shrink-0 px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs shadow-lg hover:shadow-purple-500/30 transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap">
+            <span>Ask FitBot AI</span>
+            <span>➔</span>
+          </button>
+        </div>
+
+        <!-- Quick Category Pills -->
+        <div class="max-w-5xl mx-auto">
+          <span class="text-xs uppercase tracking-wider font-bold text-slate-400 block mb-3">Quick Explore by Muscle & Nutrient:</span>
+          <div id="home-category-pills" class="flex flex-wrap items-center justify-center gap-2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Core Pillars Feature Cards (Clickable Navigation) -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <!-- 1. Form & Exercise Library -->
+        <div class="fit-card p-6 cursor-pointer hover:border-emerald-500/80 hover:shadow-glow transition-all flex flex-col justify-between group rounded-2xl bg-slate-850" onclick="navigateToTab('exercises')" data-nav-target="exercises" role="button" tabindex="0">
+          <div>
+            <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">🏋️‍♂️</div>
+            <h3 class="text-base font-bold text-white group-hover:text-emerald-400 transition-colors mb-2">Form & Exercise Library</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              Step-by-step instructions, benefits, risks, common mistakes, and suitable equipment alternatives.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-700/60 flex items-center justify-between text-xs font-bold text-emerald-400">
+            <span>Open Exercise Library</span>
+            <span class="group-hover:translate-x-1 transition-transform">➔</span>
+          </div>
+        </div>
+
+        <!-- 2. Interactive Body Map -->
+        <div class="fit-card p-6 cursor-pointer hover:border-emerald-500/80 hover:shadow-glow transition-all flex flex-col justify-between group rounded-2xl bg-slate-850" onclick="navigateToTab('bodyparts')" data-nav-target="bodyparts" role="button" tabindex="0">
+          <div>
+            <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">🧬</div>
+            <h3 class="text-base font-bold text-white group-hover:text-emerald-400 transition-colors mb-2">Interactive Body Map</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              Select any muscle on our anatomical human model to reveal exercises that target that specific area.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-700/60 flex items-center justify-between text-xs font-bold text-emerald-400">
+            <span>Open Interactive Map</span>
+            <span class="group-hover:translate-x-1 transition-transform">➔</span>
+          </div>
+        </div>
+
+        <!-- 3. Macro & Food Database -->
+        <div class="fit-card p-6 cursor-pointer hover:border-emerald-500/80 hover:shadow-glow transition-all flex flex-col justify-between group rounded-2xl bg-slate-850" onclick="navigateToTab('foods')" data-nav-target="foods" role="button" tabindex="0">
+          <div>
+            <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">🥗</div>
+            <h3 class="text-base font-bold text-white group-hover:text-emerald-400 transition-colors mb-2">Macro & Food Database</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              Rich nutrition data with Indian staples (Dal, Paneer, Chana, Ragi) and global lean recovery foods.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-700/60 flex items-center justify-between text-xs font-bold text-emerald-400">
+            <span>Browse Food Database</span>
+            <span class="group-hover:translate-x-1 transition-transform">➔</span>
+          </div>
+        </div>
+
+        <!-- 4. Daily Progress Tracker -->
+        <div class="fit-card p-6 cursor-pointer hover:border-emerald-500/80 hover:shadow-glow transition-all flex flex-col justify-between group rounded-2xl bg-slate-850" onclick="navigateToTab('tracker')" data-nav-target="tracker" role="button" tabindex="0">
+          <div>
+            <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">📈</div>
+            <h3 class="text-base font-bold text-white group-hover:text-emerald-400 transition-colors mb-2">Daily Progress Tracker</h3>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              Track daily protein goals, hydration glasses, and custom workout check-lists locally and securely.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-700/60 flex items-center justify-between text-xs font-bold text-emerald-400">
+            <span>Open Habits Tracker</span>
+            <span class="group-hover:translate-x-1 transition-transform">➔</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Local Gyms & Direct WhatsApp Banner -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+      <div class="fit-card p-6 md:p-8 rounded-2xl bg-gradient-to-r from-emerald-950/60 via-slate-900 to-blue-950/60 border border-emerald-500/40 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-3xl">
+            📍
+          </div>
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
+                Sheelanagar, Gajuwaka & Visakhapatnam Centers
+              </span>
+              <span class="text-xs text-amber-400 font-bold">★ 4.8+ Rated Gyms</span>
+            </div>
+            <h3 class="text-xl font-extrabold text-white">Find Fitness Gyms Near You on Google Maps</h3>
+            <p class="text-xs text-slate-300 mt-1 max-w-xl">
+              Locate gyms across Sheelanagar (U Fit Fitness, Pulse Hub), Gajuwaka (Steel Plant, Cult.fit) & Vizag (Gold's Gym) with ratings, equipment info, live GPS, and direct WhatsApp inquiries.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+          <button onclick="navigateToTab('gyms')" class="btn-primary text-xs py-3 px-5 rounded-xl whitespace-nowrap w-full sm:w-auto justify-center">
+            Open Gyms & Map Locator ➔
+          </button>
+          <a href="https://wa.me/919014430474?text=Hi%20FitGuide%2C%20I%20have%20a%20fitness%20and%20nutrition%20question!" target="_blank" rel="noopener noreferrer"
+            class="btn-secondary text-xs py-3 px-4 rounded-xl whitespace-nowrap w-full sm:w-auto justify-center flex items-center gap-1.5 text-emerald-400 border-emerald-500/30">
+            <span>💬</span> WhatsApp Coach (+91 9014430474)
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Height Growth & Spinal Decompression Banner -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+      <div class="fit-card p-6 md:p-8 rounded-2xl bg-gradient-to-r from-teal-950/60 via-slate-900 to-emerald-950/60 border border-teal-500/40 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-teal-500/20 border border-teal-500/40 flex items-center justify-center text-3xl">
+            📏
+          </div>
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-400 border border-teal-500/40">
+                Height Growth & Posture System
+              </span>
+              <span class="text-xs text-amber-400 font-bold">★ Science-Backed Guide</span>
+            </div>
+            <h3 class="text-xl font-extrabold text-white">Can You Grow Taller? Exercises, Food & Science</h3>
+            <p class="text-xs text-slate-300 mt-1 max-w-xl">
+              Discover proven spinal decompression exercises (Dead Hangs, Cobra Stretch, Pelvic Realignment) and exact dietary requirements for <strong>Protein (1.5-2.0g/kg), Vitamin D3, K2, Iron & Calcium</strong> to maximize bone mineralization and unlock 1-3 inches of posture height.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+          <button onclick="navigateToTab('height')" class="py-3 px-5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 text-slate-950 font-bold text-xs whitespace-nowrap w-full sm:w-auto justify-center hover:brightness-110 shadow-lg transition-all flex items-center gap-1.5 cursor-pointer">
+            <span>📏</span> Open Height & Growth Guide ➔
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Official QR Code & Live Website Link Banner -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+      <div class="fit-card p-6 md:p-8 rounded-2xl bg-gradient-to-r from-indigo-950/80 via-slate-900 to-teal-950/80 border border-teal-500/40 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+        <div class="flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
+          <!-- Real QR Code Image -->
+          <div class="p-2 bg-white rounded-2xl shadow-xl border-2 border-teal-400/60 shrink-0 cursor-pointer hover:scale-105 transition-transform" onclick="openQrModal()" title="Click to open QR Login Hub">
+            <img src="images/fitguide_qr.png" alt="FitGuide Live QR Code" class="w-28 h-28 object-contain rounded-xl" />
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-1.5">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                🌐 Live Worldwide 24/7
+              </span>
+              <span class="text-xs text-amber-400 font-bold">★ Verified FitGuide URL</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-black text-white font-heading">Scan Live QR Code to Open FitGuide</h3>
+            <p class="text-xs text-slate-300 mt-1 max-w-xl leading-relaxed">
+              Scan this QR code with any smartphone camera or forward the live 24/7 web link to relatives on WhatsApp! Works anywhere on mobile data (4G/5G) and Wi-Fi.
+            </p>
+            <div class="mt-2 text-xs font-mono text-emerald-400 flex items-center gap-2 justify-center sm:justify-start">
+              <span>🔗 Link:</span>
+              <a href="https://fitguidecom.netlify.app/" target="_blank" class="underline hover:text-emerald-300 font-bold">https://fitguidecom.netlify.app/</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto shrink-0 justify-center">
+          <button onclick="openQrModal()" class="py-3 px-5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 text-slate-950 font-bold text-xs whitespace-nowrap w-full sm:w-auto justify-center hover:brightness-110 shadow-lg transition-all flex items-center gap-2 cursor-pointer">
+            <span>📱</span> View QR Code & Login ➔
+          </button>
+          <button onclick="shareOnWhatsAppWithRelatives()" class="btn-secondary text-xs py-3 px-4 rounded-xl whitespace-nowrap w-full sm:w-auto justify-center flex items-center gap-1.5 text-emerald-400 border-emerald-500/40 cursor-pointer">
+            <span>💬</span> Forward on WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 Core New Pillars Banner: Women's Health, Disease Cures, Balanced Diets -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Pillar 1: Women's Health & Maternal Wellness -->
+        <div data-nav-target="women" class="fit-card p-6 rounded-2xl bg-gradient-to-br from-pink-950/50 via-slate-900 to-slate-900 border border-pink-500/40 hover:border-pink-500/80 transition-all flex flex-col justify-between cursor-pointer group" onclick="navigateToTab('women')">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-pink-500/20 border border-pink-500/40 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+              🌸
+            </div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/30">
+                Female Health Hub
+              </span>
+            </div>
+            <h3 class="text-lg font-bold text-white group-hover:text-pink-300 transition-colors mb-2">
+              Women's Health & Pregnancy
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+              <strong>Mature cycle duration (21-35 days)</strong>, 4 cycle phases, precautions, iron-rich foods, plus safe pregnancy exercises (Kegels, walking, modified squats) with advantages and food risks to avoid.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-700/60 flex items-center justify-between text-xs font-bold text-pink-400">
+            <span>Explore Women's Health</span>
+            <span class="group-hover:translate-x-1 transition-transform">➔</span>
+          </div>
+        </div>
+
+        <!-- Pillar 2: Disease Management & Clinical Cures -->
+        <div data-nav-target="diseases" class="fit-card p-6 rounded-2xl bg-gradient-to-br from-amber-950/50 via-slate-900 to-slate-900 border border-amber-500/40 hover:border-amber-500/80 transition-all flex flex-col justify-between cursor-pointer group" onclick="navigateToTab('diseases')">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+              🩺
+            </div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                Evidence-Based Cures
+              </span>
+            </div>
+            <h3 class="text-lg font-bold text-white group-hover:text-amber-300 transition-colors mb-2">
+              Disease Management & Cures
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+              Dietary cures, harmful foods to avoid, and clinical medicines overview (Metformin, Telmisartan, Statins, Levothyroxine) for <strong>Diabetes, BP, Thyroid, Fatty Liver & Anemia</strong> in males & females.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-700/60 flex items-center justify-between text-xs font-bold text-amber-400">
+            <span>Explore Disease Cures</span>
+            <span class="group-hover:translate-x-1 transition-transform">➔</span>
+          </div>
+        </div>
+
+        <!-- Pillar 3: Balanced Healthy Diets for Men & Women -->
+        <div data-nav-target="diet" class="fit-card p-6 rounded-2xl bg-gradient-to-br from-emerald-950/50 via-slate-900 to-slate-900 border border-emerald-500/40 hover:border-emerald-500/80 transition-all flex flex-col justify-between cursor-pointer group" onclick="navigateToTab('diet')">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+              🥗
+            </div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                Gender Nutrition Matrix
+              </span>
+            </div>
+            <h3 class="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors mb-2">
+              Healthy Diets (Men & Women)
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+              Scientific gender requirements (Calories, Protein, Iron, Calcium, Zinc) with <strong>7-meal full-day meal schedules</strong> for men and women with Indian vegetarian & non-veg options.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-700/60 flex items-center justify-between text-xs font-bold text-emerald-400">
+            <span>View Full Day Diet Plans</span>
+            <span class="group-hover:translate-x-1 transition-transform">➔</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Featured Exercises Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-slate-800">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Foundation Workouts</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Featured Beginner Exercises</h2>
+        </div>
+        <a href="#exercises" data-nav-target="exercises" class="text-xs font-semibold text-emerald-400 hover:text-emerald-300">
+          View All Exercises (16+) ➔
+        </a>
+      </div>
+      <div id="home-featured-exercises" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+    </div>
+
+    <!-- Featured Nutritious Foods Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-slate-800">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-orange-400">Nutritional Powerhouses</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Featured Nutrient-Dense Foods</h2>
+        </div>
+        <a href="#foods" data-nav-target="foods" class="text-xs font-semibold text-orange-400 hover:text-orange-300">
+          View Full Food Database ➔
+        </a>
+      </div>
+      <div id="home-featured-foods" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 2: EXERCISES PAGE
+       ========================================================================= -->
+  <section id="section-exercises" class="app-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <!-- Section Header -->
+      <div class="max-w-3xl mb-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30">
+          Technique & Execution
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">Exercise Database</h2>
+        <p class="text-sm text-slate-300 mt-2">
+          Explore compound and isolation movements with accurate target muscles, equipment, reps, benefits, risks, and safety precautions.
+        </p>
+      </div>
+
+      <!-- Filter Controls Toolbar -->
+      <div class="fit-card p-5 mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Search input -->
+          <div>
+            <label class="text-xs font-semibold text-slate-400 block mb-1.5">Search Exercises</label>
+            <input type="text" id="exercise-search-input" placeholder="Search by name, muscle, equipment..."
+              class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+          </div>
+
+          <!-- Body part filter -->
+          <div>
+            <label class="text-xs font-semibold text-slate-400 block mb-1.5">Target Body Part</label>
+            <select id="exercise-bodypart-filter" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-xs text-white focus:outline-none focus:border-emerald-500">
+              <option value="all">All Muscle Groups</option>
+            </select>
+          </div>
+
+          <!-- Difficulty filter -->
+          <div>
+            <label class="text-xs font-semibold text-slate-400 block mb-1.5">Difficulty Level</label>
+            <select id="exercise-difficulty-filter" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-xs text-white focus:outline-none focus:border-emerald-500">
+              <option value="all">All Difficulties</option>
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+          </div>
+
+          <!-- Equipment filter -->
+          <div>
+            <label class="text-xs font-semibold text-slate-400 block mb-1.5">Equipment</label>
+            <select id="exercise-equipment-filter" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-xs text-white focus:outline-none focus:border-emerald-500">
+              <option value="all">All Equipment</option>
+              <option value="bodyweight">Bodyweight</option>
+              <option value="dumbbell">Dumbbells</option>
+              <option value="barbell">Barbell</option>
+              <option value="bar">Pull-up Bar / Parallel Bars</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-4 mt-4 border-t border-slate-800 text-xs">
+          <span id="exercises-result-count" class="text-slate-400">Loading exercises...</span>
+          <button onclick="resetExerciseFilters()" class="text-emerald-400 hover:underline cursor-pointer">Clear All Filters</button>
+        </div>
+      </div>
+
+      <!-- Exercise Cards Grid -->
+      <div id="exercises-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 3: INTERACTIVE BODY PARTS & ANATOMY
+       ========================================================================= -->
+  <section id="section-bodyparts" class="app-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <!-- Section Header -->
+      <div class="max-w-3xl mb-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30">
+          Functional Anatomy
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">Interactive Human Body Map</h2>
+        <p class="text-sm text-slate-300 mt-2">
+          Click or tap on any muscle group on the anatomical figure below to learn its function and view corresponding exercises.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Interactive Body Map SVG -->
+        <div class="lg:col-span-5 fit-card p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Anatomical Model</span>
+            <button id="body-view-toggle" class="btn-secondary text-xs py-1.5 px-3">
+              View Back Muscles (Posterior)
+            </button>
+          </div>
+
+          <!-- Body SVG Container -->
+          <div id="body-interactive-svg-container" class="body-svg-container"></div>
+
+          <div class="mt-4 p-3 bg-slate-900 rounded-xl text-center text-xs text-slate-400 border border-slate-800">
+            💡 <em>Tip: Tap a muscle region above or select from the muscle list to highlight drills.</em>
+          </div>
+        </div>
+
+        <!-- Right: Muscle Selection Buttons & Matching Exercises -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <!-- Selected Muscle Banner -->
+          <div class="fit-card p-6 border-l-4 border-l-emerald-500">
+            <span class="text-xs uppercase font-bold text-emerald-400 tracking-wider">Active Selection</span>
+            <h3 id="selected-bodypart-title" class="text-2xl font-black text-white mt-1">Chest</h3>
+            <p id="selected-bodypart-desc" class="text-xs text-slate-300 mt-2 leading-relaxed">
+              The chest muscles (Pectoralis major and minor) are responsible for horizontal adduction, flexion, and internal rotation of the humerus.
+            </p>
+            <div class="mt-3 text-xs text-slate-400">
+              Anatomical Muscles: <strong id="selected-bodypart-muscles" class="text-slate-200">Pectoralis Major, Pectoralis Minor</strong>
+            </div>
+          </div>
+
+          <!-- Quick Muscle Buttons Grid -->
+          <div>
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">Select Muscle Group:</span>
+            <div id="body-part-buttons-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5"></div>
+          </div>
+
+          <!-- Exercises Targeting Selected Muscle -->
+          <div>
+            <h4 class="text-lg font-bold text-white mb-3 flex items-center gap-2">
+              <span>🎯</span> Exercises Targeting This Muscle Group
+            </h4>
+            <div id="bodypart-exercises-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 4: NUTRITION DASHBOARD
+       ========================================================================= -->
+  <section id="section-nutrition" class="app-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <!-- Section Header -->
+      <div class="max-w-3xl mb-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30">
+          Science of Fuel & Repair
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">Nutrition Dashboard</h2>
+        <p class="text-sm text-slate-300 mt-2">
+          Nutritional requirements are not one-size-fits-all. Explore how macronutrients provide training fuel and how essential micronutrients defend cellular vitality.
+        </p>
+      </div>
+
+      <!-- Individual Differences Notice -->
+      <div class="p-4 rounded-xl bg-slate-800/80 border border-emerald-500/40 mb-10 flex items-start gap-3">
+        <span class="text-xl">⚖️</span>
+        <div class="text-xs text-slate-300 leading-relaxed">
+          <strong class="text-emerald-400 block text-sm">Individual Biological Variations:</strong>
+          Nutrient requirements vary substantially depending on age, biological sex, pregnancy/lactation, physical activity volume, body composition, and genetic bioavailability. FitGuide provides recognized scientific ranges rather than rigid universal dogma.
+        </div>
+      </div>
+
+      <!-- Macronutrients Subsection -->
+      <div class="mb-14">
+        <div class="flex items-center gap-2 mb-6">
+          <span class="text-2xl">⚡</span>
+          <div>
+            <h3 class="text-2xl font-bold text-white">Macronutrients</h3>
+            <span class="text-xs text-slate-400">The primary structural and caloric building blocks of metabolism.</span>
+          </div>
+        </div>
+        <div id="macronutrients-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+      </div>
+
+      <!-- Micronutrients Subsection -->
+      <div>
+        <div class="flex items-center gap-2 mb-6">
+          <span class="text-2xl">🔬</span>
+          <div>
+            <h3 class="text-2xl font-bold text-white">Micronutrients (Vitamins & Minerals)</h3>
+            <span class="text-xs text-slate-400">Essential enzymatic cofactors for oxygen delivery, bone strength, hormone synthesis, and muscle contraction.</span>
+          </div>
+        </div>
+        <div id="micronutrients-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 5: FOOD DATABASE
+       ========================================================================= -->
+  <section id="section-foods" class="app-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <!-- Section Header -->
+      <div class="max-w-3xl mb-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-orange-400 bg-orange-500/10 px-3 py-1 rounded-full border border-orange-500/30">
+          Clean Whole Foods
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">Searchable Food Database</h2>
+        <p class="text-sm text-slate-300 mt-2">
+          Nutritional profiles including calories, protein, carbs, healthy fats, iron, and key vitamins for popular international and rich Indian foods.
+        </p>
+      </div>
+
+      <!-- Filter Controls Toolbar -->
+      <div class="fit-card p-5 mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Food Search Input -->
+          <div>
+            <label class="text-xs font-semibold text-slate-400 block mb-1.5">Search Food Name</label>
+            <input type="text" id="food-search-input" placeholder="e.g. Paneer, Dal, Chicken, Spinach..."
+              class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+          </div>
+
+          <!-- Category Filter -->
+          <div>
+            <label class="text-xs font-semibold text-slate-400 block mb-1.5">Food Category</label>
+            <select id="food-category-filter" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-xs text-white focus:outline-none focus:border-emerald-500">
+              <option value="all">All Categories</option>
+            </select>
+          </div>
+
+          <!-- Dietary Type Filter -->
+          <div>
+            <label class="text-xs font-semibold text-slate-400 block mb-1.5">Dietary Classification</label>
+            <select id="food-dietary-filter" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-xs text-white focus:outline-none focus:border-emerald-500">
+              <option value="all">All Diets</option>
+              <option value="vegetarian">Vegetarian</option>
+              <option value="vegan">Vegan</option>
+              <option value="non-vegetarian">Non-Vegetarian</option>
+            </select>
+          </div>
+
+          <!-- Best Use Filter -->
+          <div>
+            <label class="text-xs font-semibold text-slate-400 block mb-1.5">Best Exercise Use</label>
+            <select id="food-bestuse-filter" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-xs text-white focus:outline-none focus:border-emerald-500">
+              <option value="all">All Timings</option>
+              <option value="pre-workout">Pre-Workout Energy</option>
+              <option value="post-workout">Post-Workout Recovery</option>
+              <option value="general">General Daily Health</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-4 mt-4 border-t border-slate-800 text-xs">
+          <span id="foods-result-count" class="text-slate-400">Loading food database...</span>
+          <button onclick="resetFoodFilters()" class="text-emerald-400 hover:underline cursor-pointer">Clear All Filters</button>
+        </div>
+      </div>
+
+      <!-- Foods Grid -->
+      <div id="foods-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 6: "WHAT SHOULD I EAT?" TOOL
+       ========================================================================= -->
+  <section id="section-meal-planner" class="app-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <!-- Section Header -->
+      <div class="max-w-3xl mb-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30">
+          Personalized Guidance
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">What Should I Eat?</h2>
+        <p class="text-sm text-slate-300 mt-2">
+          Select your training objective and dietary preference to receive realistic, wholesome, and delicious daily meal ideas designed for long-term health.
+        </p>
+      </div>
+
+      <!-- Selector Card -->
+      <div class="fit-card p-6 max-w-4xl mx-auto mb-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+          <div>
+            <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-2">1. Your Primary Fitness Goal</label>
+            <select id="meal-goal-select" class="w-full p-3 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-emerald-500">
+              <option value="muscle-gain">Muscle Gain & Hypertrophy (Lean Bulk)</option>
+              <option value="fat-loss">Fat Loss & Muscle Preservation (Deficit)</option>
+              <option value="general-fitness">General Fitness & Lifelong Wellness</option>
+              <option value="strength">Strength & Powerlifting Focus</option>
+              <option value="endurance">Endurance & Cardiovascular Stamina</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-2">2. Dietary Preference</label>
+            <select id="meal-diet-select" class="w-full p-3 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-emerald-500">
+              <option value="vegetarian">Vegetarian (Dairy & Legume based)</option>
+              <option value="vegan">Vegan (100% Plant based)</option>
+              <option value="eggetarian">Eggetarian (Vegetarian + Eggs)</option>
+              <option value="non-vegetarian">Non-Vegetarian (Poultry, Fish, Eggs, Meat)</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="generate-meal-plan-btn" class="w-full btn-primary justify-center py-3 text-sm rounded-xl">
+          Generate Meal Plan Blueprint ➔
+        </button>
+      </div>
+
+      <!-- Meal Plan Output Container -->
+      <div id="meal-plan-output" class="max-w-4xl mx-auto"></div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 7: DAILY NUTRITION CALCULATOR
+       ========================================================================= -->
+  <section id="section-calculator" class="app-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <!-- Section Header -->
+      <div class="max-w-3xl mb-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30">
+          Energy Thermodynamics
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">Daily Nutrition Calculator</h2>
+        <p class="text-sm text-slate-300 mt-2">
+          Calculate your estimated Basal Metabolic Rate (BMR), Total Daily Energy Expenditure (TDEE), and optimal macronutrient split using the Mifflin-St Jeor equation.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Input Form -->
+        <div class="lg:col-span-5 fit-card p-6">
+          <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+            <span>⚙️</span> Your Physical Parameters
+          </h3>
+
+          <div class="space-y-4 text-xs">
+            <!-- Age & Sex -->
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="font-semibold text-slate-400 block mb-1">Age (Years)</label>
+                <input type="number" id="calc-age" value="25" min="15" max="95" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-lg text-white">
+              </div>
+              <div>
+                <label class="font-semibold text-slate-400 block mb-1">Biological Sex</label>
+                <select id="calc-sex" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-lg text-white">
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Height & Weight -->
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="font-semibold text-slate-400 block mb-1">Height (cm)</label>
+                <input type="number" id="calc-height" value="175" min="100" max="240" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-lg text-white">
+              </div>
+              <div>
+                <label class="font-semibold text-slate-400 block mb-1">Weight (kg)</label>
+                <input type="number" id="calc-weight" value="70" min="30" max="250" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-lg text-white">
+              </div>
+            </div>
+
+            <!-- Activity Level -->
+            <div>
+              <label class="font-semibold text-slate-400 block mb-1">Daily Activity Level</label>
+              <select id="calc-activity" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-lg text-white">
+                <option value="1.2">Sedentary (Desk job, little or no exercise)</option>
+                <option value="1.375">Lightly Active (Light exercise 1-3 days/week)</option>
+                <option value="1.55" selected>Moderately Active (Moderate exercise 3-5 days/week)</option>
+                <option value="1.725">Very Active (Heavy training 6-7 days/week)</option>
+                <option value="1.9">Extremely Active (Physical labor or double training days)</option>
+              </select>
+            </div>
+
+            <!-- Fitness Goal -->
+            <div>
+              <label class="font-semibold text-slate-400 block mb-1">Fitness Target</label>
+              <select id="calc-goal" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-lg text-white">
+                <option value="muscle-gain" selected>Lean Muscle Gain (+350 kcal surplus)</option>
+                <option value="fat-loss">Fat Loss (-450 kcal deficit)</option>
+                <option value="maintain">Maintenance (Weight equilibrium)</option>
+                <option value="strength">Strength & Power (+200 kcal)</option>
+                <option value="endurance">Endurance Stamina (+250 kcal)</option>
+              </select>
+            </div>
+
+            <button id="calculate-nutrition-btn" class="w-full btn-primary justify-center py-3 text-xs rounded-lg mt-2">
+              Calculate Nutritional Estimates ➔
+            </button>
+          </div>
+
+          <div class="mt-4 p-3 bg-slate-900 rounded-lg border border-slate-800 text-[11px] text-slate-400 italic">
+            *FitGuide equations provide evidence-based estimates. Actual metabolic rates vary with lean muscle mass, thermal environment, and endocrine health.
+          </div>
+        </div>
+
+        <!-- Output Dashboard -->
+        <div class="lg:col-span-7">
+          <div id="calculator-results-container"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 8: PROTEIN / VITAMIN / IRON EXPLORER
+       ========================================================================= -->
+  <section id="section-explorer" class="app-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <!-- Section Header -->
+      <div class="max-w-3xl mb-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30">
+          Targeted Bioavailability
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">Protein, Iron & Vitamin Explorer</h2>
+        <p class="text-sm text-slate-300 mt-2">
+          Rank foods by nutrient density, understand the biology of heme vs non-heme iron absorption, and explore comprehensive vitamin profiles.
+        </p>
+      </div>
+
+      <!-- Explorer Navigation Tabs -->
+      <div class="flex items-center gap-2 mb-8 border-b border-slate-800 pb-3">
+        <button class="explorer-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 transition-all cursor-pointer" data-explorer-tab="protein">
+          🥩 Protein Density Ranking
+        </button>
+        <button class="explorer-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white transition-all cursor-pointer" data-explorer-tab="iron">
+          🩸 Iron Absorption & Foods
+        </button>
+        <button class="explorer-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white transition-all cursor-pointer" data-explorer-tab="vitamins">
+          💊 Vitamin Profiles & RDAs
+        </button>
+      </div>
+
+      <!-- Tab View 1: Protein Explorer -->
+      <div id="explorer-view-protein" class="explorer-view">
+        <div class="fit-card p-6 mb-8 border-l-4 border-l-emerald-500">
+          <h3 class="text-lg font-bold text-white mb-2">Protein Bioavailability & Amino Acid Completeness</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Animal proteins (dairy, eggs, poultry, fish) are "complete proteins", providing all 9 essential amino acids in optimal ratios. Plant proteins (dal, beans, grains) are outstanding and can achieve complete amino acid complementarity when paired together (e.g., Dal + Rice, Peanut Butter + Roti, Hummus + Bread).
+          </p>
+        </div>
+
+        <div class="space-y-3" id="protein-ranking-list"></div>
+      </div>
+
+      <!-- Tab View 2: Iron Explorer -->
+      <div id="explorer-view-iron" class="explorer-view hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <!-- Heme Iron -->
+          <div class="fit-card p-6 border-l-4 border-l-red-500">
+            <span class="text-xs font-bold text-red-400 uppercase tracking-wider block mb-1">Animal Tissue Form</span>
+            <h3 class="text-xl font-bold text-white mb-2">Heme Iron</h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-3">
+              Found in meat, poultry, and seafood. Bound within hemoglobin and myoglobin molecules. Highly bioavailable (~15-35% intestinal absorption) and minimally influenced by dietary inhibitors.
+            </p>
+            <div class="text-xs text-slate-400">Sources: Chicken, Fish, Liver, Eggs.</div>
+          </div>
+
+          <!-- Non-Heme Iron -->
+          <div class="fit-card p-6 border-l-4 border-l-emerald-500">
+            <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider block mb-1">Plant & Fortified Form</span>
+            <h3 class="text-xl font-bold text-white mb-2">Non-Heme Iron</h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-3">
+              Found in lentils, spinach, ragi, and seeds. Has lower baseline absorption (~2-20%) because it exists in the ferric state (Fe3+).
+            </p>
+            <div class="text-xs text-slate-400">Sources: Palak, Ragi, Rajma, Sesame seeds, Dal.</div>
+          </div>
+        </div>
+
+        <!-- Vitamin C Synergistic Effect Notice -->
+        <div class="p-5 rounded-xl bg-gradient-to-r from-amber-950/40 to-slate-900 border border-amber-500/40 mb-8">
+          <div class="flex items-start gap-3">
+            <span class="text-2xl">🍋</span>
+            <div class="text-xs text-slate-300 space-y-1">
+              <strong class="text-amber-400 text-sm block">How Vitamin C Multiplies Iron Absorption:</strong>
+              <p>Ascorbic acid (Vitamin C) acts as an electron donor, reducing insoluble ferric iron (Fe3+) into soluble ferrous iron (Fe2+) which readily binds to gut transport proteins. Squeezing fresh lemon juice onto Dal or eating an orange or Amla with spinach can boost iron uptake by up to <strong>300%</strong>.</p>
+              <p class="text-slate-400 pt-1"><em>Caution: Avoid drinking tea or coffee within 60 minutes of iron-rich meals, as polyphenolic tannins bind iron and suppress absorption.</em></p>
+            </div>
+          </div>
+        </div>
+
+        <h4 class="text-base font-bold text-white mb-4">Top Iron-Rich Foods in FitGuide:</h4>
+        <div id="iron-foods-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+
+      <!-- Tab View 3: Vitamin Profiles Explorer -->
+      <div id="explorer-view-vitamins" class="explorer-view hidden">
+        <div class="mb-6">
+          <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">Select a Vitamin to View Deep Profile:</span>
+          <div id="vitamin-buttons-bar" class="flex flex-wrap gap-2"></div>
+        </div>
+
+        <div id="selected-vitamin-display"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 9: DAILY TRACKER & WORKOUT ROUTINES
+       ========================================================================= -->
+  <section id="section-tracker" class="app-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <!-- Section Header -->
+      <div class="max-w-3xl mb-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30">
+          Consistent Habits
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">Daily Tracker & Workout Routines</h2>
+        <p class="text-sm text-slate-300 mt-2">
+          Monitor your daily protein target, hydration intake, and execute your custom workout checklist. All progress is saved automatically on your device.
+        </p>
+      </div>
+
+      <!-- Dashboard Progress Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        
+        <!-- Protein Tracker Card -->
+        <div class="fit-card p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Daily Protein Goal</span>
+              <span class="text-xs text-slate-400">Target: <strong id="tracker-target-protein" class="text-slate-200">140</strong> g</span>
+            </div>
+            <div class="flex items-baseline gap-2 mb-3">
+              <span id="tracker-current-protein" class="text-3xl font-black text-white">0</span>
+              <span class="text-sm text-slate-400">/ grams consumed</span>
+            </div>
+          </div>
+          <!-- Progress Bar -->
+          <div>
+            <div class="w-full bg-slate-900 rounded-full h-3 overflow-hidden mb-2">
+              <div id="tracker-protein-bar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-3 rounded-full transition-all duration-500" style="width: 0%;"></div>
+            </div>
+            <span class="text-[11px] text-slate-400 block">Crucial for muscle repair and enzymatic recovery.</span>
+          </div>
+        </div>
+
+        <!-- Calorie Tracker Card -->
+        <div class="fit-card p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-orange-400">Daily Calories</span>
+              <span class="text-xs text-slate-400">Target: <strong id="tracker-target-calories" class="text-slate-200">2200</strong> kcal</span>
+            </div>
+            <div class="flex items-baseline gap-2 mb-3">
+              <span id="tracker-current-calories" class="text-3xl font-black text-white">0</span>
+              <span class="text-sm text-slate-400">/ kcal consumed</span>
+            </div>
+          </div>
+          <div>
+            <div class="w-full bg-slate-900 rounded-full h-3 overflow-hidden mb-2">
+              <div id="tracker-calories-bar" class="bg-gradient-to-r from-orange-500 to-amber-400 h-3 rounded-full transition-all duration-500" style="width: 0%;"></div>
+            </div>
+            <span class="text-[11px] text-slate-400 block">Maintains thermodynamic energy balance.</span>
+          </div>
+        </div>
+
+        <!-- Hydration Water Tracker Card -->
+        <div class="fit-card p-6 flex items-center justify-between">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-400 block mb-1">Water Hydration</span>
+            <span id="water-count-display" class="text-2xl font-black text-white block">0 / 10 glasses</span>
+            <span id="water-liters-display" class="text-xs text-slate-400 block mb-3">0.00 Liters</span>
+
+            <div class="flex items-center gap-2">
+              <button id="add-water-btn" class="btn-primary text-xs py-1.5 px-3">
+                +1 Glass (250ml)
+              </button>
+              <button id="remove-water-btn" class="btn-secondary text-xs py-1.5 px-2.5">
+                -
+              </button>
+            </div>
+          </div>
+
+          <!-- Glass Animation Container -->
+          <div class="water-glass-container">
+            <div id="water-visual-fill" class="water-fill" style="height: 0%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Food Logger & Logged Items -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+        <!-- Quick Log Custom Meal -->
+        <div class="lg:col-span-5 fit-card p-6">
+          <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2">
+            <span>✍️</span> Quick Log Custom Meal / Snack
+          </h3>
+          <div class="space-y-3 text-xs">
+            <div>
+              <label class="text-slate-400 block mb-1">Meal / Item Name</label>
+              <input type="text" id="quick-log-name" placeholder="e.g. Sattu drink, boiled eggs, dal roti" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-lg text-white">
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="text-slate-400 block mb-1">Calories (kcal)</label>
+                <input type="number" id="quick-log-cals" placeholder="250" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-lg text-white">
+              </div>
+              <div>
+                <label class="text-slate-400 block mb-1">Protein (grams)</label>
+                <input type="number" id="quick-log-prot" placeholder="15" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-lg text-white">
+              </div>
+            </div>
+            <button id="quick-log-entry-btn" class="w-full btn-primary justify-center py-2.5 text-xs rounded-lg mt-1">
+              + Add to Today's Food Log
+            </button>
+          </div>
+        </div>
+
+        <!-- Today's Logged Items List -->
+        <div class="lg:col-span-7 fit-card p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <span>📋</span> Today's Logged Items
+            </h3>
+            <span class="text-xs text-slate-400">Resets daily</span>
+          </div>
+          <div id="tracker-logged-items-list" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
+        </div>
+      </div>
+
+      <!-- Workout Routine Planner & History -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Active Workout Routine -->
+        <div class="lg:col-span-7 fit-card p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <span>🏋️</span> My Workout Routine Checklist
+              </h3>
+              <span class="text-xs text-slate-400">Check off sets as you complete your workout.</span>
+            </div>
+            <a href="#exercises" data-nav-target="exercises" class="text-xs text-emerald-400 hover:underline">
+              + Browse Drills
+            </a>
+          </div>
+          <div id="user-workout-routine-list" class="space-y-3"></div>
+        </div>
+
+        <!-- Workout Session History -->
+        <div class="lg:col-span-5 fit-card p-6">
+          <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+            <span>🏆</span> Completed Exercise History
+          </h3>
+          <p class="text-xs text-slate-400 mb-4">Your recent completed training sessions logged locally.</p>
+          <div id="workout-history-list" class="space-y-2 max-h-72 overflow-y-auto pr-1"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 10: FITNESS GYMS LOCATOR (GAJUWAKA & VISAKHAPATNAM + LIVE GPS)
+       ========================================================================= -->
+  <section id="section-gyms" class="app-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <!-- Section Header -->
+      <div class="max-w-3xl mb-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30">
+          📍 Local Fitness Centers & Live GPS
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">Find Fitness Gyms Near You</h2>
+        <p class="text-sm text-slate-300 mt-2">
+          Search gyms across any city, locate specific fitness centers (like <strong>U Fit</strong> in <strong>Sheelanagar</strong>), or detect your exact GPS coordinates with zero city presets.
+        </p>
+      </div>
+
+      <!-- Controls & Search Toolbar with Separate City & Gym Name Search -->
+      <div class="fit-card p-6 mb-8 space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+          
+          <!-- 1. Dedicated City Search Bar -->
+          <div class="md:col-span-4">
+            <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-1.5 flex items-center justify-between">
+              <span>🏙️ 1. City / Town Search</span>
+              <button onclick="setCitySearch('')" class="text-[10px] text-emerald-400 hover:underline">Clear City</button>
+            </label>
+            <div class="relative">
+              <input type="text" id="gym-city-input" placeholder="Type any City (e.g. Visakhapatnam, Gajuwaka, Hyderabad, Bangalore...)"
+                class="w-full pl-9 pr-3 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+              <span class="absolute left-3 top-2.5 text-slate-400 text-sm">📍</span>
+            </div>
+          </div>
+
+          <!-- 2. Dedicated Gym Name / Locality Search Bar -->
+          <div class="md:col-span-5">
+            <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-1.5 flex items-center justify-between">
+              <span>🏋️ 2. Gym Name or Locality Search</span>
+              <span class="text-[10px] text-slate-400">e.g. U Fit, Sheelanagar, Cult</span>
+            </label>
+            <div class="relative">
+              <input type="text" id="gym-search-input" placeholder="Search Gym Name (e.g. U Fit, Cult.fit, Steel Plant) or Area (Sheelanagar, Kurmannapalem)..."
+                class="w-full pl-9 pr-3 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+              <span class="absolute left-3 top-2.5 text-slate-400 text-sm">🔍</span>
+            </div>
+          </div>
+
+          <!-- 3. Pure GPS Button (Zero City Pre-set) -->
+          <div class="md:col-span-3">
+            <button id="gym-gps-detect-btn" class="w-full btn-primary justify-center py-2.5 text-xs rounded-xl shadow-md h-[42px]">
+              <span>📍 Detect My Live GPS</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick City Suggestion Pills -->
+        <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-800 text-xs">
+          <span class="text-[11px] font-semibold text-slate-400">Quick City / Area:</span>
+          <button class="gym-city-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-emerald-500 text-slate-950 transition-all cursor-pointer" data-gym-city="all">
+            All Cities
+          </button>
+          <button class="gym-city-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:text-white transition-all cursor-pointer" data-gym-city="Sheela Nagar">
+            Sheelanagar Area
+          </button>
+          <button class="gym-city-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:text-white transition-all cursor-pointer" data-gym-city="Visakhapatnam">
+            Visakhapatnam
+          </button>
+          <button class="gym-city-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:text-white transition-all cursor-pointer" data-gym-city="Gajuwaka">
+            Gajuwaka
+          </button>
+        </div>
+
+        <!-- Quick Gym Name Shortcut Pills -->
+        <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
+          <span class="text-[11px] font-semibold text-slate-400">Click Any Gym:</span>
+          <button onclick="selectQuickGym('U Fit')" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 hover:bg-emerald-500 hover:text-slate-950 transition-all cursor-pointer flex items-center gap-1 shadow-sm">
+            <span>⭐</span> U Fit (Sheelanagar)
+          </button>
+          <button onclick="selectQuickGym('Pulse Fitness')" class="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition-all cursor-pointer">
+            Pulse Fitness (Sheelanagar)
+          </button>
+          <button onclick="selectQuickGym('Steel Plant')" class="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition-all cursor-pointer">
+            Steel Plant Gym (Gajuwaka)
+          </button>
+          <button onclick="selectQuickGym('Cult.fit')" class="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition-all cursor-pointer">
+            Cult.fit (Gajuwaka)
+          </button>
+          <button onclick="selectQuickGym('Gold\'s Gym')" class="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition-all cursor-pointer">
+            Gold's Gym (Siripuram)
+          </button>
+          <button onclick="selectQuickGym('')" class="text-[11px] text-slate-400 hover:text-white underline cursor-pointer ml-1">
+            Reset Gym Search
+          </button>
+        </div>
+
+        <!-- Live GPS status display -->
+        <div id="gym-gps-status" class="text-xs text-slate-400 bg-slate-900/80 p-3 rounded-lg border border-slate-800 flex flex-wrap items-center justify-between gap-2">
+          <span>💡 <em>Tip: Use the City Search to look anywhere, or tap "Detect My Live GPS" for pure satellite coordinates with zero city preset.</em></span>
+          <a id="gym-direct-gmaps-link" href="https://www.google.com/maps/search/?api=1&query=fitness+gyms+near+me" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:underline font-semibold flex items-center gap-1">
+            <span>🗺️ Open in Google Maps App ➔</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Embedded Google Maps Interactive Section -->
+      <div class="fit-card p-6 mb-10 overflow-hidden">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-700/60">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">🗺️</span>
+            <div>
+              <h3 class="text-base font-bold text-white">Live Interactive Google Map</h3>
+              <p class="text-xs text-slate-400">Current Search: <strong id="google-map-active-query" class="text-emerald-400">fitness gyms near me</strong></p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <a id="open-external-google-maps" href="https://www.google.com/maps/search/fitness+gyms+near+me" target="_blank" rel="noopener noreferrer"
+              class="text-xs px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg border border-slate-700 flex items-center gap-1.5 transition-all">
+              <span>Open in Google Maps App ➔</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Google Maps Iframe -->
+        <div class="w-full rounded-xl overflow-hidden border border-slate-700/70 bg-slate-900">
+          <iframe id="google-gym-map-frame" class="gym-map-frame"
+            src="https://maps.google.com/maps?q=fitness+gyms+in+Sheelanagar+Visakhapatnam&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+
+      <!-- Gym Cards Grid with Ratings -->
+      <div class="mb-12">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+              <span>⭐</span> Verified Gyms with Ratings & Reviews
+            </h3>
+            <span id="gyms-count-display" class="text-xs text-slate-400">Loading verified gyms...</span>
+          </div>
+        </div>
+
+        <div id="gyms-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+      </div>
+
+      <!-- Contact Card for FitGuide, Gym Admissions & Personal Inquiries -->
+      <div class="fit-card p-8 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-teal-950/40 border border-emerald-500/40">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div class="lg:col-span-7">
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30">
+              Direct Contact & Support
+            </span>
+            <h3 class="text-2xl font-black text-white mt-2 mb-1">Have Questions About Workouts, Diet, or Local Gyms?</h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+              Get in touch directly with <strong>Venkatesh Vemula</strong> for personalized fitness guidance, workout questions, or gym recommendations in Gajuwaka & Vizag.
+            </p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div class="p-3 bg-slate-800/80 rounded-xl border border-slate-700/60">
+                <span class="text-slate-400 block text-[11px]">WhatsApp Phone:</span>
+                <span class="font-bold text-emerald-400 text-sm block mt-0.5">+91 9014430474</span>
+              </div>
+              <div class="p-3 bg-slate-800/80 rounded-xl border border-slate-700/60">
+                <span class="text-slate-400 block text-[11px]">Official Gmail:</span>
+                <span class="font-bold text-slate-200 text-xs block mt-0.5 truncate">venkateshvemula8897@gmail.com</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 flex flex-col gap-3">
+            <!-- Direct WhatsApp Button -->
+            <a href="https://wa.me/919014430474?text=Hi%20FitGuide%2C%20I%20have%20a%20fitness%20and%20nutrition%20question!" target="_blank" rel="noopener noreferrer"
+              class="w-full flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 text-slate-950 font-bold text-sm hover:brightness-110 shadow-lg transition-all">
+              <span class="text-lg">💬</span> Chat Directly on WhatsApp
+            </a>
+
+            <!-- Direct Gmail Button -->
+            <a href="mailto:venkateshvemula8897@gmail.com?subject=FitGuide%20Fitness%20%26%20Nutrition%20Inquiry"
+              class="w-full flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-bold text-sm transition-all">
+              <span class="text-lg">✉️</span> Send Email via Gmail
+            </a>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 11: HEIGHT GROWTH, POSTURE & BONE HEALTH SYSTEM
+       ========================================================================= -->
+  <section id="section-height" class="app-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      
+      <!-- Section Header -->
+      <div class="max-w-3xl mb-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-teal-400 bg-teal-500/10 px-3 py-1 rounded-full border border-teal-500/30">
+          📏 Height, Posture & Epiphyseal Bone Science
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">Can You Grow Taller? The Complete Exercise & Nutritional Protocol</h2>
+        <p class="text-sm text-slate-300 mt-2 leading-relaxed">
+          While genetics determine 60-80% of adult stature, nutrition (protein, vitamin D3/K2, iron, calcium), deep sleep (Human Growth Hormone), and spinal decompression determine whether you reach your absolute genetic ceiling—and can restore <strong>1 to 3 inches (2.5 to 7.5 cm)</strong> of posture height at any age.
+        </p>
+      </div>
+
+      <!-- 1. Interactive Height Nutrition & Growth Calculator -->
+      <div class="fit-card p-6 md:p-8 rounded-2xl mb-12 bg-gradient-to-r from-teal-950/40 via-slate-900 to-slate-900 border border-teal-500/40 shadow-xl">
+        <div class="max-w-2xl mb-6">
+          <span class="text-[11px] font-bold text-teal-400 uppercase tracking-wider bg-teal-500/10 px-2.5 py-0.5 rounded-full border border-teal-500/30">
+            Interactive Calculator
+          </span>
+          <h3 class="text-2xl font-black text-white mt-2">Personalized Height & Growth Nutrient Calculator</h3>
+          <p class="text-xs text-slate-300 mt-1">
+            Enter your age and current body weight to calculate your exact scientific daily intake for <strong>Protein, Vitamins (D3, K2, C), Iron, Calcium, and Zinc</strong>.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          <div>
+            <label class="text-xs font-bold text-slate-300 block mb-1">Your Age (Years):</label>
+            <input type="number" id="height-calc-age" value="18" min="8" max="65"
+              class="w-full px-3 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-teal-500">
+          </div>
+          <div>
+            <label class="text-xs font-bold text-slate-300 block mb-1">Your Weight (kg):</label>
+            <input type="number" id="height-calc-weight" value="55" min="25" max="150"
+              class="w-full px-3 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-teal-500">
+          </div>
+          <div class="flex items-end">
+            <button onclick="calculateHeightNutrition()" class="w-full py-2.5 px-4 bg-gradient-to-r from-teal-500 to-emerald-500 text-slate-950 font-extrabold text-xs rounded-xl hover:brightness-110 shadow-md transition-all h-[42px] cursor-pointer">
+              Calculate My Targets ➔
+            </button>
+          </div>
+        </div>
+
+        <!-- Calculated Target Results Cards Grid -->
+        <div id="height-calc-results" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3"></div>
+      </div>
+
+      <!-- 2. The 3 Core Nutritional Pillars for Height Growth -->
+      <div class="mb-12">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-teal-400">Dietary Blueprints</span>
+            <h3 class="text-2xl font-extrabold text-white">What Foods to Eat & How Much to Take</h3>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- Pillar 1: Protein -->
+          <div class="fit-card p-6 border border-emerald-500/30 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-2xl">🥩</span>
+                <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  1.5 - 2.0 g / kg body weight
+                </span>
+              </div>
+              <h4 class="text-lg font-bold text-white mb-2">1. How Much Protein to Take?</h4>
+              <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                <strong>Bone is 50% protein by volume!</strong> The scaffold of bone is made of Type I Collagen. Protein triggers the liver to produce <strong>IGF-1 (Insulin-like Growth Factor 1)</strong>, which commands growth plate cartilage to divide and lengthen long bones.
+              </p>
+
+              <div class="space-y-2 mb-4 text-xs">
+                <div class="p-2.5 bg-slate-900/80 rounded-lg border border-slate-800 flex justify-between items-center">
+                  <span class="font-bold text-slate-200">Soya Chunks</span>
+                  <span class="text-emerald-400 font-bold">52g protein / 100g</span>
+                </div>
+                <div class="p-2.5 bg-slate-900/80 rounded-lg border border-slate-800 flex justify-between items-center">
+                  <span class="font-bold text-slate-200">Whole Eggs (2 eggs)</span>
+                  <span class="text-emerald-400 font-bold">13g protein + Vit D3</span>
+                </div>
+                <div class="p-2.5 bg-slate-900/80 rounded-lg border border-slate-800 flex justify-between items-center">
+                  <span class="font-bold text-slate-200">Paneer (Cottage Cheese)</span>
+                  <span class="text-emerald-400 font-bold">18g protein + 480mg Ca</span>
+                </div>
+                <div class="p-2.5 bg-slate-900/80 rounded-lg border border-slate-800 flex justify-between items-center">
+                  <span class="font-bold text-slate-200">Milk (1 glass / 250ml)</span>
+                  <span class="text-emerald-400 font-bold">8.5g protein + 300mg Ca</span>
+                </div>
+                <div class="p-2.5 bg-slate-900/80 rounded-lg border border-slate-800 flex justify-between items-center">
+                  <span class="font-bold text-slate-200">Chicken Breast (100g)</span>
+                  <span class="text-emerald-400 font-bold">31g protein + Zinc</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-3 bg-emerald-950/20 border border-emerald-800/40 rounded-xl text-xs text-emerald-300">
+              💡 <em>Adolescent Target: A 55kg teen needs <strong>83g to 110g of protein daily</strong> spread across 3-4 meals.</em>
+            </div>
+          </div>
+
+          <!-- Pillar 2: Vitamins (D3, K2, C, A) -->
+          <div class="fit-card p-6 border border-teal-500/30 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-2xl">☀️</span>
+                <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-400 border border-teal-500/30">
+                  Vit D3, K2, C & A
+                </span>
+              </div>
+              <h4 class="text-lg font-bold text-white mb-2">2. How Much Vitamins to Take?</h4>
+              <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                Vitamins are the <strong>architects of bone calcification</strong>. Calcium is useless without Vitamin D3 (absorption) and Vitamin K2 (binding to bone). Vitamin C builds the collagen scaffold.
+              </p>
+
+              <div class="space-y-2 mb-4 text-xs">
+                <div class="p-2.5 bg-slate-900/80 rounded-lg border border-slate-800">
+                  <div class="flex justify-between items-center">
+                    <span class="font-bold text-slate-200">Vitamin D3</span>
+                    <span class="text-teal-400 font-bold">600 - 1000 IU / day</span>
+                  </div>
+                  <span class="text-[11px] text-slate-400 block mt-0.5">15 min morning sun, egg yolks, fortified milk</span>
+                </div>
+                <div class="p-2.5 bg-slate-900/80 rounded-lg border border-slate-800">
+                  <div class="flex justify-between items-center">
+                    <span class="font-bold text-slate-200">Vitamin K2 (MK-7)</span>
+                    <span class="text-teal-400 font-bold">45 - 90 mcg / day</span>
+                  </div>
+                  <span class="text-[11px] text-slate-400 block mt-0.5">Binds calcium to bone; curd (dahi), cheese, egg yolk</span>
+                </div>
+                <div class="p-2.5 bg-slate-900/80 rounded-lg border border-slate-800">
+                  <div class="flex justify-between items-center">
+                    <span class="font-bold text-slate-200">Vitamin C</span>
+                    <span class="text-teal-400 font-bold">65 - 90 mg / day</span>
+                  </div>
+                  <span class="text-[11px] text-slate-400 block mt-0.5">Amla (600mg!), Guava (228mg!), lemon, oranges</span>
+                </div>
+                <div class="p-2.5 bg-slate-900/80 rounded-lg border border-slate-800">
+                  <div class="flex justify-between items-center">
+                    <span class="font-bold text-slate-200">Vitamin A</span>
+                    <span class="text-teal-400 font-bold">700 - 900 mcg / day</span>
+                  </div>
+                  <span class="text-[11px] text-slate-400 block mt-0.5">Chondrocyte growth; carrots, sweet potato, papaya</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-3 bg-teal-950/20 border border-teal-800/40 rounded-xl text-xs text-teal-300">
+              💡 <em>Sunlight Rule: 15-20 minutes of morning sunlight (7:00-8:30 AM) on bare arms/legs generates ~1,000 IU natural D3.</em>
+            </div>
+          </div>
+
+          <!-- Pillar 3: Iron, Calcium & Zinc -->
+          <div class="fit-card p-6 border border-orange-500/30 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-2xl">🦴</span>
+                <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-orange-500/20 text-orange-400 border border-orange-500/30">
+                  Iron, Calcium & Zinc
+                </span>
+              </div>
+              <h4 class="text-lg font-bold text-white mb-2">3. How Much Iron & Minerals?</h4>
+              <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                <strong>Iron carries oxygen to growing epiphyseal growth plates</strong>. Calcium is the physical cement of bone minerals, while <strong>Zinc triggers pituitary Human Growth Hormone (HGH)</strong> release.
+              </p>
+
+              <div class="space-y-2 mb-4 text-xs">
+                <div class="p-2.5 bg-slate-900/80 rounded-lg border border-slate-800">
+                  <div class="flex justify-between items-center">
+                    <span class="font-bold text-slate-200">Iron (Fe)</span>
+                    <span class="text-orange-400 font-bold">15 - 18 mg / day</span>
+                  </div>
+                  <span class="text-[11px] text-slate-400 block mt-0.5">Spinach (Palak) + lemon, Jaggery (Gur), Dates, Moong</span>
+                </div>
+                <div class="p-2.5 bg-slate-900/80 rounded-lg border border-slate-800">
+                  <div class="flex justify-between items-center">
+                    <span class="font-bold text-slate-200">Calcium (Ca)</span>
+                    <span class="text-orange-400 font-bold">1,000 - 1,300 mg / day</span>
+                  </div>
+                  <span class="text-[11px] text-slate-400 block mt-0.5">Ragi (344mg/100g!), Sesame (Til - 975mg!), Milk, Curd</span>
+                </div>
+                <div class="p-2.5 bg-slate-900/80 rounded-lg border border-slate-800">
+                  <div class="flex justify-between items-center">
+                    <span class="font-bold text-slate-200">Zinc (Zn)</span>
+                    <span class="text-orange-400 font-bold">10 - 15 mg / day</span>
+                  </div>
+                  <span class="text-[11px] text-slate-400 block mt-0.5">Pumpkin seeds (7.8mg!), Chickpeas, Almonds, Eggs</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-3 bg-orange-950/20 border border-orange-800/40 rounded-xl text-xs text-orange-300">
+              💡 <em>Iron Absorption Tip: Always squeeze fresh lemon (Vitamin C) on spinach or dal—it multiplies iron absorption by 300%!</em>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Scientific Breakdown: Open Growth Plates vs Spinal Decompression (1-3 Inch Gain) -->
+      <div class="fit-card p-6 md:p-8 rounded-2xl mb-12 bg-slate-900 border border-slate-700/80">
+        <h3 class="text-xl font-black text-white mb-2 flex items-center gap-2">
+          <span>🧬</span> Epiphyseal Growth Plates vs. 1-3 Inch Postural Decompression
+        </h3>
+        <p class="text-xs text-slate-300 leading-relaxed mb-6">
+          Understanding the difference between biological bone elongation and biomechanical spinal decompression:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+          <!-- Under 21 -->
+          <div class="p-5 bg-slate-800/70 rounded-xl border border-teal-500/40 space-y-2">
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-400 border border-teal-500/30">
+              Under Age 21: Biological Growth
+            </span>
+            <h4 class="text-base font-bold text-white">Open Epiphyseal Growth Plates</h4>
+            <p class="text-slate-300 leading-relaxed">
+              At the ends of long bones (femur, tibia, humerus), specialized bands of cartilage called <strong>epiphyseal growth plates</strong> actively divide. Under the stimulus of <strong>Human Growth Hormone (HGH), IGF-1, protein, calcium, and Vitamin D3</strong>, new cartilage calcifies into permanent bone tissue, lengthening your limbs.
+            </p>
+            <ul class="text-slate-400 space-y-1 list-disc pl-4 pt-1">
+              <li>Open plates typically fuse between ages 16-18 (females) and 18-21 (males).</li>
+              <li>High-impact jump drills (jump rope, sprinting) provide bone-mineralizing mechanical load.</li>
+              <li>8.5 - 10 hours of sleep is critical (75% of HGH released in slow-wave deep sleep).</li>
+            </ul>
+          </div>
+
+          <!-- Over 21 -->
+          <div class="p-5 bg-slate-800/70 rounded-xl border border-emerald-500/40 space-y-2">
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+              At Any Age (21+): Biomechanical Growth
+            </span>
+            <h4 class="text-base font-bold text-white">1 to 3 Inches of Postural Height Gain</h4>
+            <p class="text-slate-300 leading-relaxed">
+              Even after growth plates fuse, <strong>80% of adults lose 1 to 3 inches (2.5 to 7.5 cm)</strong> of vertical height to daily gravitational spinal compression, anterior pelvic tilt (swayback), rounded shoulders (kyphosis), and dehydrated intervertebral discs.
+            </p>
+            <ul class="text-slate-400 space-y-1 list-disc pl-4 pt-1">
+              <li>The 23 intervertebral discs in your spine can expand by 1-2 mm each through traction (Dead Hangs).</li>
+              <li>Fixing Anterior Pelvic Tilt (Pelvic Bridges) straightens the lumbar spine, gaining ~1 inch.</li>
+              <li>Strengthening the posterior chain (Cobra stretch, Tadasana) eliminates slouching permanently.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Top Exercises for Height & Spinal Decompression (Grid) -->
+      <div class="mb-12">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-teal-400">Targeted Drills</span>
+            <h3 class="text-2xl font-extrabold text-white">Top Exercises for Height & Spinal Decompression</h3>
+          </div>
+          <button onclick="navigateToTab('exercises')" class="text-xs text-teal-400 hover:underline font-semibold">
+            View in Exercise Directory ➔
+          </button>
+        </div>
+
+        <div id="height-exercises-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
+
+      <!-- 5. Growth Killers: Foods & Habits to Avoid -->
+      <div class="fit-card p-6 md:p-8 rounded-2xl mb-12 bg-gradient-to-r from-red-950/20 via-slate-900 to-slate-900 border border-red-800/40">
+        <h3 class="text-xl font-black text-white mb-2 flex items-center gap-2">
+          <span>⚠️</span> Growth Killers: Habits & Foods That Stunt Height
+        </h3>
+        <p class="text-xs text-slate-300 leading-relaxed mb-6">
+          Avoid these 5 critical saboteurs that leach bone minerals and suppress growth hormones:
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+          <div class="p-4 bg-slate-800/80 rounded-xl border border-red-900/40">
+            <span class="font-bold text-red-400 block mb-1">🥤 Carbonated Colas & Soft Drinks</span>
+            <p class="text-slate-300">High phosphoric acid directly binds to dietary calcium and leaches stored calcium right out of your bones into urine.</p>
+          </div>
+          <div class="p-4 bg-slate-800/80 rounded-xl border border-red-900/40">
+            <span class="font-bold text-red-400 block mb-1">🍬 High-Sugar Junk & Late Snacking</span>
+            <p class="text-slate-300">Causes acute blood sugar and insulin spikes. Elevated insulin directly shuts down nighttime pituitary Human Growth Hormone (HGH) release.</p>
+          </div>
+          <div class="p-4 bg-slate-800/80 rounded-xl border border-red-900/40">
+            <span class="font-bold text-red-400 block mb-1">📱 Late-Night Blue Light & Poor Sleep</span>
+            <p class="text-slate-300">Scrolling past 11:00 PM blocks melatonin and skips the Stage 3-4 deep sleep window where 75% of daily growth hormone is released.</p>
+          </div>
+          <div class="p-4 bg-slate-800/80 rounded-xl border border-red-900/40">
+            <span class="font-bold text-red-400 block mb-1">🛋️ Chronic Slouching ('Text Neck')</span>
+            <p class="text-slate-300">Holding head forward compresses cervical discs under 50+ lbs of pressure, shortening the spinal column by 1 to 2 inches.</p>
+          </div>
+          <div class="p-4 bg-slate-800/80 rounded-xl border border-red-900/40">
+            <span class="font-bold text-red-400 block mb-1">🚬 Smoking & Excessive Caffeine</span>
+            <p class="text-slate-300">Constricts micro-capillaries supplying blood to bone growth plates and inhibits osteoblast bone remodeling.</p>
+          </div>
+          <div class="p-4 bg-slate-800/80 rounded-xl border border-teal-900/40 bg-teal-950/20">
+            <span class="font-bold text-teal-400 block mb-1">💡 The Golden Rule: 8-10 Hours Sleep</span>
+            <p class="text-slate-300">Go to bed between 9:30 PM - 10:30 PM in a cool, dark room. Natural HGH pulses highest between 10:00 PM and 2:00 AM.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Direct WhatsApp Consultation Card -->
+      <div class="fit-card p-6 md:p-8 rounded-2xl bg-gradient-to-r from-teal-950/40 via-slate-900 to-emerald-950/40 border border-teal-500/40">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-teal-400 bg-teal-500/10 px-3 py-1 rounded-full border border-teal-500/30">
+              Personalized Guidance
+            </span>
+            <h3 class="text-2xl font-black text-white mt-2 mb-1">Need a Personalized Height & Posture Plan?</h3>
+            <p class="text-xs text-slate-300 max-w-xl">
+              Message Venkatesh Vemula directly on WhatsApp for customized advice on spinal traction routines, adolescent growth diet planning, or local fitness centers.
+            </p>
+          </div>
+          <a href="https://wa.me/919014430474?text=Hi%20FitGuide%2C%20I%20want%20personalized%20advice%20on%20height%20exercises%20and%20growth%20nutrition!" target="_blank" rel="noopener noreferrer"
+            class="py-3 px-6 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 text-slate-950 font-bold text-sm hover:brightness-110 shadow-lg whitespace-nowrap transition-all flex items-center gap-2">
+            <span>💬</span> Chat on WhatsApp (+91 9014430474)
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  
+  <!-- =========================================================================
+       SECTION 12: WOMEN'S HEALTH & MATERNAL WELLNESS (FEMALE HEALTH HUB)
+       ========================================================================= -->
+  <section id="section-women" class="app-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-pink-500/30 bg-pink-500/10 text-pink-400 text-xs font-bold mb-4">
+          <span>🌸</span> Dedicated Female Wellness & Maternal Care Hub
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-black font-heading text-white tracking-tight mb-4">
+          Women's Health, <span class="text-gradient-pink">Cycle & Pregnancy</span>
+        </h1>
+        <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+          Comprehensive, science-backed guidance on healthy menstrual cycle duration (21-35 days), hormonal phases, precautions, iron-rich nutrition, and safe pregnancy fitness with advantages and disadvantages.
+        </p>
+      </div>
+
+      <!-- Women's Health Navigation Tabs -->
+      <div class="flex items-center justify-center gap-2 sm:gap-4 mb-10">
+        <button id="btn-women-tab-cycle" onclick="switchWomenTab('cycle')" class="px-5 py-3 rounded-xl bg-pink-600 text-white font-bold text-xs sm:text-sm shadow-lg transition-all flex items-center gap-2 cursor-pointer">
+          <span>🩸</span> Mature Menstrual Cycle & Nutrition
+        </button>
+        <button id="btn-women-tab-pregnancy" onclick="switchWomenTab('pregnancy')" class="px-5 py-3 rounded-xl bg-slate-800 text-slate-300 hover:text-white font-bold text-xs sm:text-sm border border-slate-700 transition-all flex items-center gap-2 cursor-pointer">
+          <span>🤰</span> Pregnancy Fitness & Maternal Diet
+        </button>
+      </div>
+
+      <!-- ==================== SUB-TAB 1: MENSTRUAL CYCLE ==================== -->
+      <div id="women-subtab-cycle" class="space-y-12">
+        
+        <!-- Healthy Duration & Cycle Norms Card -->
+        <div class="fit-card p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-pink-950/60 via-slate-900 to-purple-950/60 border border-pink-500/40 shadow-xl">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="w-12 h-12 rounded-2xl bg-pink-500/20 border border-pink-500/40 flex items-center justify-center text-2xl shrink-0">
+              ⏱️
+            </div>
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-pink-400 bg-pink-500/10 px-2 py-0.5 rounded border border-pink-500/20">Clinical Standard</span>
+              <h2 class="text-2xl font-black text-white mt-1">How Many Days Occur in a Healthy Cycle?</h2>
+              <p class="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">
+                A standard healthy menstrual cycle ranges between <strong>21 to 35 days</strong> (average: <strong>28 days</strong>). The active bleeding phase naturally lasts <strong>3 to 7 days</strong>, with a healthy total blood loss of <strong>30 to 80 mL</strong> per cycle.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bg-slate-950/60 p-4 rounded-xl border border-pink-500/20 text-center">
+              <span class="text-xs text-slate-400 block mb-1">Healthy Cycle Duration</span>
+              <span class="text-2xl font-black text-pink-400">21 - 35 Days</span>
+              <span class="text-[11px] text-slate-400 block mt-1">Calculated from Day 1 of period to Day 1 of next period</span>
+            </div>
+            <div class="bg-slate-950/60 p-4 rounded-xl border border-pink-500/20 text-center">
+              <span class="text-xs text-slate-400 block mb-1">Active Bleeding Phase</span>
+              <span class="text-2xl font-black text-purple-400">3 - 7 Days</span>
+              <span class="text-[11px] text-slate-400 block mt-1">Heaviest on Days 1-2, tapering off by Day 5-7</span>
+            </div>
+            <div class="bg-slate-950/60 p-4 rounded-xl border border-pink-500/20 text-center">
+              <span class="text-xs text-slate-400 block mb-1">Healthy Blood Volume</span>
+              <span class="text-2xl font-black text-emerald-400">30 - 80 mL</span>
+              <span class="text-[11px] text-slate-400 block mt-1">Equivalent to 3-6 fully soaked regular sanitary pads per day</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Hormonal Phases of the Cycle -->
+        <div>
+          <div class="text-center max-w-xl mx-auto mb-8">
+            <span class="text-xs font-bold uppercase tracking-wider text-pink-400">Biological Clock</span>
+            <h3 class="text-2xl font-extrabold text-white">The 4 Phases of Your Menstrual Cycle</h3>
+            <p class="text-xs text-slate-400 mt-1">Sync your workout intensity and daily nutrition with your natural hormonal shifts.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="menstrual-phases-container"></div>
+        </div>
+
+        <!-- Precautions During Cycle -->
+        <div class="fit-card p-6 sm:p-8 rounded-2xl bg-slate-900 border border-slate-700/80">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center text-xl font-bold">
+              🛡️
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white">Essential Precautions During Menstrual Cycle</h3>
+              <p class="text-xs text-slate-400">Practical medical and hygienic rules to safeguard health and minimize discomfort.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="menstrual-precautions-container"></div>
+        </div>
+
+        <!-- Food Advantages vs Disadvantages (Side-by-Side Comparison) -->
+        <div>
+          <div class="text-center max-w-xl mx-auto mb-8">
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Cycle Nutrition Breakdown</span>
+            <h3 class="text-2xl font-extrabold text-white">Foods for Mature Cycle: Advantages & Disadvantages</h3>
+            <p class="text-xs text-slate-400 mt-1">Discover healing superfoods that alleviate cramps vs inflammatory items to strictly limit.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Left: Food Advantages -->
+            <div class="p-6 rounded-2xl bg-emerald-950/20 border-2 border-emerald-500/40 space-y-4">
+              <div class="flex items-center gap-3 pb-3 border-b border-emerald-800/40">
+                <span class="text-2xl">✨</span>
+                <div>
+                  <h4 class="text-lg font-extrabold text-emerald-400">Food Advantages (Healing Superfoods to Eat)</h4>
+                  <p class="text-xs text-slate-300">Replenishes iron, relaxes myometrial spasms, and elevates mood.</p>
+                </div>
+              </div>
+              <div class="space-y-3" id="cycle-food-advantages-container"></div>
+            </div>
+
+            <!-- Right: Food Disadvantages -->
+            <div class="p-6 rounded-2xl bg-rose-950/20 border-2 border-rose-500/40 space-y-4">
+              <div class="flex items-center gap-3 pb-3 border-b border-rose-800/40">
+                <span class="text-2xl">⚠️</span>
+                <div>
+                  <h4 class="text-lg font-extrabold text-rose-400">Food Disadvantages (Harmful Foods to Avoid)</h4>
+                  <p class="text-xs text-slate-300">Causes severe water retention, triggers cramps, and spikes PMS mood swings.</p>
+                </div>
+              </div>
+              <div class="space-y-3" id="cycle-food-disadvantages-container"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ==================== SUB-TAB 2: PREGNANCY FITNESS & NUTRITION ==================== -->
+      <div id="women-subtab-pregnancy" class="hidden space-y-12">
+        
+        <!-- Pregnancy Overview Card -->
+        <div class="fit-card p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-teal-950/60 via-slate-900 to-pink-950/60 border border-teal-500/40 shadow-xl">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="w-12 h-12 rounded-2xl bg-teal-500/20 border border-teal-500/40 flex items-center justify-center text-2xl shrink-0">
+              🤰
+            </div>
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded border border-teal-500/20">Maternal & Fetal Care</span>
+              <h2 class="text-2xl font-black text-white mt-1">Pregnancy Fitness & Maternal Nutrition</h2>
+              <p class="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">
+                Prenatal exercise and targeted maternal nutrition ensure healthy fetal growth, prevent gestational diabetes and preeclampsia, reduce maternal lower back pain, and prepare the pelvic floor for smooth labor and rapid postpartum recovery.
+              </p>
+            </div>
+          </div>
+
+          <!-- Trimester Timeline -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="pregnancy-trimesters-container"></div>
+        </div>
+
+        <!-- Safe Pregnancy Exercises with Photo Previews, Advantages & Disadvantages -->
+        <div>
+          <div class="text-center max-w-xl mx-auto mb-8">
+            <span class="text-xs font-bold uppercase tracking-wider text-teal-400">Safe Maternal Workouts</span>
+            <h3 class="text-2xl font-extrabold text-white">Safe Exercises for Pregnant Ladies</h3>
+            <p class="text-xs text-slate-400 mt-1">Pelvic floor conditioning, lumbar decompression, and gentle mobility with photo previews, advantages for labor, and execution cautions.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="pregnancy-exercises-grid"></div>
+        </div>
+
+        <!-- Dangerous Exercises to Strictly Avoid During Pregnancy -->
+        <div class="fit-card p-6 sm:p-8 rounded-2xl bg-rose-950/20 border-2 border-rose-500/40">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 border border-rose-500/40 flex items-center justify-center text-xl font-bold">
+              🚫
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-rose-400">Exercises to Avoid During Pregnancy (High Risk & Disadvantages)</h3>
+              <p class="text-xs text-slate-300">Contraindicated movements that endanger maternal-fetal circulation or joint integrity.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="pregnancy-avoid-exercises-container"></div>
+        </div>
+
+        <!-- Maternal Nutrition: Food Advantages vs Food Disadvantages / Things to Avoid -->
+        <div>
+          <div class="text-center max-w-xl mx-auto mb-8">
+            <span class="text-xs font-bold uppercase tracking-wider text-pink-400">Maternal Nutritional Diet</span>
+            <h3 class="text-2xl font-extrabold text-white">Foods for Pregnancy: Advantages & Dangerous Items to Avoid</h3>
+            <p class="text-xs text-slate-400 mt-1">Essential fetal growth nutrients vs foods that can stimulate premature contractions or carry bacterial risks.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Left: Maternal Food Advantages -->
+            <div class="p-6 rounded-2xl bg-teal-950/20 border-2 border-teal-500/40 space-y-4">
+              <div class="flex items-center gap-3 pb-3 border-b border-teal-800/40">
+                <span class="text-2xl">🥑</span>
+                <div>
+                  <h4 class="text-lg font-extrabold text-teal-400">Essential Maternal Nutrients (Food Advantages)</h4>
+                  <p class="text-xs text-slate-300">Folic Acid, Iron (27mg), Calcium (1200mg), DHA & clean proteins for fetal organs.</p>
+                </div>
+              </div>
+              <div class="space-y-3" id="pregnancy-food-advantages-container"></div>
+            </div>
+
+            <!-- Right: Maternal Food Disadvantages & Dangerous Items -->
+            <div class="p-6 rounded-2xl bg-rose-950/20 border-2 border-rose-500/40 space-y-4">
+              <div class="flex items-center gap-3 pb-3 border-b border-rose-800/40">
+                <span class="text-2xl">⚠️</span>
+                <div>
+                  <h4 class="text-lg font-extrabold text-rose-400">Foods to Strictly Avoid (Disadvantages & Uterine Risks)</h4>
+                  <p class="text-xs text-slate-300">Raw papaya (latex/papain), excess pineapple (bromelain), raw dairy, unpasteurized cheese.</p>
+                </div>
+              </div>
+              <div class="space-y-3" id="pregnancy-food-disadvantages-container"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 13: DISEASE MANAGEMENT, DIETARY CURES & CLINICAL MEDICINES
+       ========================================================================= -->
+  <section id="section-diseases" class="app-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs font-bold mb-4">
+          <span>🩺</span> Evidence-Based Medical & Dietary Cures (Males & Females)
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-black font-heading text-white tracking-tight mb-4">
+          Disease Management & <span class="text-gradient-orange">Dietary Cures</span>
+        </h1>
+        <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+          Comprehensive clinical and nutritional guides for common lifestyle conditions affecting both men and women: healing foods (advantages), harmful foods to avoid (disadvantages), clinical medicines overview, and lifestyle cures.
+        </p>
+      </div>
+
+      <!-- Quick Disease Selector Tabs -->
+      <div class="flex flex-wrap items-center justify-center gap-2 mb-10" id="disease-tab-buttons"></div>
+
+      <!-- Active Disease Detail Card Container -->
+      <div id="disease-detail-display"></div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 14: COMPLETE HEALTHY BALANCED DIET PLANS (FOR MEN & WOMEN)
+       ========================================================================= -->
+  <section id="section-diet" class="app-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs font-bold mb-4">
+          <span>🥗</span> Gender-Specific Nutrition & Complete Daily Meals
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-black font-heading text-white tracking-tight mb-4">
+          Balanced Healthy Diets <span class="text-gradient-emerald">For Men & Women</span>
+        </h1>
+        <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+          Nutritional requirements differ significantly between biological genders due to muscle mass, basal metabolic rate, and hormonal profiles. Explore gender targets alongside full 7-meal daily schedules with Indian vegetarian and non-veg options.
+        </p>
+      </div>
+
+      <!-- Gender Requirements Comparison Matrix -->
+      <div class="fit-card p-6 sm:p-8 rounded-2xl bg-slate-900 border border-slate-700/80 mb-12 shadow-xl">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center text-xl font-bold">
+            ⚖️
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-white">Daily Nutritional Differences: Men vs. Women</h3>
+            <p class="text-xs text-slate-400">Biological nutrient targets comparing male and female metabolic needs.</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm">
+            <thead>
+              <tr class="border-b border-slate-700 text-slate-400 font-bold uppercase text-[11px]">
+                <th class="py-3 px-4">Nutrient Metric</th>
+                <th class="py-3 px-4 text-teal-400">👨 Men's Target</th>
+                <th class="py-3 px-4 text-pink-400">👩 Women's Target</th>
+              </tr>
+            </thead>
+            <tbody id="gender-matrix-table-body" class="divide-y divide-slate-800 text-slate-200"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Gender Plan Switcher Buttons -->
+      <div class="flex items-center justify-center gap-4 mb-8">
+        <button id="btn-diet-men" onclick="switchDietPlan('men')" class="px-6 py-3 rounded-xl bg-teal-600 text-white font-bold text-xs sm:text-sm shadow-lg transition-all flex items-center gap-2 cursor-pointer">
+          <span>👨</span> Men's Full-Day Diet Plan (2,200 - 2,500 kcal)
+        </button>
+        <button id="btn-diet-women" onclick="switchDietPlan('women')" class="px-6 py-3 rounded-xl bg-slate-800 text-slate-300 hover:text-white font-bold text-xs sm:text-sm border border-slate-700 transition-all flex items-center gap-2 cursor-pointer">
+          <span>👩</span> Women's Full-Day Diet Plan (1,800 - 2,000 kcal)
+        </button>
+      </div>
+
+      <!-- Active Diet Plan Display -->
+      <div id="diet-plan-display"></div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       MODALS & DRAWERS
+       ========================================================================= -->
+
+  <!-- Exercise Detail Modal -->
+  <div id="exercise-detail-modal" class="modal-overlay">
+    <div id="exercise-modal-content" class="modal-dialog"></div>
+  </div>
+
+  <!-- Global Search Modal (Ctrl+K) -->
+  <div id="global-search-modal" class="modal-overlay">
+    <div class="modal-dialog max-w-xl p-6">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          <span>🔍</span> Quick Search FitGuide
+        </h3>
+        <button onclick="closeModal('global-search-modal')" class="text-slate-400 hover:text-white p-1">✕</button>
+      </div>
+      <input type="text" id="modal-search-input" placeholder="Type exercise name, body part, food, nutrient, or goal..."
+        class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-emerald-500 mb-3">
+      <div id="modal-search-results" class="max-h-80 overflow-y-auto"></div>
+    </div>
+  </div>
+
+  <!-- Favorites Drawer Modal -->
+  <div id="favorites-modal" class="modal-overlay">
+    <div class="modal-dialog max-w-md p-6">
+      <div class="flex items-center justify-between mb-4 border-b border-slate-700 pb-3">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          <span>❤️</span> My Saved Favorites
+        </h3>
+        <button onclick="closeModal('favorites-modal')" class="text-slate-400 hover:text-white p-1">✕</button>
+      </div>
+
+      <div class="space-y-5">
+        <div>
+          <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-2">Saved Exercises</h4>
+          <div id="favorites-exercises-list" class="space-y-2 max-h-48 overflow-y-auto"></div>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold text-orange-400 uppercase tracking-wider mb-2">Saved Foods</h4>
+          <div id="favorites-foods-list" class="space-y-2 max-h-48 overflow-y-auto"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR Code, Login & Relatives Share Modal -->
+  <div id="qr-share-modal" class="modal-overlay">
+    <div class="modal-dialog max-w-3xl p-6 sm:p-8">
+      
+      <!-- Modal Header -->
+      <div class="flex items-start justify-between pb-4 border-b border-slate-700/80 mb-6">
+        <div>
+          <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[11px] font-bold mb-1.5">
+            <span>⚡</span> Verified FitGuide Access
+          </div>
+          <h3 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2 font-heading">
+            <span>📱</span> QR Code Login & Relative Sharing
+          </h3>
+          <p class="text-xs text-slate-400 mt-1">
+            Scan to login using Venkatesh's credentials or forward the instant link to family & relatives.
+          </p>
+        </div>
+        <button onclick="closeModal('qr-share-modal')" class="text-slate-400 hover:text-white p-2 rounded-lg bg-slate-800/80 border border-slate-700 hover:border-slate-500 transition-colors cursor-pointer text-sm">
+          ✕
+        </button>
+      </div>
+
+      <!-- User Active Session Status Alert -->
+      <div id="modal-auth-status-card" class="mb-6 p-4 rounded-xl bg-slate-900/90 border border-emerald-500/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center font-bold text-lg">
+            👑
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span id="modal-user-name" class="text-sm font-bold text-white">Venkatesh Vemula</span>
+              <span id="modal-user-role-badge" class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Owner / Admin</span>
+            </div>
+            <div class="text-xs text-slate-400 flex flex-wrap gap-x-3 gap-y-1 mt-0.5">
+              <span>📱 <strong class="text-slate-300">+91 9014430474</strong></span>
+              <span>✉️ <strong class="text-slate-300">venkateshvemula8897@gmail.com</strong></span>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="modal-logout-btn" onclick="logoutUser()" class="text-xs px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800 text-slate-300 hover:text-rose-400 hover:border-rose-500/50 transition-colors cursor-pointer">
+            Switch Account
+          </button>
+        </div>
+      </div>
+
+      <!-- Main 2-Column Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Column 1: QR Code Card -->
+        <div class="p-5 rounded-2xl bg-slate-900 border border-slate-700/80 flex flex-col items-center text-center">
+          <div class="w-full flex items-center justify-between mb-3 pb-2 border-b border-slate-800">
+            <span class="text-xs font-bold text-slate-200">Live QR Code</span>
+            <span id="qr-mode-indicator" class="text-[10px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Web & Auto-Login</span>
+          </div>
+
+          <!-- Mode selector pills -->
+          <div class="grid grid-cols-3 gap-1 w-full mb-4 bg-slate-800/80 p-1 rounded-xl text-[11px] font-semibold">
+            <button id="qr-tab-site" onclick="switchQrMode('site')" class="py-1.5 px-2 rounded-lg bg-emerald-500 text-slate-950 font-bold transition-all cursor-pointer">
+              🌐 Web Link
+            </button>
+            <button id="qr-tab-vcard" onclick="switchQrMode('vcard')" class="py-1.5 px-2 rounded-lg text-slate-300 hover:text-white transition-all cursor-pointer">
+              👤 vCard
+            </button>
+            <button id="qr-tab-wa" onclick="switchQrMode('whatsapp')" class="py-1.5 px-2 rounded-lg text-slate-300 hover:text-white transition-all cursor-pointer">
+              💬 WhatsApp
+            </button>
+          </div>
+
+          <!-- QR Code Canvas Display Box -->
+          <div class="p-3 bg-white rounded-2xl shadow-xl border-4 border-slate-700/50 mb-3 flex items-center justify-center min-w-[210px] min-h-[210px] relative">
+            <div id="qrcode-display-target" class="flex items-center justify-center"><img src="images/fitguide_qr.png" alt="FitGuide Official Live QR Code" class="w-[200px] h-[200px] object-contain rounded-lg" /></div>
+          </div>
+
+          <!-- QR helper text -->
+          <p id="qr-caption-text" class="text-[11px] text-slate-400 mb-4 max-w-xs leading-relaxed">
+            Scan with any smartphone camera or Google Lens to immediately open FitGuide with Venkatesh's profile!
+          </p>
+
+          <!-- QR Action Buttons -->
+          <div class="flex items-center gap-2 w-full">
+            <button onclick="downloadQrCodeImage()" class="w-full py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 hover:border-slate-500 text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer">
+              <span>💾</span> Download QR (PNG)
+            </button>
+            <button onclick="renderQrCode()" class="py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-400 hover:text-white border border-slate-700 text-xs transition-all cursor-pointer" title="Refresh QR Code">
+              🔄
+            </button>
+          </div>
+        </div>
+
+        <!-- Column 2: Share with Relatives & Quick Login -->
+        <div class="space-y-5">
+          
+          <!-- Box A: Shareable Link for Relatives -->
+          <div class="p-5 rounded-2xl bg-slate-900 border border-slate-700/80">
+            <div class="flex items-center justify-between mb-2">
+              <h4 class="text-xs font-extrabold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+                <span>🔗</span> Link to Forward to Relatives
+              </h4>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">Home Wi-Fi Ready</span>
+            </div>
+            
+            <p class="text-xs text-slate-400 mb-3 leading-relaxed">
+              Relatives connected to your home Wi-Fi or local network can open this exact link on their mobile devices:
+            </p>
+
+            <div class="relative mb-3">
+              <input type="text" id="shareable-link-input" readonly value="https://fitguidecom.netlify.app/"
+                class="w-full py-2.5 pl-3 pr-24 bg-slate-950 border border-slate-700 rounded-xl text-xs font-mono text-emerald-300 select-all focus:outline-none focus:border-emerald-500">
+              <button onclick="copyShareLink()" class="absolute right-1 top-1 bottom-1 px-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs rounded-lg transition-all flex items-center gap-1 cursor-pointer">
+                <span>📋</span> Copy
+              </button>
+            </div>
+
+            <!-- 1-Click WhatsApp Forward Button -->
+            <button onclick="shareOnWhatsAppWithRelatives()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-xs shadow-lg transition-all flex items-center justify-center gap-2 mb-3 cursor-pointer">
+              <span>💬</span> Forward Link on WhatsApp to Relatives
+            </button>
+
+            <!-- Wi-Fi vs Global explanation card -->
+            <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800 text-[11px] text-slate-400 space-y-1.5">
+              <div class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold">📶</span>
+                <span><strong>Home Wi-Fi:</strong> Anyone connected to your home router opens <code class="text-emerald-300 font-mono">http://192.168.0.6:3000</code> instantly.</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-blue-400 font-bold">🌍</span>
+                <span><strong>Everywhere / 4G / 5G:</strong> Host free in 1 minute on Netlify / GitHub Pages. <button onclick="toggleHostingGuide()" class="text-teal-400 underline hover:text-teal-300 font-semibold cursor-pointer">View 1-Min Steps</button></span>
+              </div>
+            </div>
+
+            <!-- Collapsible Hosting Guide -->
+            <div id="hosting-guide-box" class="hidden mt-3 p-3.5 rounded-xl bg-slate-800/90 border border-slate-700 text-xs text-slate-300 space-y-2">
+              <div class="font-bold text-white flex items-center gap-1.5">
+                <span>🚀</span> Free 24/7 Hosting for Distant Relatives:
+              </div>
+              <ol class="list-decimal list-inside space-y-1 text-[11px] text-slate-300">
+                <li>Open <a href="https://app.netlify.com/drop" target="_blank" class="text-emerald-400 underline font-semibold">netlify.com/drop</a> in your browser.</li>
+                <li>Drag and drop this whole <code class="text-amber-300 font-mono">website</code> folder into Netlify.</li>
+                <li>In 10 seconds, you get a free link (e.g. <code class="text-teal-300 font-mono">fitguide-venkatesh.netlify.app</code>) that any relative in any city can open 24/7!</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- Box B: Member & Relative Login Hub -->
+          <div class="p-5 rounded-2xl bg-slate-900 border border-slate-700/80">
+            <h4 class="text-xs font-extrabold uppercase tracking-wider text-teal-400 mb-3 flex items-center gap-1.5">
+              <span>🔐</span> Quick Login & Profile Switch
+            </h4>
+
+            <div class="space-y-3">
+              <!-- 1-Click Owner Login -->
+              <button onclick="loginAsOwner()" class="w-full py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-750 border border-emerald-500/40 text-left flex items-center justify-between text-xs transition-all cursor-pointer">
+                <div class="flex items-center gap-2">
+                  <span class="text-base">👑</span>
+                  <div>
+                    <div class="font-bold text-white">Login as Venkatesh Vemula</div>
+                    <div class="text-[10px] text-slate-400">+91 9014430474 • venkateshvemula8897@gmail.com</div>
+                  </div>
+                </div>
+                <span class="text-emerald-400 font-bold text-xs">➔ Login</span>
+              </button>
+
+              <!-- Relative Guest Login Form -->
+              <form id="relative-login-form" onsubmit="loginAsRelative(event)" class="pt-2 border-t border-slate-800 space-y-2">
+                <label class="block text-[11px] font-semibold text-slate-300">Or Login as Family Member / Guest:</label>
+                <div class="grid grid-cols-2 gap-2">
+                  <input type="text" id="relative-name-input" placeholder="Your Name (e.g. Suresh)" required
+                    class="px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:border-teal-500">
+                  <input type="tel" id="relative-phone-input" placeholder="Phone (optional)"
+                    class="px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:border-teal-500">
+                </div>
+                <button type="submit" class="w-full py-2 px-3 rounded-lg bg-teal-600/80 hover:bg-teal-500 text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
+                  <span>👤</span> Save Relative Profile & Personalize
+                </button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="mt-auto border-t border-slate-800 bg-slate-950/80 text-slate-400 text-xs py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        
+        <!-- Brand Info -->
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-7 rounded-lg bg-emerald-500 flex items-center justify-center text-slate-950 font-black text-sm">
+              ⚡
+            </div>
+            <span class="text-lg font-black font-heading text-white">Fit<span class="text-emerald-400">Guide</span></span>
+          </div>
+          <p class="text-xs leading-relaxed text-slate-400">
+            A beginner-friendly fitness and nutrition educational platform helping you train smart, eat better, and understand your body.
+          </p>
+        </div>
+
+        <!-- Navigation Links -->
+        <div>
+          <h4 class="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">Platform Navigation</h4>
+          <ul class="space-y-2">
+            <li><a href="#women" data-nav-target="women" class="hover:text-pink-400 font-semibold flex items-center gap-1.5"><span>🌸</span> Women's Health Hub</a></li>
+            <li><a href="#diseases" data-nav-target="diseases" class="hover:text-amber-400 font-semibold flex items-center gap-1.5"><span>🩺</span> Disease Cures & Treatments</a></li>
+            <li><a href="#diet" data-nav-target="diet" class="hover:text-emerald-400 font-semibold flex items-center gap-1.5"><span>🥗</span> Balanced Daily Diets</a></li>
+            <li><a href="#height" data-nav-target="height" class="hover:text-teal-400 font-semibold flex items-center gap-1.5"><span>📏</span> Height & Growth Guide</a></li>
+            <li><a href="#exercises" data-nav-target="exercises" class="hover:text-emerald-400">Exercise Directory (16+)</a></li>
+            <li><a href="#bodyparts" data-nav-target="bodyparts" class="hover:text-emerald-400">Interactive Body Map</a></li>
+            <li><a href="#nutrition" data-nav-target="nutrition" class="hover:text-emerald-400">Macro & Micronutrients</a></li>
+            <li><a href="#foods" data-nav-target="foods" class="hover:text-emerald-400">Searchable Food Database</a></li>
+          </ul>
+        </div>
+
+        <!-- Tools Links -->
+        <div>
+          <h4 class="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">Interactive Tools</h4>
+          <ul class="space-y-2">
+            <li><a href="#meal-planner" data-nav-target="meal-planner" class="hover:text-emerald-400">What Should I Eat?</a></li>
+            <li><a href="#calculator" data-nav-target="calculator" class="hover:text-emerald-400">TDEE & Macro Calculator</a></li>
+            <li><a href="#explorer" data-nav-target="explorer" class="hover:text-emerald-400">Protein & Iron Explorer</a></li>
+            <li><a href="#tracker" data-nav-target="tracker" class="hover:text-emerald-400">Daily Water & Protein Log</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact & Location Info -->
+        <div>
+          <h4 class="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">Direct Contact & Support</h4>
+          <ul class="space-y-2 text-xs">
+            <li>
+              <a href="https://wa.me/919014430474?text=Hi%20FitGuide%2C%20I%20have%20a%20fitness%20and%20nutrition%20question!" target="_blank" class="text-emerald-400 font-semibold hover:underline flex items-center gap-1.5">
+                <span>💬</span> WhatsApp: +91 9014430474
+              </a>
+            </li>
+            <li>
+              <a href="mailto:venkateshvemula8897@gmail.com?subject=FitGuide%20Fitness%20%26%20Nutrition%20Inquiry" class="text-slate-300 hover:text-white flex items-center gap-1.5">
+                <span>✉️</span> venkateshvemula8897@gmail.com
+              </a>
+            </li>
+            <li class="text-slate-400 flex items-center gap-1.5 pt-1">
+              <span>📍</span> Gajuwaka & Visakhapatnam, AP
+            </li>
+            <li>
+              <a href="#gyms" data-nav-target="gyms" class="text-xs text-emerald-400 hover:underline block pt-1">
+                ➔ View Local Fitness Gyms Map
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Legal / Medical Disclaimer -->
+      <div class="border-t border-slate-800/80 pt-6 text-[11px] text-slate-400 leading-relaxed space-y-2">
+        <p>
+          <strong>Important Health Disclaimer:</strong> This website provides general educational information about exercise and nutrition. Nutritional requirements and exercise recommendations vary between individuals. The information provided is not a substitute for advice from a qualified healthcare professional, registered dietitian, or certified fitness professional. Do not disregard professional medical advice or delay seeking it because of information on this website. FitGuide does not diagnose diseases or prescribe medical treatments.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-between text-slate-400 pt-2 gap-2">
+          <span>© 2026 FitGuide. Built with ❤️ for athletes and beginners.</span>
+          <span>Lead / Coach: <strong>Venkatesh Vemula</strong></span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Chat Widget -->
+  <a href="https://wa.me/919014430474?text=Hi%20FitGuide%2C%20I%20have%20a%20fitness%20and%20nutrition%20question!"
+    target="_blank" rel="noopener noreferrer" class="floating-whatsapp" title="Chat directly with Venkatesh on WhatsApp (+91 9014430474)">
+    <span class="text-xl">💬</span>
+    <span>Chat on WhatsApp</span>
+  </a>
+
+  <!-- Floating FitBot AI Launcher Button -->
+  <button id="floating-fitbot-btn" onclick="toggleFitBot()" class="floating-fitbot-btn" title="Chat with FitBot AI Health Coach">
+    <span class="text-xl leading-none">🤖</span>
+    <span class="font-bold">Ask FitBot AI</span>
+    <span class="fitbot-online-badge" title="AI Coach Online"></span>
+  </button>
+
+  <!-- FitBot AI Chat Window -->
+  <div id="fitbot-chat-window" class="fitbot-chat-window hidden" role="dialog" aria-label="FitBot AI Fitness Coach">
+    <!-- Chat Header -->
+    <div class="fitbot-header">
+      <div class="flex items-center gap-2.5">
+        <div class="fitbot-avatar">
+          <span>🤖</span>
+          <span class="fitbot-status-dot"></span>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <h3 class="font-extrabold text-white text-sm font-heading leading-tight">FitBot AI Coach</h3>
+            <span class="text-[9px] uppercase tracking-wider font-extrabold px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">24/7 AI</span>
+          </div>
+          <p class="text-[11px] text-emerald-400 font-medium leading-tight flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <span id="fitbot-status-text">Online • Scientific Health & Workout AI</span>
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-1">
+        <!-- Settings Toggle (API Key) -->
+        <button onclick="toggleFitBotSettings()" class="fitbot-header-btn" title="AI Settings & Custom Gemini Key">
+          ⚙️
+        </button>
+        <!-- Clear History -->
+        <button onclick="clearFitBotHistory()" class="fitbot-header-btn" title="Clear Chat History">
+          🗑️
+        </button>
+        <!-- Close -->
+        <button onclick="closeFitBot()" class="fitbot-header-btn text-base" title="Close FitBot">
+          ✕
+        </button>
+      </div>
+    </div>
+
+    <!-- Collapsible Settings Panel -->
+    <div id="fitbot-settings-panel" class="fitbot-settings-panel hidden">
+      <div class="p-3 bg-slate-900 border-b border-purple-500/20 text-xs space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-white text-[11px]">⚡ AI Engine Settings</span>
+          <span id="fitbot-engine-mode-badge" class="text-[9px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">Built-in Knowledge Engine</span>
+        </div>
+        <p class="text-[11px] text-slate-300 leading-snug">
+          FitBot uses our comprehensive built-in medical & fitness database with zero latency. You can optionally paste your Google Gemini API key below for generative reasoning.
+        </p>
+        <div class="space-y-1">
+          <label class="text-[10px] text-slate-400 font-semibold block">Google Gemini API Key (Optional):</label>
+          <div class="flex gap-1.5">
+            <input type="password" id="fitbot-api-key-input" placeholder="AIzaSy..." class="flex-1 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-purple-400 font-mono">
+            <button onclick="saveFitBotApiKey()" class="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition-colors">
+              Save
+            </button>
+            <button onclick="removeFitBotApiKey()" class="px-2 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-colors" title="Clear Key">
+              Remove
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Messages Stream -->
+    <div id="fitbot-messages-container" class="fitbot-messages-container">
+      <!-- Populated via JS -->
+    </div>
+
+    <!-- Suggested Quick Chips Strip -->
+    <div class="fitbot-quick-chips-wrap">
+      <div class="fitbot-quick-chips" id="fitbot-quick-chips">
+        <button class="fitbot-chip" onclick="askFitBotPrompt('How many days is a healthy menstrual cycle?')">🌸 Healthy cycle length?</button>
+        <button class="fitbot-chip" onclick="askFitBotPrompt('What exercises are safe in pregnancy?')">🤰 Safe pregnancy workouts?</button>
+        <button class="fitbot-chip" onclick="askFitBotPrompt('Best exercises and diet to grow taller?')">📏 Best exercises for height?</button>
+        <button class="fitbot-chip" onclick="askFitBotPrompt('What foods and medicines help diabetes?')">🩺 Foods for Diabetes?</button>
+        <button class="fitbot-chip" onclick="askFitBotPrompt('Give me a balanced daily diet plan')">🥗 Daily balanced diet?</button>
+        <button class="fitbot-chip" onclick="askFitBotPrompt('Best workout routine for chest and biceps')">💪 Chest & biceps workout?</button>
+        <button class="fitbot-chip" onclick="askFitBotPrompt('Where are fitness gyms in Sheelanagar and Vizag?')">📍 Gyms near me?</button>
+        <button class="fitbot-chip" onclick="askFitBotPrompt('Top vegetarian high protein foods')">🍗 High protein veg foods?</button>
+      </div>
+    </div>
+
+    <!-- Chat Input Area -->
+    <div class="fitbot-input-area">
+      <form id="fitbot-chat-form" onsubmit="handleFitBotSubmit(event)" class="flex items-center gap-1.5">
+        <!-- Voice Input Microphone Button -->
+        <button type="button" id="fitbot-mic-btn" onclick="toggleFitBotVoiceInput()" class="fitbot-action-btn" title="Voice Search (Speak)">
+          🎤
+        </button>
+        
+        <!-- Text Input Field -->
+        <input type="text" id="fitbot-input-field" placeholder="Ask about exercises, cycle, pregnancy, diet..." autocomplete="off" class="fitbot-text-input">
+        
+        <!-- Send Button -->
+        <button type="submit" id="fitbot-send-btn" class="fitbot-send-btn" title="Send Message">
+          <svg class="w-4 h-4 transform rotate-90" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/></svg>
+        </button>
+      </form>
+      <div class="flex items-center justify-between px-1 pt-1.5 text-[10px] text-slate-400">
+        <span>FitBot AI • Evidence-based fitness & wellness</span>
+        <button type="button" onclick="openQrModal()" class="hover:text-emerald-400 underline">Share Link</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/qrcode.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

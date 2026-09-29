@@ -1,0 +1,971 @@
+/* ==========================================================================
+   FitGuide - Modern Fitness & Nutrition Theme Stylesheet
+   Dark Navy / Black | Crisp White | Emerald Green | Orange Highlights
+   ========================================================================== */
+
+:root {
+  /* Dark Theme (Default) */
+  --bg-main: #090e1a;
+  --bg-surface: #0f172a;
+  --bg-card: #151f38;
+  --bg-card-hover: #1c294a;
+  --bg-input: #1a2544;
+  --border-subtle: #24345c;
+  --border-focus: #10b981;
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  
+  --accent-green: #10b981;
+  --accent-green-glow: rgba(16, 185, 129, 0.25);
+  --accent-green-dark: #059669;
+  
+  --accent-orange: #f97316;
+  --accent-orange-glow: rgba(249, 115, 22, 0.25);
+  --accent-orange-dark: #ea580c;
+
+  --accent-blue: #38bdf8;
+  --accent-blue-glow: rgba(56, 189, 248, 0.2);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 25px rgba(16, 185, 129, 0.25);
+  --shadow-orange-glow: 0 0 25px rgba(249, 115, 22, 0.25);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] {
+  --bg-main: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-card: #f1f5f9;
+  --bg-card-hover: #e2e8f0;
+  --bg-input: #ffffff;
+  --border-subtle: #cbd5e1;
+  --border-focus: #10b981;
+  
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-dim: #64748b;
+
+  --accent-green: #059669;
+  --accent-green-glow: rgba(5, 150, 105, 0.15);
+  
+  --accent-orange: #ea580c;
+  --accent-orange-glow: rgba(234, 88, 12, 0.15);
+
+  --accent-blue: #0284c7;
+  --accent-blue-glow: rgba(2, 132, 199, 0.15);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.15);
+  --shadow-orange-glow: 0 0 20px rgba(249, 115, 22, 0.15);
+}
+
+/* Base Reset & Typography */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* Heading Typography */
+h1, h2, h3, h4, .font-heading {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-green);
+}
+
+/* Glassmorphism & Navbar */
+.glass-nav {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+[data-theme="light"] .glass-nav {
+  background: rgba(255, 255, 255, 0.88);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Gradient Texts & Badges */
+.text-gradient-emerald {
+  background: linear-gradient(135deg, #34d399, #10b981);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.text-gradient-orange {
+  background: linear-gradient(135deg, #fb923c, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.text-gradient-pink {
+  background: linear-gradient(135deg, #f472b6, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.text-gradient-fire {
+  background: linear-gradient(135deg, #10b981 0%, #38bdf8 50%, #f97316 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Card Styling */
+.fit-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: transform var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+.fit-card:hover {
+  border-color: rgba(16, 185, 129, 0.45);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Interactive Human Body SVG Styles */
+.body-svg-container {
+  max-width: 320px;
+  margin: 0 auto;
+  position: relative;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+}
+
+.muscle-path {
+  fill: #223259;
+  stroke: #33487c;
+  stroke-width: 1.5;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+[data-theme="light"] .muscle-path {
+  fill: #cbd5e1;
+  stroke: #94a3b8;
+}
+
+.muscle-path:hover {
+  fill: #f97316;
+  filter: drop-shadow(0 0 8px rgba(249, 115, 22, 0.8));
+  stroke: #ffffff;
+}
+
+.muscle-path.active {
+  fill: #10b981;
+  filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.9));
+  stroke: #ffffff;
+}
+
+.body-silhouette {
+  fill: #141c33;
+  stroke: #2a3a63;
+  stroke-width: 1;
+}
+[data-theme="light"] .body-silhouette {
+  fill: #e2e8f0;
+  stroke: #cbd5e1;
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all var(--transition-fast);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px var(--accent-green-glow);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--accent-green-glow);
+  filter: brightness(1.08);
+}
+
+.btn-secondary {
+  background: var(--bg-surface);
+  color: var(--text-main);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all var(--transition-fast);
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+  transform: translateY(-2px);
+}
+
+.btn-orange {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all var(--transition-fast);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px var(--accent-orange-glow);
+}
+.btn-orange:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--accent-orange-glow);
+  filter: brightness(1.08);
+}
+
+/* Modal Overlay & Drawer */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(5, 10, 24, 0.78);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-dialog {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  max-width: 720px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  transform: scale(0.95);
+  transition: transform 0.25s ease;
+}
+.modal-overlay.open .modal-dialog {
+  transform: scale(1);
+}
+
+/* Toast Notifications */
+.toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.toast-item {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--accent-green);
+  color: var(--text-main);
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: slideInRight 0.3s ease forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Water Tracker Wave animation */
+.water-glass-container {
+  position: relative;
+  width: 110px;
+  height: 160px;
+  border: 3px solid var(--accent-blue);
+  border-top: none;
+  border-radius: 0 0 20px 20px;
+  overflow: hidden;
+  background: rgba(56, 189, 248, 0.05);
+}
+.water-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(180deg, #38bdf8, #0284c7);
+  transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Section visibility */
+.app-section {
+  display: none;
+}
+.app-section.active {
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Badge tags */
+.badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.badge-beginner {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+.badge-intermediate {
+  background: rgba(249, 115, 22, 0.15);
+  color: #f97316;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+.badge-advanced {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+.badge-veg {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+.badge-non-veg {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+.badge-vegan {
+  background: rgba(20, 184, 166, 0.15);
+  color: #14b8a6;
+  border: 1px solid rgba(20, 184, 166, 0.3);
+}
+
+/* Search Dropdown / Autocomplete */
+.search-results-floating {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  margin-top: 8px;
+  box-shadow: var(--shadow-lg);
+  max-height: 420px;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+/* Floating WhatsApp Chat Widget */
+.floating-whatsapp {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #ffffff !important;
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  text-decoration: none;
+  transition: all 0.25s ease;
+  animation: pulseGreen 2.5s infinite;
+}
+.floating-whatsapp:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.6);
+  color: #ffffff !important;
+}
+@keyframes pulseGreen {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+  70% { box-shadow: 0 0 0 14px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+/* Gym Ratings & Map */
+.star-rating {
+  color: #fbbf24;
+  letter-spacing: 1px;
+}
+.gym-map-frame {
+  width: 100%;
+  height: 420px;
+  border: 0;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+/* ==========================================================================
+   FitBot AI Coach - Floating Launcher & Glassmorphism Chat Interface
+   ========================================================================== */
+
+/* Floating FitBot Launcher Button */
+.floating-fitbot-btn {
+  position: fixed;
+  bottom: 5.25rem;
+  right: 1.5rem;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: linear-gradient(135deg, #7c3aed, #4f46e5, #0ea5e9);
+  color: #ffffff !important;
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.45);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: pulsePurple 2.5s infinite;
+}
+.floating-fitbot-btn:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 12px 32px rgba(124, 58, 237, 0.65);
+}
+@keyframes pulsePurple {
+  0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.6); }
+  70% { box-shadow: 0 0 0 14px rgba(139, 92, 246, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+}
+
+.fitbot-online-badge {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #10b981;
+  border: 2px solid #ffffff;
+  display: inline-block;
+  margin-left: 2px;
+}
+
+/* Chat Window Frame */
+.fitbot-chat-window {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 420px;
+  max-width: calc(100vw - 1.5rem);
+  height: 620px;
+  max-height: calc(100vh - 3rem);
+  background: rgba(15, 23, 42, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  border-radius: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(124, 58, 237, 0.25);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1001;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+[data-theme="light"] .fitbot-chat-window {
+  background: rgba(255, 255, 255, 0.98);
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 0 30px rgba(124, 58, 237, 0.15);
+}
+
+.fitbot-chat-window.hidden {
+  display: none !important;
+}
+
+/* Chat Header */
+.fitbot-header {
+  padding: 0.85rem 1.15rem;
+  background: linear-gradient(135deg, rgba(30, 27, 75, 0.95), rgba(15, 23, 42, 0.98));
+  border-bottom: 1px solid rgba(139, 92, 246, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+[data-theme="light"] .fitbot-header {
+  background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+  border-bottom-color: rgba(139, 92, 246, 0.2);
+}
+
+[data-theme="light"] .fitbot-header h3 {
+  color: #1e1b4b !important;
+}
+
+.fitbot-avatar {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+}
+
+.fitbot-status-dot {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10b981;
+  border: 2px solid #0f172a;
+}
+
+.fitbot-header-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  border-radius: 8px;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.fitbot-header-btn:hover {
+  background: rgba(139, 92, 246, 0.25);
+  color: #ffffff;
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+[data-theme="light"] .fitbot-header-btn {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #475569;
+}
+[data-theme="light"] .fitbot-header-btn:hover {
+  background: rgba(139, 92, 246, 0.15);
+  color: #6d28d9;
+}
+
+/* Chat Messages Stream */
+.fitbot-messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar for Messages */
+.fitbot-messages-container::-webkit-scrollbar {
+  width: 5px;
+}
+.fitbot-messages-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+.fitbot-messages-container::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.25);
+  border-radius: 9999px;
+}
+.fitbot-messages-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.5);
+}
+
+/* Messages Bubbles */
+.fitbot-msg {
+  display: flex;
+  flex-direction: column;
+  animation: fadeInMsg 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes fadeInMsg {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fitbot-msg-user {
+  align-self: flex-end;
+  max-width: 85%;
+}
+.fitbot-msg-user .fitbot-bubble {
+  background: linear-gradient(135deg, #7c3aed, #4f46e5);
+  color: #ffffff;
+  border-radius: 18px 18px 4px 18px;
+  padding: 0.65rem 0.95rem;
+  font-size: 0.83rem;
+  line-height: 1.45;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+  word-break: break-word;
+}
+
+.fitbot-msg-bot {
+  align-self: flex-start;
+  max-width: 92%;
+}
+.fitbot-msg-bot .fitbot-bubble {
+  background: rgba(30, 41, 59, 0.92);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  color: #f1f5f9;
+  border-radius: 18px 18px 18px 4px;
+  padding: 0.8rem 1rem;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  word-break: break-word;
+}
+
+[data-theme="light"] .fitbot-msg-bot .fitbot-bubble {
+  background: #f8fafc;
+  border-color: rgba(139, 92, 246, 0.2);
+  color: #0f172a;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.fitbot-time {
+  font-size: 9px;
+  color: #64748b;
+  margin-top: 3px;
+  align-self: flex-end;
+}
+.fitbot-msg-bot .fitbot-time {
+  align-self: flex-start;
+}
+
+/* Bot Message Content Styles */
+.fitbot-bubble h4 {
+  font-size: 0.9rem;
+  font-weight: 800;
+  margin-bottom: 0.4rem;
+  color: #a78bfa;
+}
+[data-theme="light"] .fitbot-bubble h4 {
+  color: #6d28d9;
+}
+.fitbot-bubble ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0.4rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.fitbot-bubble li {
+  position: relative;
+  padding-left: 1.1rem;
+}
+.fitbot-bubble li::before {
+  content: "•";
+  position: absolute;
+  left: 0.25rem;
+  color: #a78bfa;
+  font-weight: bold;
+}
+.fitbot-bubble strong {
+  color: #e2e8f0;
+}
+[data-theme="light"] .fitbot-bubble strong {
+  color: #1e293b;
+}
+
+/* Action Buttons inside Bot Bubble */
+.fitbot-actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.65rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+[data-theme="light"] .fitbot-actions-row {
+  border-top-color: rgba(0, 0, 0, 0.08);
+}
+.fitbot-btn-action {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.35rem 0.65rem;
+  border-radius: 9999px;
+  background: rgba(139, 92, 246, 0.2);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  color: #c4b5fd;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  text-decoration: none;
+}
+.fitbot-btn-action:hover {
+  background: rgba(139, 92, 246, 0.4);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+[data-theme="light"] .fitbot-btn-action {
+  background: rgba(139, 92, 246, 0.12);
+  color: #6d28d9;
+}
+
+/* Typing Indicator Animation */
+.fitbot-typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.6rem 0.9rem;
+  background: rgba(30, 41, 59, 0.92);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  border-radius: 18px 18px 18px 4px;
+  width: fit-content;
+}
+[data-theme="light"] .fitbot-typing-indicator {
+  background: #f1f5f9;
+}
+.fitbot-typing-dot {
+  width: 6px;
+  height: 6px;
+  background: #a78bfa;
+  border-radius: 50%;
+  animation: typingBounce 1.4s infinite ease-in-out both;
+}
+.fitbot-typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.fitbot-typing-dot:nth-child(2) { animation-delay: -0.16s; }
+.fitbot-typing-dot:nth-child(3) { animation-delay: 0s; }
+@keyframes typingBounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1.1); opacity: 1; }
+}
+
+/* Quick Suggestion Chips Strip */
+.fitbot-quick-chips-wrap {
+  padding: 0.4rem 0.75rem;
+  background: rgba(15, 23, 42, 0.6);
+  border-top: 1px solid rgba(139, 92, 246, 0.15);
+  overflow-x: auto;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+[data-theme="light"] .fitbot-quick-chips-wrap {
+  background: rgba(248, 250, 252, 0.9);
+}
+.fitbot-quick-chips-wrap::-webkit-scrollbar {
+  display: none;
+}
+.fitbot-quick-chips {
+  display: inline-flex;
+  gap: 0.4rem;
+}
+.fitbot-chip {
+  padding: 0.28rem 0.6rem;
+  border-radius: 9999px;
+  background: rgba(30, 41, 59, 0.9);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  color: #cbd5e1;
+  font-size: 0.72rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.fitbot-chip:hover {
+  background: rgba(139, 92, 246, 0.25);
+  border-color: rgba(139, 92, 246, 0.5);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+[data-theme="light"] .fitbot-chip {
+  background: #ffffff;
+  color: #334155;
+  border-color: #cbd5e1;
+}
+[data-theme="light"] .fitbot-chip:hover {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+/* Chat Input Area */
+.fitbot-input-area {
+  padding: 0.75rem;
+  background: rgba(15, 23, 42, 0.95);
+  border-top: 1px solid rgba(139, 92, 246, 0.2);
+  flex-shrink: 0;
+}
+[data-theme="light"] .fitbot-input-area {
+  background: #ffffff;
+}
+
+.fitbot-text-input {
+  flex: 1;
+  background: rgba(30, 41, 59, 0.85);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 14px;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.82rem;
+  color: #ffffff;
+  outline: none;
+  transition: all 0.2s ease;
+}
+.fitbot-text-input:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.25);
+  background: rgba(30, 41, 59, 1);
+}
+[data-theme="light"] .fitbot-text-input {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-color: #cbd5e1;
+}
+[data-theme="light"] .fitbot-text-input:focus {
+  background: #ffffff;
+  border-color: #8b5cf6;
+}
+
+.fitbot-action-btn {
+  background: rgba(30, 41, 59, 0.85);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  color: #a78bfa;
+  border-radius: 12px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+.fitbot-action-btn:hover {
+  background: rgba(139, 92, 246, 0.25);
+  color: #ffffff;
+}
+.fitbot-action-btn.recording {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+  animation: micPulse 1s infinite alternate;
+}
+@keyframes micPulse {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+  100% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+}
+
+.fitbot-send-btn {
+  background: linear-gradient(135deg, #7c3aed, #4f46e5);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  width: 38px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+}
+.fitbot-send-btn:hover {
+  transform: translateY(-1px) scale(1.04);
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.5);
+}
+
+/* Mobile Responsiveness for FitBot */
+@media (max-width: 640px) {
+  .floating-fitbot-btn {
+    bottom: 4.8rem;
+    right: 1rem;
+    padding: 0.6rem 0.95rem;
+    font-size: 0.78rem;
+  }
+  .floating-whatsapp {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.6rem 0.95rem;
+    font-size: 0.78rem;
+  }
+  .fitbot-chat-window {
+    bottom: 0.5rem;
+    right: 0.5rem;
+    left: 0.5rem;
+    width: auto;
+    max-width: 100%;
+    height: calc(100vh - 1rem);
+    max-height: calc(100vh - 1rem);
+    border-radius: 20px;
+  }
+}
+
+
