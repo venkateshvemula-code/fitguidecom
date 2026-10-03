@@ -22,7 +22,7 @@ export default function Footer() {
             </p>
             <div class="pt-2">
               <span class="inline-block px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-bold">
-                Live on Netlify: fitguidecom.netlify.app
+                ⚡ Evidence-Based Fitness & Wellness
               </span>
             </div>
           </div>
@@ -96,26 +96,23 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact & Location Info */}
+          {/* Quick Links / Community */}
           <div>
-            <h4 class="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">Direct Contact & Support</h4>
+            <h4 class="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">Community & Resources</h4>
             <ul class="space-y-2 text-xs">
               <li>
-                <a href="https://wa.me/919014430474?text=Hi%20FitGuide%2C%20I%20have%20a%20fitness%20and%20nutrition%20question!" target="_blank" rel="noopener noreferrer" class="text-emerald-400 font-semibold hover:underline flex items-center gap-1.5">
-                  <span>💬</span> WhatsApp: +91 9014430474
-                </a>
-              </li>
-              <li>
-                <a href="mailto:venkateshvemula8897@gmail.com?subject=FitGuide%20Fitness%20%26%20Nutrition%20Inquiry" class="text-slate-300 hover:text-white flex items-center gap-1.5">
-                  <span>✉️</span> venkateshvemula8897@gmail.com
-                </a>
-              </li>
-              <li class="text-slate-400 flex items-center gap-1.5 pt-1">
-                <span>📍</span> Gajuwaka & Visakhapatnam, AP
-              </li>
-              <li>
                 <button onClick={() => setActiveTab('gyms')} class="text-xs text-emerald-400 hover:underline block pt-1 cursor-pointer">
-                  ➔ View Local Fitness Gyms Map
+                  📍 Find Local Fitness Gyms
+                </button>
+              </li>
+              <li>
+                <button onClick={() => setActiveTab('calculator')} class="hover:text-emerald-400 cursor-pointer">
+                  🧮 Calorie & Macro Calculator
+                </button>
+              </li>
+              <li>
+                <button onClick={() => setActiveTab('tracker')} class="hover:text-emerald-400 cursor-pointer">
+                  💧 Daily Hydration & Meal Tracker
                 </button>
               </li>
             </ul>
@@ -129,7 +126,7 @@ export default function Footer() {
           </p>
           <div class="flex flex-col sm:flex-row items-center justify-between text-slate-400 pt-2 gap-2">
             <span>© 2026 FitGuide. Built with ❤️ for athletes and beginners.</span>
-            <span>Lead / Coach: <strong class="text-slate-200">Venkatesh Vemula</strong></span>
+            <span>All rights reserved.</span>
           </div>
         </div>
       </div>

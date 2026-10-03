@@ -2,6 +2,7 @@ import React from 'react';
 import { useApp } from '../context/AppContext';
 import { ArrowRight, CheckCircle2, ShieldAlert, Sparkles, Moon, Utensils, Activity } from 'lucide-react';
 import { exercises } from '../data/fitData';
+import { getExercisePhoto } from '../data/exercisePhotos';
 
 export default function HeightTab() {
   const { openModal } = useApp();
@@ -106,7 +107,7 @@ export default function HeightTab() {
               <div>
                 <div class="relative h-48 w-full bg-slate-950 overflow-hidden">
                   <img
-                    src={ex.photoUrl || "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=700&auto=format&fit=crop&q=80"}
+                    src={getExercisePhoto(ex.id, ex.bodyPart)}
                     alt={ex.name}
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"

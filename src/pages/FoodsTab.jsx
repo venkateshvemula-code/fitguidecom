@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useApp } from '../context/AppContext';
 import { Search, Apple, PlusCircle, Heart, ArrowRight, RotateCcw } from 'lucide-react';
 import { foods } from '../data/fitData';
+import { getFoodPhoto } from '../data/foodPhotos';
 
 export default function FoodsTab() {
   const { openModal, toggleFavorite, isFavorite, logFoodItem } = useApp();
@@ -134,36 +135,57 @@ export default function FoodsTab() {
           return (
             <div
               key={food.id}
-              class="fit-card p-5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-orange-500/50 flex flex-col justify-between group"
+              class="fit-card rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 hover:border-orange-500/50 flex flex-col justify-between group"
             >
               <div>
-                <div class="flex items-start justify-between mb-2">
-                  <span class={`text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full border ${
+                {/* Food Image Banner */}
+                <div class="relative h-44 w-full bg-slate-950 overflow-hidden">
+                  <img
+                    src={getFoodPhoto(food.id, food.category)}
+                    alt={food.name}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+
+                  <span class={`absolute top-3 left-3 text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full border shadow ${
                     food.dietary_type === 'veg'
-                      ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
-                      : 'bg-rose-500/20 text-rose-400 border-rose-500/30'
+                      ? 'bg-emerald-500 text-slate-950 font-sans border-emerald-400'
+                      : 'bg-rose-500 text-white font-sans border-rose-400'
                   }`}>
-                    {food.dietary_type === 'veg' ? '🌿 Vegetarian' : '🍗 Non-Veg'}
+                    {food.dietary_type === 'veg' ? '🌿 Veg' : '🍗 Non-Veg'}
                   </span>
 
                   <button
                     onClick={() => toggleFavorite('foods', food.id)}
-                    class="p-1 text-slate-500 hover:text-rose-400 transition-colors"
+                    class="absolute top-3 right-3 p-1.5 rounded-full bg-slate-900/80 text-white hover:text-rose-400 backdrop-blur-md transition-colors cursor-pointer"
                   >
-                    <Heart size={16} fill={isFav ? "red" : "none"} color={isFav ? "red" : "currentColor"} />
+                    <Heart size={15} fill={isFav ? "red" : "none"} color={isFav ? "red" : "white"} />
                   </button>
+
+                  <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-xs font-mono font-bold text-white drop-shadow">
+                    <span class="bg-slate-900/80 px-2 py-0.5 rounded border border-slate-700/60 backdrop-blur text-orange-400">
+                      {food.calories} kcal
+                    </span>
+                    <span class="text-slate-300">
+                      {food.serving_size}
+                    </span>
+                  </div>
                 </div>
 
-                <h3 class="text-base font-extrabold text-white group-hover:text-orange-300 transition-colors">
-                  {food.name}
-                </h3>
-                {food.hindi_name && (
-                  <span class="text-xs text-emerald-400 block font-medium mb-2">({food.hindi_name})</span>
-                )}
+                <div class="p-5 pb-0 space-y-2">
+                  <div class="flex items-center justify-between">
+                    <h3 class="text-base font-extrabold text-white group-hover:text-orange-300 transition-colors">
+                      {food.name}
+                    </h3>
+                    <span class="text-[10px] uppercase font-bold text-slate-400 bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700">
+                      {food.category}
+                    </span>
+                  </div>
 
-                <div class="flex items-center justify-between text-xs font-mono mb-3">
-                  <span class="text-orange-400 font-bold">{food.calories} kcal</span>
-                  <span class="text-slate-400">Serving: {food.serving_size}</span>
+                  {food.hindi_name && (
+                    <span class="text-xs text-emerald-400 block font-medium">({food.hindi_name})</span>
+                  )}
                 </div>
 
                 <div class="grid grid-cols-3 gap-2 p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 text-center mb-3">

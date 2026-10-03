@@ -136,7 +136,9 @@ export default function DailyTrackerTab() {
         {/* Water Tracker Card */}
         <div class="fit-card p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold uppercase text-slate-400">Hydration (8 Glasses)</span>
+            <span class="text-xs font-bold uppercase text-slate-400">
+              Hydration {dailyTracker.waterGlasses >= 8 ? '🎯 Target Hit' : '(8 Glasses Goal)'}
+            </span>
             <button
               onClick={resetWater}
               class="text-[11px] text-slate-400 hover:text-rose-400 flex items-center gap-1 cursor-pointer"
@@ -148,6 +150,11 @@ export default function DailyTrackerTab() {
           <div>
             <span class="text-3xl font-black text-teal-400 font-heading">{dailyTracker.waterGlasses}</span>
             <span class="text-xs text-slate-400"> / 8 Glasses ({dailyTracker.waterGlasses * 250} ml)</span>
+            {dailyTracker.waterGlasses > 8 && (
+              <span class="text-[11px] font-semibold text-emerald-400 block mt-0.5">
+                +{(dailyTracker.waterGlasses - 8)} extra glass{dailyTracker.waterGlasses - 8 > 1 ? 'es' : ''} logged!
+              </span>
+            )}
           </div>
 
           {/* 8 Glass Visual Indicators */}

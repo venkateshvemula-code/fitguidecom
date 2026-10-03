@@ -12,7 +12,10 @@ export default function DiseasesTab() {
     "cholesterol": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=700&auto=format&fit=crop&q=80",
     "thyroid": "https://images.unsplash.com/photo-1583454155184-870a1f63aebc?w=700&auto=format&fit=crop&q=80",
     "fatty-liver": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=700&auto=format&fit=crop&q=80",
-    "anemia": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=700&auto=format&fit=crop&q=80"
+    "anemia": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=700&auto=format&fit=crop&q=80",
+    "pcos-pcod": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=700&auto=format&fit=crop&q=80",
+    "arthritis": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=700&auto=format&fit=crop&q=80",
+    "gerd-acid-reflux": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=700&auto=format&fit=crop&q=80"
   };
 
   const diseaseList = diseases || [];
@@ -143,6 +146,36 @@ export default function DiseasesTab() {
             ))}
           </div>
         </div>
+
+        {/* Clinical Therapies & Rehabilitation Protocols */}
+        {activeDisease.therapies && activeDisease.therapies.length > 0 && (
+          <div class="p-5 rounded-xl bg-purple-950/20 border-2 border-purple-500/40 space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-purple-500/20">
+              <h4 class="text-sm font-extrabold text-purple-300 flex items-center gap-2">
+                <span>🧘</span>
+                <span>Targeted Clinical Therapies & Physical Protocols</span>
+              </h4>
+              <span class="text-[10px] text-purple-400 font-bold bg-purple-500/10 px-2.5 py-0.5 rounded-full border border-purple-500/20">
+                Non-Drug Interventions
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {activeDisease.therapies.map((th, i) => (
+                <div key={i} class="p-4 rounded-xl bg-slate-900 border border-purple-500/30 space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
+                      {th.type}
+                    </span>
+                    <span class="text-xs text-purple-400">✨</span>
+                  </div>
+                  <h5 class="text-xs font-bold text-white">{th.name}</h5>
+                  <p class="text-xs text-slate-300 leading-relaxed">{th.protocol}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Lifestyle & Exercise Therapy with Photo Banner */}
         <div class="p-5 rounded-2xl bg-gradient-to-r from-emerald-950/40 to-teal-950/40 border border-emerald-500/40 flex flex-col sm:flex-row items-center gap-5">

@@ -5,7 +5,6 @@ import { useApp } from './context/AppContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FitBotCoach from './components/FitBotCoach';
-import QrLoginModal from './components/QrLoginModal';
 import ExerciseModal from './components/ExerciseModal';
 import FoodModal from './components/FoodModal';
 import GlobalSearchModal from './components/GlobalSearchModal';
@@ -81,7 +80,6 @@ export default function App() {
       {/* Modals & Overlays */}
       <ExerciseModal />
       <FoodModal />
-      <QrLoginModal />
       <GlobalSearchModal />
       <FavoritesDrawer />
       <FitBotCoach />

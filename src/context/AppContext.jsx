@@ -50,17 +50,13 @@ export function AppProvider({ children }) {
   const [userAuth, setUserAuth] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem('fitguide_auth') || 'null') || {
-        name: "Venkatesh Vemula",
-        phone: "+91 9014430474",
-        email: "venkateshvemula8897@gmail.com",
-        role: "owner"
+        name: "Fitness Member",
+        role: "member"
       };
     } catch {
       return {
-        name: "Venkatesh Vemula",
-        phone: "+91 9014430474",
-        email: "venkateshvemula8897@gmail.com",
-        role: "owner"
+        name: "Fitness Member",
+        role: "member"
       };
     }
   });
@@ -159,12 +155,12 @@ export function AppProvider({ children }) {
 
   const logWater = () => {
     setDailyTracker(prev => {
-      if (prev.waterGlasses >= 8) {
-        showToast("💧 Daily hydration target (8 glasses) already reached!", "success");
-        return prev;
-      }
       const newCount = prev.waterGlasses + 1;
-      showToast(`💧 Glass ${newCount} logged (${newCount * 250} ml)`, "success");
+      if (newCount === 8) {
+        showToast("🎉 Daily hydration target (8 glasses) reached! Keep going!", "success");
+      } else {
+        showToast(`💧 Glass ${newCount} logged (${newCount * 250} ml)`, "success");
+      }
       return { ...prev, waterGlasses: newCount };
     });
   };

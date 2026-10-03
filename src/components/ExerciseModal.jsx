@@ -2,6 +2,7 @@ import React from 'react';
 import { useApp } from '../context/AppContext';
 import { X, Heart, Clock, Dumbbell, ShieldAlert, CheckCircle2, AlertTriangle, ArrowRight } from 'lucide-react';
 import { exercises, womenHealth } from '../data/fitData';
+import { getExercisePhoto } from '../data/exercisePhotos';
 
 export default function ExerciseModal() {
   const { activeModal, closeModal, toggleFavorite, isFavorite, setActiveTab } = useApp();
@@ -55,7 +56,7 @@ export default function ExerciseModal() {
         {/* Banner with Photo Preview */}
         <div class="relative h-56 sm:h-64 w-full bg-slate-950 shrink-0 overflow-hidden">
           <img 
-            src={ex.photoUrl || "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"} 
+            src={getExercisePhoto(ex.id, ex.bodyPart)} 
             alt={ex.name} 
             class="w-full h-full object-cover"
           />

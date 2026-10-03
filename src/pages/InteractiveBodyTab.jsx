@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { ArrowRight, Dumbbell, Sparkles } from 'lucide-react';
 import { bodyParts, exercises } from '../data/fitData';
+import { getExercisePhoto } from '../data/exercisePhotos';
 
 export default function InteractiveBodyTab() {
   const { openModal } = useApp();
@@ -152,7 +153,7 @@ export default function InteractiveBodyTab() {
                 >
                   <div class="relative h-36 w-full bg-slate-950 overflow-hidden">
                     <img
-                      src={ex.photoUrl || "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&auto=format&fit=crop&q=80"}
+                      src={getExercisePhoto(ex.id, ex.bodyPart)}
                       alt={ex.name}
                       class="w-full h-full object-cover"
                     />

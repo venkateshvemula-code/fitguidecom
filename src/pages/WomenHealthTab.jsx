@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { ArrowRight, CheckCircle2, AlertTriangle, Heart, ShieldAlert, Sparkles, Activity } from 'lucide-react';
 import { womenHealth } from '../data/fitData';
+import { getExercisePhoto } from '../data/exercisePhotos';
 
 export default function WomenHealthTab() {
   const { openModal } = useApp();
@@ -277,7 +278,7 @@ export default function WomenHealthTab() {
                 <div key={ex.id} class="fit-card rounded-2xl overflow-hidden border border-teal-500/30 flex flex-col justify-between">
                   <div>
                     <div class="relative h-48 w-full bg-slate-950 overflow-hidden">
-                      <img src={ex.photoUrl} alt={ex.name} class="w-full h-full object-cover" />
+                      <img src={getExercisePhoto(ex.id, 'women') || ex.photoUrl} alt={ex.name} class="w-full h-full object-cover" />
                       <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
                       <span class="absolute top-3 left-3 text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-teal-500 text-slate-950 font-sans shadow">
                         {ex.trimesterSafe}

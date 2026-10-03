@@ -2,6 +2,7 @@ import React from 'react';
 import { useApp } from '../context/AppContext';
 import { X, Heart, PlusCircle, Check, Flame, Zap, ShieldCheck } from 'lucide-react';
 import { foods } from '../data/fitData';
+import { getFoodPhoto } from '../data/foodPhotos';
 
 export default function FoodModal() {
   const { activeModal, closeModal, toggleFavorite, isFavorite, logFoodItem } = useApp();
@@ -18,38 +19,29 @@ export default function FoodModal() {
   const proteinScore = Math.round(((food.protein_g * 4) / food.calories) * 100);
 
   return (
-    <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
       <div 
-        class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200"
+        className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Modal Header */}
-        <div class="p-6 bg-slate-950 border-b border-slate-800 flex items-start justify-between relative">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${
-                food.dietary_type === 'veg' 
-                  ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' 
-                  : 'bg-rose-500/20 text-rose-400 border-rose-500/30'
-              }`}>
-                {food.dietary_type === 'veg' ? '🌿 Vegetarian' : '🍗 Non-Vegetarian'}
-              </span>
-              <span class="text-[10px] text-slate-400 bg-slate-900 px-2 py-0.5 rounded border border-slate-800">
-                {food.category || 'Nutrient Dense'}
-              </span>
-            </div>
-            <h2 class="text-2xl font-black text-white font-heading">{food.name}</h2>
-            {food.hindi_name && (
-              <p class="text-xs text-emerald-400 font-medium">({food.hindi_name})</p>
-            )}
-            <p class="text-xs text-slate-400 mt-1">Standard Serving: <strong class="text-slate-200">{food.serving_size}</strong></p>
-          </div>
+        {/* Banner with Photo Preview */}
+        <div className="relative h-48 sm:h-52 w-full bg-slate-950 shrink-0 overflow-hidden">
+          <img 
+            src={getFoodPhoto(food.id, food.category)} 
+            alt={food.name} 
+            className="w-full h-full object-cover brightness-90 hover:scale-105 transition-transform duration-500"
+            onError={(e) => {
+              e.currentTarget.src = "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80";
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
 
-          <div class="flex items-center gap-2">
+          {/* Quick Action Buttons */}
+          <div className="absolute top-4 right-4 flex items-center gap-2">
             <button
               onClick={() => toggleFavorite('foods', food.id)}
-              class={`p-2.5 rounded-full backdrop-blur-md transition-transform active:scale-95 cursor-pointer ${
-                isFav ? 'bg-rose-500 text-white shadow-lg' : 'bg-slate-800 text-slate-300 hover:text-white'
+              className={`p-2.5 rounded-full backdrop-blur-md transition-transform active:scale-95 cursor-pointer ${
+                isFav ? 'bg-rose-500 text-white shadow-lg' : 'bg-slate-900/80 text-slate-300 hover:text-white border border-slate-700/60'
               }`}
               title="Save to favorites"
             >
@@ -57,10 +49,36 @@ export default function FoodModal() {
             </button>
             <button
               onClick={closeModal}
-              class="p-2.5 rounded-full bg-slate-800 text-slate-300 hover:text-white transition-colors cursor-pointer"
+              className="p-2.5 rounded-full bg-slate-900/80 text-slate-300 hover:text-white border border-slate-700/60 transition-colors cursor-pointer"
             >
               <X size={18} />
             </button>
+          </div>
+
+          <div className="absolute bottom-3 left-6">
+            <div className="flex items-center gap-2">
+              <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border backdrop-blur-md ${
+                food.dietary_type === 'veg' 
+                  ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' 
+                  : 'bg-rose-500/20 text-rose-400 border-rose-500/30'
+              }`}>
+                {food.dietary_type === 'veg' ? '🌿 Vegetarian' : '🍗 Non-Vegetarian'}
+              </span>
+              <span className="text-[10px] text-slate-300 bg-slate-900/80 px-2 py-0.5 rounded border border-slate-700 backdrop-blur-md">
+                {food.category || 'Nutrient Dense'}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Modal Header */}
+        <div className="px-6 py-4 bg-slate-950 border-b border-slate-800 flex items-start justify-between">
+          <div>
+            <h2 className="text-2xl font-black text-white font-heading">{food.name}</h2>
+            {food.hindi_name && (
+              <p className="text-xs text-emerald-400 font-medium">({food.hindi_name})</p>
+            )}
+            <p className="text-xs text-slate-400 mt-1">Standard Serving: <strong className="text-slate-200">{food.serving_size}</strong></p>
           </div>
         </div>
 

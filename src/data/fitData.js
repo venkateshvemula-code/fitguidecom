@@ -3142,7 +3142,12 @@ export const FIT_DATA = {
         { medicine: "GLP-1 Receptor Agonists (Semaglutide, Liraglutide)", function: "Stimulates glucose-dependent insulin release, delays gastric emptying, and significantly reduces appetite." },
         { medicine: "DPP-4 Inhibitors (Teneligliptin, Sitagliptin)", function: "Prevents degradation of incretin hormones, stabilizing postprandial glucose." }
       ],
-      lifestyleCure: "30-minute post-meal brisk walk (utilizes glucose directly via muscle contractions) + 3 days of compound strength training."
+      lifestyleCure: "30-minute post-meal brisk walk (utilizes glucose directly via muscle contractions) + 3 days of compound strength training.",
+      therapies: [
+        { name: "Continuous Glucose Bio-Feedback Therapy", type: "Digital Health Therapy", protocol: "Use real-time CGM data to map personal insulin spikes against specific food combinations and optimize postprandial exercise timing." },
+        { name: "Postprandial Soleus Muscle Contraction (SPU)", type: "Physiological Therapy", protocol: "Performing seated soleus pushups for 15-20 minutes activates muscle oxidative metabolism, clearing blood glucose without depleting glycogen." },
+        { name: "Cold Exposure & Brown Adipose Activation", type: "Thermal Therapy", protocol: "Mild cold exposure (16-18°C) stimulates brown adipose tissue (BAT) thermogenesis, improving glucose disposal by up to 25%." }
+      ]
     },
     {
       id: "hypertension",
@@ -3172,7 +3177,12 @@ export const FIT_DATA = {
         { medicine: "Ramipril / Enalapril (ACE Inhibitors)", function: "Prevents conversion of Angiotensin I to Angiotensin II, lowering systemic vascular resistance." },
         { medicine: "Hydrochlorothiazide (Thiazide Diuretic)", function: "Promotes renal sodium and water excretion to lower overall vascular fluid volume." }
       ],
-      lifestyleCure: "DASH Diet (<1,500mg sodium/day), daily isometric handgrip holds (lowers resting BP by 5-8 mmHg), and 15 mins diaphragmatic box breathing."
+      lifestyleCure: "DASH Diet (<1,500mg sodium/day), daily isometric handgrip holds (lowers resting BP by 5-8 mmHg), and 15 mins diaphragmatic box breathing.",
+      therapies: [
+        { name: "Isometric Handgrip Training (IHT)", type: "Cardiovascular Rehab", protocol: "Squeeze a dynamometer at 30% maximum voluntary contraction for 2 mins x 4 sets, 3x weekly; shown to lower systolic BP by 8-10 mmHg." },
+        { name: "Slow Resonance Frequency Breathing (0.1 Hz)", type: "Vagal Autonomic Therapy", protocol: "Breathe at 6 breaths per minute for 15 minutes twice daily; stimulates aortic baroreceptors and suppresses sympathetic drive." },
+        { name: "Far-Infrared Sauna / Thermal Vasodilation", type: "Endothelial Thermal Therapy", protocol: "15 minutes in dry mild heat triggers acute peripheral vasodilation and improves arterial elasticity (Waon therapy model)." }
+      ]
     },
     {
       id: "cholesterol",
@@ -3199,7 +3209,12 @@ export const FIT_DATA = {
         { medicine: "Atorvastatin / Rosuvastatin (Statins)", function: "Inhibits HMG-CoA reductase (rate-limiting enzyme in hepatic cholesterol synthesis), reducing LDL by 30-55%." },
         { medicine: "Ezetimibe", function: "Selectively blocks the NPC1L1 transporter in the brush border of the small intestine, stopping cholesterol absorption." }
       ],
-      lifestyleCure: "Zone 2 aerobic cardio (45 mins, 4x weekly) to stimulate lipoprotein lipase + 35g daily soluble fiber."
+      lifestyleCure: "Zone 2 aerobic cardio (45 mins, 4x weekly) to stimulate lipoprotein lipase + 35g daily soluble fiber.",
+      therapies: [
+        { name: "Zone 2 Aerobic Lipoprotein Therapy", type: "Metabolic Endurance Therapy", protocol: "Maintain continuous cardiovascular effort at 65-75% maximum heart rate (lactate <2 mmol/L) for 45 mins to maximize fatty acid oxidation." },
+        { name: "Plant Sterol / Stanol Emulsion Therapy", type: "Nutraceutical Protocol", protocol: "2 grams of plant stanols taken with meals competitively blocks intestinal cholesterol transporter NPC1L1." },
+        { name: "High-Dose Pure EPA Omega-3 Therapy", type: "Lipid Stabilization Protocol", protocol: "Clinical 4g/day icosapent ethyl stabilizes endothelial plaque membranes and lowers serum triglycerides by 25-30%." }
+      ]
     },
     {
       id: "thyroid",
@@ -3225,7 +3240,12 @@ export const FIT_DATA = {
       clinicalMedicinesOverview: [
         { medicine: "Levothyroxine Sodium (Thyronorm, Eltroxin)", function: "Synthetic T4 hormone; must be taken strictly on an empty stomach with plain water at least 45 minutes before breakfast for optimal intestinal absorption." }
       ],
-      lifestyleCure: "Correct Vitamin D3 and Ferritin levels (both needed for thyroid hormone reception at the cellular nuclear level)."
+      lifestyleCure: "Correct Vitamin D3 and Ferritin levels (both needed for thyroid hormone reception at the cellular nuclear level).",
+      therapies: [
+        { name: "Photobiomodulation / Near-Infrared Neck Therapy", type: "Low-Level Light Therapy", protocol: "830nm near-infrared light applied over the thyroid bed for 10 mins reduces thyroid peroxidase antibodies (TPOAb) and enhances ATP synthesis." },
+        { name: "Circadian Cortisol Reset Protocol", type: "Neuro-Endocrine Therapy", protocol: "View morning sunlight within 30 minutes of waking and maintain complete dark room sleeping to normalize the hypothalamic-pituitary-thyroid axis." },
+        { name: "Gut Microbiome & Deiodinase Restoration", type: "Enteric Endocrinology", protocol: "20% of inactive T4 is converted to active T3 in the gut by intestinal sulfatase; taking multi-strain spore probiotics supports this conversion." }
+      ]
     },
     {
       id: "fatty-liver",
@@ -3253,7 +3273,12 @@ export const FIT_DATA = {
         { medicine: "Saroglitazar (Dual PPAR Alpha/Gamma Agonist)", function: "Approved in India for treating NAFLD/NASH; effectively reduces liver fat content, triglycerides, and ALT." },
         { medicine: "Ursodeoxycholic Acid (UDCA)", function: "Hydrophilic bile acid that protects hepatocyte membranes against toxic hydrophobic bile acids." }
       ],
-      lifestyleCure: "Gradual weight reduction of 7% to 10% of total body weight completely reverses early-stage liver fat!"
+      lifestyleCure: "Gradual weight reduction of 7% to 10% of total body weight completely reverses early-stage liver fat!",
+      therapies: [
+        { name: "Time-Restricted Eating & Hepatic Autophagy (16:8)", type: "Metabolic Chronotherapy", protocol: "A 16-hour fasting window depletes liver glycogen, triggering hepatic lipophagy to break down stored intrahepatic fat droplets." },
+        { name: "High-Intensity Interval Training (HIIT)", type: "Exercise Metabolic Therapy", protocol: "3 weekly sessions of 20-minute interval sprints mobilizes peripheral free fatty acids and cuts liver fat by up to 30% even without weight loss." },
+        { name: "Choline & Phosphatidylcholine Protocol", type: "Lipotropic Micronutrient Therapy", protocol: "Adequate dietary choline is required to synthesize VLDL particles that transport triglycerides out of hepatocytes into systemic circulation." }
+      ]
     },
     {
       id: "anemia",
@@ -3280,7 +3305,111 @@ export const FIT_DATA = {
         { medicine: "Ferrous Ascorbate / Ferrous Fumarate + Folic Acid", function: "Standard clinical oral iron therapy; restores depleted ferritin reserves and normalizes hemoglobin within 8-12 weeks." },
         { medicine: "Intravenous Iron Sucrose / Ferric Carboxymaltose", function: "Administered in clinical settings when oral iron is poorly tolerated or in severe third-trimester pregnancy anemia." }
       ],
-      lifestyleCure: "Cook food in traditional cast-iron utensils (increases iron content of curries by up to 16%) + separate tea/coffee by at least 1 hour from meals."
+      lifestyleCure: "Cook food in traditional cast-iron utensils (increases iron content of curries by up to 16%) + separate tea/coffee by at least 1 hour from meals.",
+      therapies: [
+        { name: "Oral Iron Therapy & Vitamin C Pairing", type: "Micronutrient Therapy", protocol: "Take elemental iron with 200mg ascorbic acid or freshly squeezed citrus juice on an empty stomach to triple bioavailability." },
+        { name: "Cast-Iron Cooking Therapy", type: "Bio-Availability Therapy", protocol: "Simmering acidic tomato or tamarind-based dishes in pure cast iron naturally fortifies the meal with absorbable elemental iron." },
+        { name: "Nutritional Megaloblastic Protocol", type: "Hematological Support", protocol: "Co-administer Methylcobalamin (B12) and active Methylfolate to treat dual-deficiency anemia that limits red blood cell synthesis." }
+      ]
+    },
+    {
+      id: "pcos-pcod",
+      name: "PCOS / PCOD (Polycystic Ovarian Syndrome)",
+      category: "Endocrine & Reproductive",
+      icon: "🌸",
+      overview: "Hormonal disorder driven by hyperinsulinemia and excess ovarian androgen production, resulting in irregular anovulatory cycles, cystic ovaries, hirsutism, cystic acne, and central weight gain.",
+      genderAspects: {
+        males: "Not biologically applicable directly; however, male first-degree relatives frequently carry insulin resistance and early-onset metabolic syndrome.",
+        females: "Affects 1 in 5 Indian women of reproductive age. Causes irregular periods, high luteinizing hormone (LH), difficulty conceiving, and heightened risk for gestational diabetes."
+      },
+      healingFoodsAdvantages: [
+        { name: "Spearmint Tea (Mentha Spicata)", mechanism: "Clinical trials prove 2 cups daily significantly reduces free testosterone levels and subjective hirsutism in women with PCOS." },
+        { name: "Inositol-Rich Foods (Cantaloupe, Beans, Citrus)", mechanism: "Myo-inositol improves insulin receptor sensitivity in ovarian follicles, restoring spontaneous ovulation." },
+        { name: "Flaxseeds & Sesame Seeds (Seed Cycling)", mechanism: "Lignans bind excess circulating estrogen and DHT, promoting hormone clearance via the liver." },
+        { name: "Cinnamon & Apple Cider Vinegar", mechanism: "Regulates postprandial glycemic excursions and enhances ovarian insulin signaling." }
+      ],
+      harmfulFoodsDisadvantages: [
+        { name: "Commercial Dairy Products with Added Hormones", reason: "Contains bovine IGF-1 (Insulin-like Growth Factor 1) which directly stimulates ovarian androgen synthesis." },
+        { name: "High Glycemic Refined Sugars & Sodas", reason: "Induces sharp insulin surges that signal the theca cells in ovaries to overproduce testosterone." },
+        { name: "Hydrogenated Vegetable Oils", reason: "Elevates systemic low-grade inflammation, aggravating ovulatory dysfunction." }
+      ],
+      clinicalMedicinesOverview: [
+        { medicine: "Myo-Inositol & D-Chiro Inositol (40:1 Ratio)", function: "Second-messenger mimetic that restores ovarian insulin sensitivity and significantly enhances egg quality." },
+        { medicine: "Metformin (500mg - 1000mg)", function: "Lowers insulin resistance, normalizes testosterone levels, and aids regular menstrual resumption." },
+        { medicine: "Combined Oral Contraceptive Pills (COCPs)", function: "Suppresses LH secretion and raises sex hormone-binding globulin (SHBG) to clear free androgens." }
+      ],
+      lifestyleCure: "Zone 2 aerobic exercise (150 mins/week) + high-intensity resistance training to deplete muscle glycogen and reverse hyperinsulinemia.",
+      therapies: [
+        { name: "Seed Cycling Hormone Therapy", type: "Nutritional Therapy", protocol: "Days 1-14: 1 tbsp ground flaxseeds + pumpkin seeds (supports estrogen balance). Days 15-28: 1 tbsp sesame seeds + sunflower seeds (supports progesterone synthesis)." },
+        { name: "Acupuncture & Pelvic Blood Flow Therapy", type: "Bio-Physical Therapy", protocol: "Targeted electro-acupuncture regulates sympathetic outflow to ovaries, lowering circulating testosterone and promoting follicle rupture." },
+        { name: "Spearmint Anti-Androgen Phytotherapy", type: "Herbal Protocol", protocol: "Steep 1 tbsp organic spearmint leaves in hot water twice daily for 30 consecutive days to downregulate 5-alpha reductase enzyme." }
+      ]
+    },
+    {
+      id: "arthritis",
+      name: "Arthritis & Joint Inflammation (Osteo & Rheumatoid)",
+      category: "Musculoskeletal",
+      icon: "🦴",
+      overview: "Degradation of joint articular cartilage (Osteoarthritis) or autoimmune synovial inflammation (Rheumatoid Arthritis) causing chronic stiffness, joint effusions, and crippling bone-on-bone pain.",
+      genderAspects: {
+        males: "More common under age 45 due to sports trauma and occupational mechanical loading.",
+        females: "Prevalence doubles in women after menopause due to loss of protective estrogen, which normally preserves chondrocyte viability."
+      },
+      healingFoodsAdvantages: [
+        { name: "Fatty Cold-Water Fish / Algal Omega-3", mechanism: "High EPA/DHA suppresses leukotriene B4 and prostaglandin E2, terminating cartilage enzymatic destruction." },
+        { name: "Turmeric (Curcumin) with Piperine", mechanism: "Suppresses COX-2 and NF-kB inflammatory cascades as effectively as 400mg Ibuprofen without stomach ulceration." },
+        { name: "Bone Broth / Hydrolyzed Collagen Peptides", mechanism: "Provides direct Type II collagen, proline, and glycine to feed chondrocyte repair." },
+        { name: "Ginger & Tart Cherries", mechanism: "Anthocyanins neutralize reactive oxygen species and inhibit interleukin-1 beta in synovial fluid." }
+      ],
+      harmfulFoodsDisadvantages: [
+        { name: "Excess Added Sugars & High-Fructose Corn Syrup", reason: "Triggers release of pro-inflammatory cytokines (TNF-alpha) that worsen joint swelling." },
+        { name: "Ultra-Processed Fried Foods (Omega-6 Overload)", reason: "Excess linoleic acid without Omega-3 balance fuels systemic arachidonic acid inflammatory cascades." },
+        { name: "High-Purine Organ Meats & Beer", reason: "Elevates serum uric acid levels, precipitating acute excruciating gouty arthritis attacks." }
+      ],
+      clinicalMedicinesOverview: [
+        { medicine: "DMARDs (Methotrexate, Sulfasalazine)", function: "Suppresses autoimmune synovial proliferation in Rheumatoid Arthritis to prevent permanent joint deformation." },
+        { medicine: "Selective COX-2 Inhibitors (Celecoxib, Etoricoxib)", function: "Reduces acute pain and joint swelling while sparing stomach protective prostaglandin synthesis." },
+        { medicine: "Intra-Articular Hyaluronic Acid Injections", function: "Restores viscoelastic lubrication inside the knee synovial capsule, acting as a shock absorber." }
+      ],
+      lifestyleCure: "Low-impact non-weight-bearing swimming, water aerobics, and isometric quadriceps strengthening to stabilize joint mechanics.",
+      therapies: [
+        { name: "Hydrotherapy / Aquatic Joint Therapy", type: "Physical Therapy", protocol: "Buoyancy in warm (34°C) water relieves 90% of gravitational knee loading, enabling pain-free range-of-motion restoration." },
+        { name: "Cold Compression Cryotherapy & Contrast Baths", type: "Cryo-Therapy", protocol: "15-minute iced gel compression post-walk reduces synovial inflammatory edema; alternate with warm compress for morning stiffness." },
+        { name: "Isometric Joint Stabilization Protocol", type: "Kinesiology Rehabilitation", protocol: "Straight-leg raises and wall sits activate stabilizing muscles around the patella without grinding arthritic cartilage." }
+      ]
+    },
+    {
+      id: "gerd-acid-reflux",
+      name: "GERD, Acid Reflux & Peptic Ulcer Disease",
+      category: "Gastrointestinal",
+      icon: "🔥",
+      overview: "Transient relaxations of the lower esophageal sphincter (LES) permit stomach hydrochloric acid and pepsin to backflow into the esophagus, causing heartburn, regurgitation, and Barrett's metaplasia.",
+      genderAspects: {
+        males: "Higher risk of developing severe erosive esophagitis, Barrett's esophagus, and esophageal adenocarcinoma.",
+        females: "Frequently exacerbated during pregnancy due to elevated progesterone relaxing the lower esophageal sphincter and uterine fundal compression."
+      },
+      healingFoodsAdvantages: [
+        { name: "Fresh Aloe Vera Gel & Juice", mechanism: "Contains acemannan polysaccharides that coat and soothe inflamed esophageal mucosal linings." },
+        { name: "Oatmeal & Bananas (Low-Acid Alkaline Foods)", mechanism: "Absorbs stomach acid and contains pectin that forms a protective gel barrier." },
+        { name: "Deglycyrrhizinated Licorice (DGL)", mechanism: "Stimulates mucous secretion, reinforcing the gastric mucosal barrier against pepsin erosion." },
+        { name: "Cold Milk / Almond Milk", mechanism: "Provides temporary buffering of hydrochloric acid, relieving burning sensation in the chest." }
+      ],
+      harmfulFoodsDisadvantages: [
+        { name: "Deep-Fried Oily Foods & Heavy Cream", reason: "Fat delays gastric emptying (gastroparesis), dramatically increasing upward gastric intra-luminal pressure." },
+        { name: "Citrus Fruits, Tomatoes & Raw Onions", reason: "High citric/malic acid directly irritates the denuded esophageal squamous epithelium." },
+        { name: "Peppermint, Spearmint & Chocolate", reason: "Chemicals like theobromine and menthol directly relax the lower esophageal sphincter muscle tone." }
+      ],
+      clinicalMedicinesOverview: [
+        { medicine: "Proton Pump Inhibitors (Pantoprazole, Rabeprazole, Esomeprazole)", function: "Irreversibly blocks the H+/K+ ATPase pump in gastric parietal cells, halting acid secretion." },
+        { medicine: "H2 Receptor Blockers (Famotidine)", function: "Competitively inhibits histamine H2 receptors on parietal cells, suppressing nocturnal acid surges." },
+        { medicine: "Sodium Alginate Suspension (Gaviscon)", function: "Reacts with gastric acid to form a physical floating raft that blocks reflux into the esophagus." }
+      ],
+      lifestyleCure: "Elevate head of bed by 6 inches (gravity reflux block) and finish dinner at least 3 full hours before lying down.",
+      therapies: [
+        { name: "Postural & Gravitational Anti-Reflux Therapy", type: "Mechanical Therapy", protocol: "Sleep strictly on the left lateral decubitus side with 6-inch mattress wedge elevation (keeps gastric junction above acid pool)." },
+        { name: "Diaphragmatic Breathing Rehabilitation", type: "Respiratory Therapy", protocol: "Strengthens the crural diaphragm that surrounds and reinforces the lower esophageal sphincter, reducing transient relaxations." },
+        { name: "Deglycyrrhizinated Licorice (DGL) Mucosal Shield", type: "Phytomedicine Protocol", protocol: "Chew two 400mg DGL tablets 20 minutes before lunch and dinner to coat and insulate esophageal mucosa." }
+      ]
     }
   ],
 

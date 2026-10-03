@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useApp } from '../context/AppContext';
 import { Search, Filter, Dumbbell, Heart, ArrowRight, RotateCcw } from 'lucide-react';
 import { exercises, bodyParts } from '../data/fitData';
+import { getExercisePhoto } from '../data/exercisePhotos';
 
 export default function ExercisesTab() {
   const { openModal, toggleFavorite, isFavorite } = useApp();
@@ -160,7 +161,7 @@ export default function ExercisesTab() {
               <div>
                 <div class="relative h-48 w-full bg-slate-950 overflow-hidden">
                   <img
-                    src={ex.photoUrl || "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&auto=format&fit=crop&q=80"}
+                    src={getExercisePhoto(ex.id, ex.bodyPart)}
                     alt={ex.name}
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
