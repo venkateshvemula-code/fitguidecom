@@ -278,7 +278,15 @@ export default function WomenHealthTab() {
                 <div key={ex.id} class="fit-card rounded-2xl overflow-hidden border border-teal-500/30 flex flex-col justify-between">
                   <div>
                     <div class="relative h-48 w-full bg-slate-950 overflow-hidden">
-                      <img src={getExercisePhoto(ex.id, 'women') || ex.photoUrl} alt={ex.name} class="w-full h-full object-cover" />
+                      <img
+                        src={getExercisePhoto(ex.id, 'women') || ex.photoUrl}
+                        alt={ex.name}
+                        class="w-full h-full object-cover"
+                        loading="lazy"
+                        onError={(e) => {
+                          e.currentTarget.src = "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80";
+                        }}
+                      />
                       <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
                       <span class="absolute top-3 left-3 text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-teal-500 text-slate-950 font-sans shadow">
                         {ex.trimesterSafe}

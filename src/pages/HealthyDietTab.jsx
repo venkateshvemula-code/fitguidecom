@@ -190,6 +190,10 @@ export default function HealthyDietTab() {
                   src={genderPhotos[activeGender]}
                   alt={currentPlan.title}
                   class="w-full h-full object-cover"
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.src = "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=700&auto=format&fit=crop&q=80";
+                  }}
                 />
               </div>
               <div>

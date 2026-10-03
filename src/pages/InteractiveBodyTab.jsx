@@ -15,11 +15,14 @@ export default function InteractiveBodyTab() {
   const musclesList = [
     { id: 'chest', name: 'Chest (Pectorals)', view: 'anterior' },
     { id: 'shoulders', name: 'Shoulders (Deltoids)', view: 'anterior' },
-    { id: 'arms', name: 'Arms (Biceps & Triceps)', view: 'anterior' },
-    { id: 'core', name: 'Core & Abdominals', view: 'anterior' },
-    { id: 'legs', name: 'Quadriceps (Front Thighs)', view: 'anterior' },
+    { id: 'biceps', name: 'Biceps (Arm Flexors)', view: 'anterior' },
+    { id: 'abs', name: 'Core & Abdominals', view: 'anterior' },
+    { id: 'quadriceps', name: 'Quadriceps (Front Thighs)', view: 'anterior' },
     { id: 'back', name: 'Back (Lats & Traps)', view: 'posterior' },
+    { id: 'triceps', name: 'Triceps (Arm Extensors)', view: 'posterior' },
     { id: 'glutes', name: 'Glutes (Hips & Buttocks)', view: 'posterior' },
+    { id: 'hamstrings', name: 'Hamstrings (Posterior Thighs)', view: 'posterior' },
+    { id: 'calves', name: 'Calves (Lower Leg)', view: 'posterior' },
     { id: 'height', name: 'Spine & Vertebral Column', view: 'posterior' }
   ];
 
@@ -156,6 +159,10 @@ export default function InteractiveBodyTab() {
                       src={getExercisePhoto(ex.id, ex.bodyPart)}
                       alt={ex.name}
                       class="w-full h-full object-cover"
+                      loading="lazy"
+                      onError={(e) => {
+                        e.currentTarget.src = "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80";
+                      }}
                     />
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
                     <span class="absolute top-2 left-2 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-emerald-500 text-slate-950">

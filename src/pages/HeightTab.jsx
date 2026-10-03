@@ -111,6 +111,9 @@ export default function HeightTab() {
                     alt={ex.name}
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.src = "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&auto=format&fit=crop&q=80";
+                    }}
                   />
                   <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
                   <span class="absolute top-3 left-3 text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-teal-500 text-slate-950">

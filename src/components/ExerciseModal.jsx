@@ -59,6 +59,9 @@ export default function ExerciseModal() {
             src={getExercisePhoto(ex.id, ex.bodyPart)} 
             alt={ex.name} 
             class="w-full h-full object-cover"
+            onError={(e) => {
+              e.currentTarget.src = "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80";
+            }}
           />
           <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
           

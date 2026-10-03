@@ -7,14 +7,23 @@ export default function DiseasesTab() {
   const [activeDiseaseId, setActiveDiseaseId] = useState('diabetes');
 
   const lifestylePhotos = {
+    // Diabetes: Brisk aerobic walking / glucose uptake
     "diabetes": "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=700&auto=format&fit=crop&q=80",
+    // Hypertension: Calm breathing & cardiovascular yoga
     "hypertension": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=700&auto=format&fit=crop&q=80",
-    "cholesterol": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=700&auto=format&fit=crop&q=80",
-    "thyroid": "https://images.unsplash.com/photo-1583454155184-870a1f63aebc?w=700&auto=format&fit=crop&q=80",
-    "fatty-liver": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=700&auto=format&fit=crop&q=80",
-    "anemia": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=700&auto=format&fit=crop&q=80",
+    // Cholesterol: High-tempo cardiovascular running
+    "cholesterol": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=700&auto=format&fit=crop&q=80",
+    // Thyroid: Metabolic balance & functional stretching
+    "thyroid": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=700&auto=format&fit=crop&q=80",
+    // Fatty Liver: Metabolic conditioning & core activation
+    "fatty-liver": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=700&auto=format&fit=crop&q=80",
+    // Anemia: Iron-rich fresh produce & bio-nutrition
+    "anemia": "https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=700&auto=format&fit=crop&q=80",
+    // PCOS/PCOD: Endocrine wellness & gentle pilates
     "pcos-pcod": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=700&auto=format&fit=crop&q=80",
-    "arthritis": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=700&auto=format&fit=crop&q=80",
+    // Arthritis: Non-weight-bearing aquatic swimming & low impact joint mobility
+    "arthritis": "https://images.unsplash.com/photo-1530549387789-4c1017266635?w=700&auto=format&fit=crop&q=80",
+    // GERD / Acid Reflux: Alkaline anti-inflammatory nutrition
     "gerd-acid-reflux": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=700&auto=format&fit=crop&q=80"
   };
 
@@ -185,6 +194,9 @@ export default function DiseasesTab() {
               alt={`${activeDisease.name} Lifestyle Therapy`}
               class="w-full h-full object-cover"
               loading="lazy"
+              onError={(e) => {
+                e.currentTarget.src = "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=700&auto=format&fit=crop&q=80";
+              }}
             />
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
             <span class="absolute bottom-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500 text-slate-950 shadow">
