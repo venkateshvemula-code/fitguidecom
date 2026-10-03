@@ -142,13 +142,30 @@ h1, h2, h3, h4, .font-heading {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+[data-theme="light"] .text-gradient-emerald {
+  background: linear-gradient(135deg, #059669, #10b981);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .text-gradient-orange {
   background: linear-gradient(135deg, #fb923c, #f97316);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+[data-theme="light"] .text-gradient-orange {
+  background: linear-gradient(135deg, #ea580c, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .text-gradient-pink {
   background: linear-gradient(135deg, #f472b6, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+[data-theme="light"] .text-gradient-pink {
+  background: linear-gradient(135deg, #db2777, #f43f5e);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -171,14 +188,19 @@ h1, h2, h3, h4, .font-heading {
 
 /* =========================================================================
    LIGHT THEME REFINEMENTS & READABILITY ENGINE
-   Automatically transforms dark utility classes into clean, high-contrast light mode styling
+   Lively, high-contrast, modern clean aesthetics for light mode
    ========================================================================= */
 [data-theme="light"] {
   color-scheme: light;
+  --bg-main: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f1f5f9;
+  --border-subtle: #e2e8f0;
 }
 
 [data-theme="light"] body {
-  background-color: #f1f5f9;
+  background-color: #f8fafc;
   color: #0f172a;
 }
 
@@ -186,19 +208,19 @@ h1, h2, h3, h4, .font-heading {
 [data-theme="light"] .fit-card {
   background-color: #ffffff !important;
   border-color: #e2e8f0 !important;
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04) !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03) !important;
 }
 
 [data-theme="light"] .fit-card:hover {
   border-color: #10b981 !important;
-  box-shadow: 0 20px 30px -10px rgba(16, 185, 129, 0.18), 0 0 15px rgba(16, 185, 129, 0.1) !important;
+  box-shadow: 0 20px 35px -10px rgba(16, 185, 129, 0.2), 0 0 15px rgba(16, 185, 129, 0.08) !important;
 }
 
-/* Light glass cards */
+/* Light glass cards with modern subtle backdrop and border */
 [data-theme="light"] .glass-card-3d {
-  background: rgba(255, 255, 255, 0.9) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
   border-color: #e2e8f0 !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0,0,0,0.04) !important;
 }
 
 /* Dark background overrides in light mode */
@@ -222,22 +244,85 @@ h1, h2, h3, h4, .font-heading {
 [data-theme="light"] .bg-slate-800\/80 {
   background-color: #f1f5f9 !important;
   border-color: #cbd5e1 !important;
+  color: #1e293b !important;
 }
 
-/* Hero section light gradient */
+/* Hero section light gradient with subtle lively fitness mesh */
 [data-theme="light"] section.bg-gradient-to-b {
-  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 60%, #f1f5f9 100%) !important;
+  background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.08) 0%, rgba(248, 250, 252, 1) 70%) !important;
   border-color: #e2e8f0 !important;
 }
 
+/* Pillar gradient cards in light theme: fresh, energetic pastel tints */
+[data-theme="light"] .from-pink-950\/50 {
+  background: linear-gradient(135deg, #fdf2f8 0%, #ffffff 100%) !important;
+  border-color: #fbcfe8 !important;
+}
+[data-theme="light"] .from-pink-950\/50:hover {
+  border-color: #ec4899 !important;
+  box-shadow: 0 16px 32px -8px rgba(236, 72, 153, 0.25) !important;
+}
+
+[data-theme="light"] .from-amber-950\/50 {
+  background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%) !important;
+  border-color: #fde68a !important;
+}
+[data-theme="light"] .from-amber-950\/50:hover {
+  border-color: #f59e0b !important;
+  box-shadow: 0 16px 32px -8px rgba(245, 158, 11, 0.25) !important;
+}
+
+[data-theme="light"] .from-emerald-950\/50 {
+  background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%) !important;
+  border-color: #a7f3d0 !important;
+}
+[data-theme="light"] .from-emerald-950\/50:hover {
+  border-color: #10b981 !important;
+  box-shadow: 0 16px 32px -8px rgba(16, 185, 129, 0.25) !important;
+}
+
+/* Diseases Tab main card gradient in light theme */
+[data-theme="light"] .from-slate-900.to-slate-950 {
+  background: linear-gradient(135deg, #ffffff 0%, #fafaf9 100%) !important;
+  border-color: #fde68a !important;
+}
+
+/* Healthy Diet Tab exercise cure banner */
+[data-theme="light"] .from-emerald-950\/40 {
+  background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%) !important;
+  border-color: #6ee7b7 !important;
+}
+
 /* Typography contrast adjustments in light mode */
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4,
+[data-theme="light"] h5 {
+  color: #0f172a !important;
+}
+
 [data-theme="light"] h1.text-white,
 [data-theme="light"] h2.text-white,
 [data-theme="light"] h3.text-white,
 [data-theme="light"] h4.text-white,
 [data-theme="light"] h5.text-white,
-[data-theme="light"] .text-white:not(.bg-emerald-500 .text-white):not(.bg-teal-600 .text-white):not(.bg-pink-600 .text-white):not(.bg-rose-500 .text-white) {
+[data-theme="light"] strong.text-white,
+[data-theme="light"] span.text-white:not(.bg-emerald-500 span):not(.bg-teal-600 span):not(.bg-pink-600 span):not(.bg-rose-500 span):not(.bg-rose-600 span):not(.bg-emerald-600 span):not(.bg-blue-600 span) {
   color: #0f172a !important;
+}
+
+[data-theme="light"] .text-slate-200,
+[data-theme="light"] .text-slate-300 {
+  color: #334155 !important;
+}
+
+[data-theme="light"] .text-slate-400 {
+  color: #475569 !important;
+}
+
+[data-theme="light"] .text-slate-500 {
+  color: #64748b !important;
 }
 
 /* Keep badge and button text readable on colored pill backgrounds */
@@ -250,21 +335,9 @@ h1, h2, h3, h4, .font-heading {
 [data-theme="light"] .bg-teal-600,
 [data-theme="light"] .bg-pink-600,
 [data-theme="light"] .bg-rose-600,
-[data-theme="light"] .bg-emerald-600 {
+[data-theme="light"] .bg-emerald-600,
+[data-theme="light"] .bg-blue-600 {
   color: #ffffff !important;
-}
-
-[data-theme="light"] .text-slate-200,
-[data-theme="light"] .text-slate-300 {
-  color: #334155 !important;
-}
-
-[data-theme="light"] .text-slate-400 {
-  color: #64748b !important;
-}
-
-[data-theme="light"] .text-slate-500 {
-  color: #94a3b8 !important;
 }
 
 /* Light mode borders */
@@ -291,39 +364,51 @@ h1, h2, h3, h4, .font-heading {
 
 /* Light mode modals & dialogs */
 [data-theme="light"] .bg-slate-950\/80 {
-  background-color: rgba(15, 23, 42, 0.4) !important;
+  background-color: rgba(15, 23, 42, 0.5) !important;
 }
 
-/* Subtle glowing accent containers */
+/* Vibrant colored accent callouts in light mode */
 [data-theme="light"] .bg-emerald-950\/20,
 [data-theme="light"] .bg-emerald-950\/30 {
   background-color: #ecfdf5 !important;
-  border-color: #a7f3d0 !important;
+  border-color: #6ee7b7 !important;
 }
 
 [data-theme="light"] .bg-teal-950\/20,
 [data-theme="light"] .bg-teal-950\/30 {
   background-color: #f0fdfa !important;
-  border-color: #99f6e4 !important;
+  border-color: #5eead4 !important;
 }
 
 [data-theme="light"] .bg-rose-950\/20,
 [data-theme="light"] .bg-rose-950\/30 {
   background-color: #fff1f2 !important;
-  border-color: #fecdd3 !important;
+  border-color: #fca5a5 !important;
 }
 
 [data-theme="light"] .bg-purple-950\/20,
 [data-theme="light"] .bg-purple-950\/30 {
   background-color: #faf5ff !important;
-  border-color: #e9d5ff !important;
+  border-color: #d8b4fe !important;
+}
+
+[data-theme="light"] .bg-pink-950\/20,
+[data-theme="light"] .bg-pink-950\/30 {
+  background-color: #fdf2f8 !important;
+  border-color: #fbcfe8 !important;
+}
+
+[data-theme="light"] .bg-orange-950\/20,
+[data-theme="light"] .bg-orange-950\/30 {
+  background-color: #fff7ed !important;
+  border-color: #fed7aa !important;
 }
 
 /* Navbar dropdown & mobile menu */
 [data-theme="light"] .glass-nav {
-  background: rgba(255, 255, 255, 0.94) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
   border-bottom: 1px solid #e2e8f0 !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
 }
 
 [data-theme="light"] .glass-nav .text-slate-300 {
@@ -333,4 +418,40 @@ h1, h2, h3, h4, .font-heading {
 [data-theme="light"] .glass-nav .text-slate-300:hover,
 [data-theme="light"] .glass-nav .text-slate-200:hover {
   color: #0f172a !important;
+  background-color: #f1f5f9 !important;
+}
+
+/* Navbar dropdown popup */
+[data-theme="light"] .glass-nav .bg-slate-900 {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Footer in light mode */
+[data-theme="light"] footer {
+  background-color: #ffffff !important;
+  border-top-color: #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+[data-theme="light"] footer h4 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] footer p {
+  color: #64748b !important;
+}
+
+/* Quick pills strip in hero */
+[data-theme="light"] .hero-anim .bg-slate-900\/90 {
+  background-color: #ffffff !important;
+  color: #334155 !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04) !important;
+}
+[data-theme="light"] .hero-anim .bg-slate-900\/90:hover {
+  background-color: #ecfdf5 !important;
+  color: #059669 !important;
+  border-color: #10b981 !important;
 }
