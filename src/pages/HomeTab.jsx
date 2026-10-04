@@ -278,6 +278,31 @@ export default function HomeTab() {
             </div>
           </div>
 
+          {/* Pillar 4: Kids & Infant Development */}
+          <div 
+            onClick={() => setActiveTab('kids')}
+            class="fit-card p-6 rounded-2xl bg-gradient-to-br from-teal-950/50 via-slate-900 to-slate-900 border border-teal-500/40 hover:border-teal-500/80 transition-all flex flex-col justify-between cursor-pointer group md:col-span-3 lg:col-span-1"
+          >
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-teal-500/20 border border-teal-500/40 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                👶
+              </div>
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 mb-2 inline-block">
+                Pediatric Physical Care
+              </span>
+              <h3 class="text-lg font-bold text-white group-hover:text-teal-300 transition-colors mb-2">
+                Kids & Infant Body Care
+              </h3>
+              <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                <strong>Infant Abhyanga oil massage</strong> (leg milking, colic relief tummy strokes), toddler motor balance, growth-plate safe pre-teen calisthenics, and pediatric bone mineralization diet.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs font-bold text-teal-400">
+              <span>Explore Kids & Baby Care</span>
+              <span class="group-hover:translate-x-1 transition-transform">➔</span>
+            </div>
+          </div>
+
         </div>
       </section>
 

@@ -43,6 +43,7 @@ export default function Navbar() {
 
   const healthLinks = [
     { id: 'women', label: "Women's Health", icon: "🌸", desc: "Cycle phases, pregnancy & care" },
+    { id: 'kids', label: "Kids & Infant Care", icon: "👶", desc: "Baby massage & youth fitness" },
     { id: 'diseases', label: 'Disease Cures & Therapies', icon: "🩺", desc: "Targeted clinical protocols" },
     { id: 'height', label: 'Height & Spine Guide', icon: "📏", desc: "Spinal decompression & nutrition" },
     { id: 'diet', label: 'Balanced Daily Diets', icon: "🥗", desc: "Male & female 7-meal meal plans" }

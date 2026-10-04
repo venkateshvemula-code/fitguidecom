@@ -3518,6 +3518,180 @@ export const FIT_DATA = {
         ]
       }
     }
+  },
+
+  // Kids & Infant Body Development & Massage Therapy
+  kidsFitness: {
+    ageGroups: [
+      {
+        id: "infants",
+        label: "Infants (0-12 Months)",
+        subTitle: "Neuro-Muscular Bonding, Tummy Time & Oil Massage",
+        badge: "0 - 12 Months",
+        color: "amber"
+      },
+      {
+        id: "toddlers",
+        label: "Toddlers (1-4 Years)",
+        subTitle: "Motor Skills, Gait, Balance & Vestibular Play",
+        badge: "1 - 4 Years",
+        color: "teal"
+      },
+      {
+        id: "growingKids",
+        label: "Kids & Pre-Teens (5-12 Years)",
+        subTitle: "Strength, Posture, Bone Density & Safe Conditioning",
+        badge: "5 - 12 Years",
+        color: "emerald"
+      }
+    ],
+
+    // 1. Infant Body Massages & Physical Development (0-12m)
+    infantCare: {
+      overview: "Traditional scientific baby massage (Abhyanga) stimulates vagus nerve tone, speeds up motor milestone attainment (crawling, rolling), boosts bone mineralization, and relieves infantile colic.",
+      recommendedOils: [
+        { name: "Virgin Coconut Oil", season: "Summer / Humid", benefits: "Cooling, antimicrobial, rich in lauric acid, absorbs cleanly into delicate skin." },
+        { name: "Cold-Pressed Sesame (Til) Oil", season: "Winter / All Season", benefits: "High calcium trace minerals, warms joints, strengthens muscular tone." },
+        { name: "Pure Sweet Almond Oil", season: "Dry / Sensitive Skin", benefits: "Rich in Vitamin E, nourishes skin barrier, non-comedogenic." },
+        { name: "Pure Olive Oil (Food Grade)", season: "Winter", benefits: "Deeply moisturizing; avoid if baby has active eczema or dermatitis." }
+      ],
+      massageProtocols: [
+        {
+          id: "leg-massage",
+          title: "Leg & Thigh Milking (Indian Milking Technique)",
+          target: "Femur, Calves & Hip Sockets",
+          technique: "Gently hold the baby's thigh with both hands and stroke downwards from hips to ankles in a smooth wringing motion. Roll the feet between your palms and lightly press the sole reflexology points.",
+          benefits: "Stimulates femur bone density, relaxes kicking muscles, and prepares hips for crawling.",
+          precautions: "Never pull forcefully on the hip or knee joints. Keep pressure as gentle as a feather touch."
+        },
+        {
+          id: "chest-cross",
+          title: "Chest & Heart Expansion (Butterfly Strokes)",
+          target: "Pectorals & Rib Cage Expansion",
+          technique: "Place both hands flat on baby's sternum. Glide outward toward shoulders and down to sides like drawing open butterfly wings.",
+          benefits: "Expands thoracic cavity, promotes deep diaphragmatic breathing, and relieves congestion.",
+          precautions: "Do not press on the floating ribs or soft fontanelle."
+        },
+        {
+          id: "tummy-colic",
+          title: "I Love You (ILU) & Sun-Moon Tummy Stroke",
+          target: "Abdomen & Intestinal Peristalsis",
+          technique: "Follow the clockwise direction of the colon: stroke down the left side ('I'), across and down ('L'), and in an upside-down 'U' across the lower abdomen. Follow with gentle bicycle legs.",
+          benefits: "Releases trapped gas, soothes colic, and relieves neonatal constipation naturally.",
+          precautions: "Wait at least 45 minutes after feeding before massaging the tummy. Never massage over a fresh unhealed umbilical cord."
+        },
+        {
+          id: "back-stroke",
+          title: "Spinal Sweeps & Gentle Back Stroking",
+          target: "Erector Spinae & Vertebral Realignment",
+          technique: "With baby lying comfortably on tummy across your thighs or firm mattress, stroke from the base of neck down to buttocks using fingertips in gentle rhythmic waves.",
+          benefits: "Strengthens back extensor chain, promotes spinal alignment, and releases sleep-inducing oxytocin.",
+          precautions: "Never press directly on the spinal vertebrae; stroke the bilateral muscles alongside the spine."
+        }
+      ],
+      tummyTimeMilestones: [
+        { age: "0 - 2 Months", duration: "2-3 sessions of 3-5 minutes daily", focus: "Neck lifting, prone head rotation, visual tracking while on parent's chest." },
+        { age: "3 - 5 Months", duration: "15-20 minutes total daily", focus: "Pushing up on forearms, shoulder girdle stabilization, chest elevation." },
+        { age: "6 - 9 Months", duration: "30-45 minutes total daily", focus: "Pivoting in circles, reaching for toys with one hand, tripod sitting & rocking to crawl." }
+      ]
+    },
+
+    // 2. Toddler Movement & Motor Skill Building (1-4y)
+    toddlerDevelopment: {
+      overview: "Early childhood is the golden window for neuro-plastic sensory integration and fundamental movement skills (FMS). Focus on vestibular balance, spatial awareness, and grip development.",
+      activities: [
+        {
+          name: "Animal Crawls (Bear Crawl, Crab Walk, Frog Hops)",
+          category: "Full-Body Kinetic Conditioning",
+          instructions: "Encourage toddler to walk like a bear (hands and feet on floor), crawl like a crab (backwards on hands and feet), or hop like a frog.",
+          benefits: "Develops shoulder stability, wrist bone density, reciprocal cross-body coordination, and deep core bracing.",
+          safety: "Perform on carpeted floors or soft yoga mats free of sharp edges."
+        },
+        {
+          name: "Hanging & Monkey Bar Gripping",
+          category: "Axial Spine & Grip Strength",
+          instructions: "Support toddler under armpits while they grip a low horizontal bar or parent's fingers, allowing them to bear partial body weight for 5-10 seconds.",
+          benefits: "Decompresses the spine, strengthens forearm tendons, and triggers palmar reflex strength.",
+          safety: "Always maintain hands right beneath the child to prevent falls."
+        },
+        {
+          name: "Obstacle Course & Balance Beam Walks",
+          category: "Vestibular & Proprioception",
+          instructions: "Arrange cushions, tape lines on floor, and low steps for stepping over, balancing, and jumping off with soft knees.",
+          benefits: "Refines ankle proprioception, prevents flat-foot collapse, and builds spatial vestibular confidence.",
+          safety: "Keep heights under 1 foot and remove hard objects nearby."
+        }
+      ]
+    },
+
+    // 3. Growing Kids & Pre-Teens (5-12y) - Body Building, Posture & Bone Growth
+    growingKidsConditioning: {
+      overview: "Scientific evidence disproves the old myth that exercise stunts growth. Age-appropriate bodyweight conditioning stimulates the epiphyseal growth plates, increases bone mineral density by up to 25%, and prevents tech-neck posture.",
+      coreRoutines: [
+        {
+          name: "Bodyweight Air Squats & Frog Jumps",
+          target: "Quadriceps, Glutes & Epiphyseal Bone Remodeling",
+          instructions: "Feet shoulder-width apart, arms out for balance. Squat deep keeping chest high and knees tracking over toes. 2 sets of 10-12 reps.",
+          coachingCue: "Sit back into an imaginary chair with eyes looking forward.",
+          growthPlateImpact: "Safe, non-compressive axial loading that triggers osteoblast bone deposition."
+        },
+        {
+          name: "Incline Push-ups & Bear Planks",
+          target: "Pectorals, Anterior Deltoids & Core Stabilization",
+          instructions: "Place hands on an elevated bench or wall. Lower chest smoothly and press away. Progress to ground planks for 20-30 seconds.",
+          coachingCue: "Keep your body as stiff and straight as a timber plank.",
+          growthPlateImpact: "Develops shoulder capsule stability without heavy spinal compression."
+        },
+        {
+          name: "Overhead Bar Dead Hangs",
+          target: "Spinal Vertebrae & Latissimus Dorsi",
+          instructions: "Grip pull-up bar with overhand grip and hang relaxed for 15 to 30 seconds with calm nasal breathing. Repeat 3 times daily.",
+          coachingCue: "Relax your shoulders and breathe gently while your spine lengthens.",
+          growthPlateImpact: "Reverses desk slouching, releases intervertebral disc tension, and promotes upright posture."
+        },
+        {
+          name: "Sprint Shuttles & Jump Rope (Skipping)",
+          target: "Calves, Achilles Tendon Elasticity & Cardiovascular Endurance",
+          instructions: "Short 20-meter sprint shuttles with rapid deceleration, alongside 1-2 minutes of light rhythmic skipping rope.",
+          coachingCue: "Land lightly on the balls of your feet like a spring.",
+          growthPlateImpact: "High-impact ground reaction forces build maximal peak bone mass before puberty."
+        }
+      ],
+      safetyRules: [
+        "❌ NO heavy maximal barbell squats or deadlifts with 1RM loads before pubertal maturation.",
+        "✅ Prioritize movement quality, multi-directional agility, balance, and playful calisthenics.",
+        "✅ Always ensure 9-10 hours of quality slow-wave sleep when human growth hormone (HGH) peaks.",
+        "✅ Maintain a 1:1 supervision ratio with certified physical educators or parents."
+      ]
+    },
+
+    // 4. Pediatric Bone & Growth Nutrition Matrix
+    nutritionPillars: [
+      {
+        nutrient: "Calcium & Vitamin D3",
+        role: "Peak Bone Mass & Epiphyseal Mineralization",
+        sources: "Whole milk, Curd (Dahi), Paneer, Ragi porridge, Sesame laddu, 20 mins morning sunlight.",
+        dailyTarget: "Age 1-3: 700mg | Age 4-8: 1000mg | Age 9-12: 1300mg Calcium daily."
+      },
+      {
+        nutrient: "Bioavailable Protein",
+        role: "Tissue Elongation & Organ Growth",
+        sources: "Eggs, Soya chunks, Moong dal khichdi, Chicken breast, Fish, Peanut butter.",
+        dailyTarget: "1.0 - 1.2 g per kg of body weight daily."
+      },
+      {
+        nutrient: "DHA & Omega-3 Fatty Acids",
+        role: "Brain Myelination & Neuro-Cognitive Reflexes",
+        sources: "Walnuts, Chia seeds, Rohu / Salmon, Pasture eggs, Ghee in moderation.",
+        dailyTarget: "150 - 250 mg daily DHA."
+      },
+      {
+        nutrient: "Iron & Vitamin C",
+        role: "Cognitive Stamina & Preventing Pediatric Anemia",
+        sources: "Spinach, Jaggery (Gur), Pomegranate, Roasted chana, Amla, Lemon in dal.",
+        dailyTarget: "Age 4-8: 10mg | Age 9-12: 8-12mg daily."
+      }
+    ]
   }
 };
 
@@ -3542,6 +3716,7 @@ export const {
   womenHealth,
   diseases,
   healthyDiets,
+  kidsFitness,
   schemaInfo
 } = FIT_DATA;
 

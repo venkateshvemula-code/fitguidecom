@@ -53,6 +53,10 @@ export default function FitBotCoach() {
       return "🩺 Diabetes Dietary Cures:\n• Superfoods: Fenugreek (Methi) seeds, Bitter Gourd (Karela juice), and Jamun seeds.\n• Exercise Cure: 45 minutes of brisk walking after meals reduces insulin resistance by up to 35%!\n• Avoid: Refined maida, sweetened sodas, and white rice.";
     }
 
+    if (q.includes('baby') || q.includes('infant') || q.includes('massage') || q.includes('kid') || q.includes('child')) {
+      return "👶 Kids & Infant Development Guide:\n• Baby Massage (Abhyanga): Use cold-pressed Coconut oil (summer) or Sesame/Til oil (winter). Use gentle leg milking and 'I Love You' tummy strokes to relieve gas & colic.\n• Tummy Time: 3-5 mins (0-2m) up to 30 mins (6m+) builds neck & spinal muscles for crawling.\n• Kids Conditioning (5-12y): Focus on bodyweight squats, bear crawls, and bar hangs to stimulate growth plates without spinal compression.\n\nTap 'Kids & Infant Care' in the Health & Therapies menu for full visual guides!";
+    }
+
     if (q.includes('bp') || q.includes('hypertension') || q.includes('blood pressure')) {
       return "🩺 Blood Pressure Management:\n• Healing Foods: Garlic (allicin relaxes blood vessels), Flaxseeds, and Potassium-rich bananas.\n• Strict Rule: Limit dietary sodium to under 1,500 mg/day.\n• Lifestyle Cure: 30 minutes of daily aerobic cycling or swimming.";
     }

@@ -24,6 +24,7 @@ import FoodsTab from './pages/FoodsTab';
 import CalculatorTab from './pages/CalculatorTab';
 import DailyTrackerTab from './pages/DailyTrackerTab';
 import GymsTab from './pages/GymsTab';
+import KidsFitnessTab from './pages/KidsFitnessTab';
 
 export default function App() {
   const { activeTab } = useApp();
@@ -40,6 +41,8 @@ export default function App() {
         return <HeightTab />;
       case 'women':
         return <WomenHealthTab />;
+      case 'kids':
+        return <KidsFitnessTab />;
       case 'diseases':
         return <DiseasesTab />;
       case 'diet':

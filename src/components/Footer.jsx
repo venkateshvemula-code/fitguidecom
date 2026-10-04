@@ -37,6 +37,11 @@ export default function Footer() {
                 </button>
               </li>
               <li>
+                <button onClick={() => setActiveTab('kids')} class="hover:text-teal-400 font-semibold flex items-center gap-1.5 cursor-pointer">
+                  <span>👶</span> Kids & Infant Development
+                </button>
+              </li>
+              <li>
                 <button onClick={() => setActiveTab('diseases')} class="hover:text-amber-400 font-semibold flex items-center gap-1.5 cursor-pointer">
                   <span>🩺</span> Disease Cures & Treatments
                 </button>
