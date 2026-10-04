@@ -3527,11 +3527,17 @@ if (typeof window !== "undefined") {
 }
 
 
+export const macronutrients = FIT_DATA.macronutrients || [];
+export const micronutrients = FIT_DATA.micronutrients || [];
+export const nutrients = {
+  macronutrients: FIT_DATA.macronutrients || [],
+  micronutrients: FIT_DATA.micronutrients || []
+};
+
 export const {
   bodyParts,
   exercises,
   foods,
-  nutrients,
   gyms,
   womenHealth,
   diseases,
