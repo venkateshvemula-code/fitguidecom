@@ -10,7 +10,8 @@ import {
   X, 
   ChevronDown,
   Dumbbell,
-  Sparkles
+  Sparkles,
+  Smartphone
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -21,7 +22,8 @@ export default function Navbar() {
     toggleTheme, 
     favorites, 
     openModal, 
-    toggleFitBot 
+    toggleFitBot,
+    userAuth
   } = useApp();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -221,10 +223,10 @@ export default function Navbar() {
             {/* FitBot AI Button */}
             <button 
               onClick={toggleFitBot}
-              class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-purple-500/50 bg-gradient-to-r from-purple-500/25 to-indigo-500/25 text-purple-200 hover:text-white text-xs font-bold hover:scale-105 transition-all cursor-pointer shadow-md shadow-purple-500/10"
-              title="Chat with FitBot AI Coach"
+              class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-teal-500/50 bg-gradient-to-r from-teal-500/20 via-emerald-500/20 to-teal-500/20 text-teal-200 hover:text-white text-xs font-bold hover:scale-105 transition-all cursor-pointer shadow-md shadow-teal-500/10"
+              title="Chat with FitBot AI Health Coach"
             >
-              <span class="animate-pulse">🤖</span>
+              <span class="text-sm">✨</span>
               <span class="font-heading">FitBot AI</span>
             </button>
 
@@ -251,6 +253,22 @@ export default function Navbar() {
                   {favCount}
                 </span>
               )}
+            </button>
+
+            {/* SMS OTP Mobile Login Button */}
+            <button 
+              onClick={() => openModal('auth')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer shadow-sm ${
+                userAuth?.isVerified
+                  ? 'border-emerald-500/50 bg-emerald-500/15 text-emerald-300 hover:bg-emerald-500/25'
+                  : 'border-slate-700 bg-slate-800/90 text-slate-200 hover:border-emerald-500 hover:text-white'
+              }`}
+              title={userAuth?.isVerified ? `Logged in as ${userAuth.name}` : "Login via SMS OTP"}
+            >
+              <Smartphone size={14} className={userAuth?.isVerified ? "text-emerald-400" : "text-slate-400"} />
+              <span className="hidden sm:inline">
+                {userAuth?.isVerified ? (userAuth.name.split(' ')[0] || 'Member') : 'OTP Login'}
+              </span>
             </button>
 
             {/* Dark/Light Theme Toggle */}
@@ -280,10 +298,23 @@ export default function Navbar() {
           
           <button 
             onClick={() => { toggleFitBot(); setMobileMenuOpen(false); }}
-            class="w-full text-left flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-purple-500/20 to-indigo-500/20 border border-purple-500/40 text-purple-300 font-bold text-xs hover:bg-purple-500/25 cursor-pointer"
+            class="w-full text-left flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-teal-500/20 via-emerald-500/20 to-teal-500/20 border border-teal-500/40 text-teal-200 font-bold text-xs hover:bg-teal-500/25 cursor-pointer"
           >
-            <span class="flex items-center gap-2"><span>🤖</span> <span>FitBot AI 24/7 Health Coach</span></span>
-            <span class="px-2 py-0.5 rounded-full bg-purple-500/30 text-[10px] text-purple-200 font-bold">Active</span>
+            <span class="flex items-center gap-2"><span>✨</span> <span>FitBot AI 24/7 Health Coach</span></span>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/30 text-[10px] text-emerald-200 font-bold">Active</span>
+          </button>
+
+          <button 
+            onClick={() => { openModal('auth'); setMobileMenuOpen(false); }}
+            class="w-full text-left flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs hover:bg-emerald-500/25 cursor-pointer"
+          >
+            <span class="flex items-center gap-2">
+              <Smartphone size={15} className="text-emerald-400" />
+              <span>{userAuth?.isVerified ? `Logged in: ${userAuth.name}` : '📲 SMS OTP Mobile Login'}</span>
+            </span>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/30 text-[10px] text-emerald-200 font-bold">
+              {userAuth?.isVerified ? 'Verified' : 'Sign In'}
+            </span>
           </button>
 
           <button 

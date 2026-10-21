@@ -13,23 +13,35 @@ import {
   Droplets,
   Zap,
   TrendingUp,
-  ShieldCheck
+  ShieldCheck,
+  Compass,
+  Trophy,
+  Award
 } from 'lucide-react';
 import { exercises, foods } from '../data/fitData';
 import { getExercisePhoto } from '../data/exercisePhotos';
+import { getExerciseVideo } from '../data/exerciseVideos';
 import { getFoodPhoto } from '../data/foodPhotos';
+import TiltCard from '../components/TiltCard';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function HomeTab() {
   const { setActiveTab, openModal, toggleFavorite, isFavorite } = useApp();
 
+  const containerRef = useRef(null);
   const heroRef = useRef(null);
-  const headlineRef = useRef(null);
-  const cardsRef = useRef(null);
+  const parallaxBg1 = useRef(null);
+  const parallaxBg2 = useRef(null);
+  const parallaxBadge = useRef(null);
+  const tickerRef = useRef(null);
+  const pinnedStatsRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Smooth hero headline stagger entrance
+      // 1. Hero Entrance Animations
       gsap.from(".hero-anim", {
         y: 40,
         opacity: 0,
@@ -38,17 +50,97 @@ export default function HomeTab() {
         ease: "power3.out"
       });
 
-      // 3D cards smooth float-in
       gsap.from(".hero-card-3d", {
         scale: 0.9,
         y: 50,
         opacity: 0,
         duration: 1,
-        stagger: 0.2,
-        delay: 0.3,
+        stagger: 0.18,
+        delay: 0.35,
         ease: "back.out(1.4)"
       });
-    }, heroRef);
+
+      // 2. Parallax Scroll Background Glowing Orbs
+      if (parallaxBg1.current) {
+        gsap.to(parallaxBg1.current, {
+          y: 200,
+          x: -50,
+          scale: 1.25,
+          ease: "none",
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1.2
+          }
+        });
+      }
+
+      if (parallaxBg2.current) {
+        gsap.to(parallaxBg2.current, {
+          y: -150,
+          x: 60,
+          scale: 0.85,
+          ease: "none",
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1
+          }
+        });
+      }
+
+      // Parallax floating decorative badge
+      if (parallaxBadge.current) {
+        gsap.to(parallaxBadge.current, {
+          y: -120,
+          rotation: 12,
+          ease: "none",
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 0.8
+          }
+        });
+      }
+
+      // 3. Staggered Scroll Animations for Sections
+      gsap.utils.toArray('.scroll-reveal').forEach((elem) => {
+        gsap.from(elem, {
+          y: 45,
+          opacity: 0,
+          duration: 0.85,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: elem,
+            start: "top 88%",
+            toggleActions: "play none none none"
+          }
+        });
+      });
+
+      // 4. Staggered Card Reveals on Scroll
+      gsap.utils.toArray('.scroll-cards-grid').forEach((grid) => {
+        const cards = grid.querySelectorAll('.scroll-card-item');
+        if (cards.length > 0) {
+          gsap.from(cards, {
+            y: 50,
+            opacity: 0,
+            duration: 0.75,
+            stagger: 0.12,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: grid,
+              start: "top 85%",
+              toggleActions: "play none none none"
+            }
+          });
+        }
+      });
+
+    }, containerRef);
 
     return () => ctx.revert();
   }, []);
@@ -67,63 +159,91 @@ export default function HomeTab() {
     { label: "📏 Height & Spine", tab: "height", filter: "height" }
   ];
 
-  return (
-    <div ref={heroRef} class="space-y-16 pb-16 animate-in fade-in duration-200">
-      
-      {/* 3D Kinetic Hero Banner */}
-      <section class="relative overflow-hidden py-16 sm:py-24 border-b border-slate-800 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950">
-        
-        {/* Subtle 3D Ambient Glowing Spheres */}
-        <div class="absolute top-10 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
-        <div class="absolute bottom-10 right-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+  const liveStats = [
+    { label: "Scientifically Verified Exercises", val: "25+", icon: "🏋️", glow: "emerald" },
+    { label: "Nutrient-Dense Global & Indian Foods", val: "25+", icon: "🥑", glow: "teal" },
+    { label: "Evidence-Based Clinical Therapies", val: "30+", icon: "🩺", glow: "amber" },
+    { label: "Interactive Biomechanics 3D Map", val: "100%", icon: "🧬", glow: "purple" }
+  ];
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+  return (
+    <div ref={containerRef} className="space-y-16 pb-20 animate-in fade-in duration-200 overflow-hidden">
+      
+      {/* 3D Kinetic Hero Banner with Smooth Parallax Depth */}
+      <section ref={heroRef} className="relative overflow-hidden py-16 sm:py-28 border-b border-slate-800 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950">
+        
+        {/* Parallax Background Glowing Spheres */}
+        <div 
+          ref={parallaxBg1} 
+          className="absolute top-10 left-1/4 w-[420px] h-[420px] bg-emerald-500/15 rounded-full blur-[100px] pointer-events-none animate-pulse-glow"
+        />
+        <div 
+          ref={parallaxBg2} 
+          className="absolute bottom-10 right-1/4 w-[420px] h-[420px] bg-teal-500/15 rounded-full blur-[100px] pointer-events-none"
+        />
+        <div 
+          className="absolute -top-20 -right-20 w-80 h-80 bg-purple-500/10 rounded-full blur-[90px] pointer-events-none animate-float-reverse"
+        />
+
+        {/* Floating 3D Badge Indicator (Parallax pinned) */}
+        <div 
+          ref={parallaxBadge} 
+          className="hidden lg:flex items-center gap-2 absolute top-20 right-16 px-4 py-2.5 rounded-2xl bg-slate-900/80 border border-emerald-500/30 backdrop-blur-xl shadow-2xl z-20 pointer-events-none"
+        >
+          <span className="text-xl animate-bounce">⚡</span>
+          <div>
+            <span className="text-[10px] font-mono text-emerald-400 font-bold uppercase block">Kinetic Engine</span>
+            <span className="text-xs text-white font-extrabold">Full 3D Real-Time Biomechanics</span>
+          </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
-          <div class="text-center max-w-4xl mx-auto">
-            <div class="hero-anim inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs font-bold mb-6 shadow-lg shadow-emerald-500/5">
-              <Sparkles size={14} class="animate-spin text-emerald-300" style={{ animationDuration: '6s' }} />
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="hero-anim inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/40 shimmer-badge text-emerald-300 text-xs font-bold mb-6 shadow-xl shadow-emerald-500/10">
+              <Sparkles size={14} className="animate-spin text-emerald-300" style={{ animationDuration: '6s' }} />
               <span>Interactive Fitness, Anatomy & Nutrition 3D Platform</span>
             </div>
 
-            <h1 class="hero-anim text-4xl sm:text-6xl lg:text-7xl font-black font-heading tracking-tight mb-6 text-white leading-tight">
+            <h1 className="hero-anim text-4xl sm:text-6xl lg:text-7xl font-black font-heading tracking-tight mb-6 text-white leading-tight">
               Train Smart. Eat Science. <br />
-              <span class="text-gradient-emerald drop-shadow-md">Master Your Body in 3D.</span>
+              <span className="text-gradient-emerald drop-shadow-lg">Master Your Body in 3D.</span>
             </h1>
 
-            <p class="hero-anim text-sm sm:text-base text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
+            <p className="hero-anim text-sm sm:text-base text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
               Evidence-based exercise biomechanics, interactive muscle anatomy, axial height decompression routines, 
               female cycle wellness, and targeted clinical therapies.
             </p>
 
-            <div class="hero-anim flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-10">
+            <div className="hero-anim flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-10">
               <button
                 onClick={() => setActiveTab('exercises')}
-                class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-sm flex items-center gap-2 shadow-xl shadow-emerald-500/25 transition-all cursor-pointer hover:scale-105 active:scale-95"
+                className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-sm flex items-center gap-2 shadow-xl shadow-emerald-500/25 transition-all cursor-pointer hover:scale-105 active:scale-95"
               >
                 <span>Explore Workouts (25+)</span>
                 <ArrowRight size={16} />
               </button>
               <button
                 onClick={() => setActiveTab('women')}
-                class="px-6 py-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800/90 border border-pink-500/40 text-pink-300 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer hover:border-pink-500 hover:scale-105 shadow-lg shadow-pink-500/10"
+                className="px-6 py-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800/90 border border-pink-500/40 text-pink-300 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer hover:border-pink-500 hover:scale-105 shadow-lg shadow-pink-500/10"
               >
                 <span>🌸 Women's Wellness</span>
               </button>
               <button
                 onClick={() => setActiveTab('diseases')}
-                class="px-6 py-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800/90 border border-amber-500/40 text-amber-300 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer hover:border-amber-500 hover:scale-105 shadow-lg shadow-amber-500/10"
+                className="px-6 py-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800/90 border border-amber-500/40 text-amber-300 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer hover:border-amber-500 hover:scale-105 shadow-lg shadow-amber-500/10"
               >
                 <span>🩺 Clinical Therapies</span>
               </button>
             </div>
 
             {/* Quick Muscle Pills Strip */}
-            <div class="hero-anim flex items-center justify-center gap-2 flex-wrap max-w-3xl mx-auto mb-14">
+            <div className="hero-anim flex items-center justify-center gap-2 flex-wrap max-w-3xl mx-auto mb-14">
               {musclePills.map((pill, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveTab(pill.tab)}
-                  class="px-3.5 py-1.5 rounded-full bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 text-xs font-semibold transition-all cursor-pointer hover:border-emerald-500/50"
+                  className="px-3.5 py-1.5 rounded-full bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 text-xs font-semibold transition-all cursor-pointer hover:border-emerald-500/50 hover:scale-105"
                 >
                   {pill.label}
                 </button>
@@ -131,349 +251,455 @@ export default function HomeTab() {
             </div>
           </div>
 
-          {/* 3D Floating Interactive Metrics & Feature Display */}
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto pt-4">
+          {/* 3D Floating Interactive Metrics & Feature Display (With Interactive Mouse Tilt & Glow) */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto pt-4">
             
             {/* 3D Item 1: Real-time Biomechanics */}
-            <div class="hero-card-3d fit-card glass-card-3d p-6 rounded-3xl border border-emerald-500/30 text-left relative overflow-hidden group hover:border-emerald-400">
-              <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-                ⚡
+            <TiltCard glowColor="rgba(16, 185, 129, 0.35)" className="hero-card-3d">
+              <div 
+                onClick={() => setActiveTab('exercises')}
+                className="fit-card glass-card-3d p-6 rounded-3xl border border-emerald-500/30 text-left relative overflow-hidden group cursor-pointer h-full flex flex-col justify-between"
+              >
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                    ⚡
+                  </div>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20 font-bold">
+                    Biomechanics
+                  </span>
+                  <h3 className="text-base font-extrabold text-white mt-2 mb-1 group-hover:text-emerald-300 transition-colors">
+                    Precision Movement Mechanics
+                  </h3>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Step-by-step kinetic joint alignment, breathing cues, and verified injury avoidance protocols for every lift.
+                  </p>
+                </div>
+                <div className="mt-5 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-bold text-emerald-400">
+                  <span>View Exercise Library</span>
+                  <span className="group-hover:translate-x-1 transition-transform">➔</span>
+                </div>
               </div>
-              <span class="text-[10px] font-mono uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20 font-bold">
-                Biomechanics
-              </span>
-              <h3 class="text-base font-extrabold text-white mt-2 mb-1">
-                Precision Movement Mechanics
-              </h3>
-              <p class="text-xs text-slate-300 leading-relaxed">
-                Step-by-step kinetic joint alignment, breathing cues, and verified injury avoidance protocols for every lift.
-              </p>
-              <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-bold text-emerald-400">
-                <span>View Exercise Library</span>
-                <span>➔</span>
-              </div>
-            </div>
+            </TiltCard>
 
             {/* 3D Item 2: Clinical Nutrition & Therapies */}
-            <div class="hero-card-3d fit-card glass-card-3d p-6 rounded-3xl border border-purple-500/30 text-left relative overflow-hidden group hover:border-purple-400">
-              <div class="w-12 h-12 rounded-2xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-                🧘
+            <TiltCard glowColor="rgba(168, 85, 247, 0.35)" className="hero-card-3d">
+              <div 
+                onClick={() => setActiveTab('diseases')}
+                className="fit-card glass-card-3d p-6 rounded-3xl border border-purple-500/30 text-left relative overflow-hidden group cursor-pointer h-full flex flex-col justify-between"
+              >
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                    🧘
+                  </div>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-purple-400 bg-purple-500/10 px-2.5 py-0.5 rounded-full border border-purple-500/20 font-bold">
+                    Clinical Health
+                  </span>
+                  <h3 className="text-base font-extrabold text-white mt-2 mb-1 group-hover:text-purple-300 transition-colors">
+                    Targeted Clinical Therapies
+                  </h3>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Non-drug protocols for Diabetes, Hypertension, Thyroid, NAFLD, PCOS, and Arthritis rehabilitation.
+                  </p>
+                </div>
+                <div className="mt-5 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-bold text-purple-400">
+                  <span>Explore Therapies</span>
+                  <span className="group-hover:translate-x-1 transition-transform">➔</span>
+                </div>
               </div>
-              <span class="text-[10px] font-mono uppercase tracking-wider text-purple-400 bg-purple-500/10 px-2.5 py-0.5 rounded-full border border-purple-500/20 font-bold">
-                Clinical Health
-              </span>
-              <h3 class="text-base font-extrabold text-white mt-2 mb-1">
-                Targeted Clinical Therapies
-              </h3>
-              <p class="text-xs text-slate-300 leading-relaxed">
-                Non-drug protocols for Diabetes, Hypertension, Thyroid, NAFLD, PCOS, and Arthritis rehabilitation.
-              </p>
-              <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-bold text-purple-400">
-                <span>Explore Therapies</span>
-                <span>➔</span>
-              </div>
-            </div>
+            </TiltCard>
 
             {/* 3D Item 3: Real-Time Tracker & Macro Math */}
-            <div class="hero-card-3d fit-card glass-card-3d p-6 rounded-3xl border border-teal-500/30 text-left relative overflow-hidden group hover:border-teal-400">
-              <div class="w-12 h-12 rounded-2xl bg-teal-500/20 border border-teal-500/40 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-                💧
+            <TiltCard glowColor="rgba(20, 184, 166, 0.35)" className="hero-card-3d">
+              <div 
+                onClick={() => setActiveTab('tracker')}
+                className="fit-card glass-card-3d p-6 rounded-3xl border border-teal-500/30 text-left relative overflow-hidden group cursor-pointer h-full flex flex-col justify-between"
+              >
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-teal-500/20 border border-teal-500/40 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                    💧
+                  </div>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-teal-400 bg-teal-500/10 px-2.5 py-0.5 rounded-full border border-teal-500/20 font-bold">
+                    Hydration & Energy
+                  </span>
+                  <h3 className="text-base font-extrabold text-white mt-2 mb-1 group-hover:text-teal-300 transition-colors">
+                    Daily Tracker & Macro Target
+                  </h3>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Continuous water logging, live calorie tracking, and customized protein requirements calibrated to your body weight.
+                  </p>
+                </div>
+                <div className="mt-5 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-bold text-teal-400">
+                  <span>Open Tracker</span>
+                  <span className="group-hover:translate-x-1 transition-transform">➔</span>
+                </div>
               </div>
-              <span class="text-[10px] font-mono uppercase tracking-wider text-teal-400 bg-teal-500/10 px-2.5 py-0.5 rounded-full border border-teal-500/20 font-bold">
-                Hydration & Energy
-              </span>
-              <h3 class="text-base font-extrabold text-white mt-2 mb-1">
-                Daily Tracker & Macro Target
-              </h3>
-              <p class="text-xs text-slate-300 leading-relaxed">
-                Continuous water logging, live calorie tracking, and customized protein requirements calibrated to your body weight.
-              </p>
-              <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-bold text-teal-400">
-                <span>Open Tracker</span>
-                <span>➔</span>
-              </div>
-            </div>
+            </TiltCard>
 
           </div>
 
         </div>
       </section>
 
-      {/* 3 Core New Pillars Banner: Women's Health, Disease Cures, Balanced Diets */}
-      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Dynamic Infinite Scroll Ticker Banner (Parallel Ribbon Effect) */}
+      <section className="relative overflow-hidden py-3 border-y border-slate-800/80 bg-slate-950/60 backdrop-blur-md">
+        <div className="animate-marquee whitespace-nowrap flex items-center gap-8 text-xs font-bold tracking-wider uppercase text-slate-400 select-none">
+          <span>⚡ 3D Anatomical Muscle Maps</span>
+          <span>•</span>
+          <span className="text-emerald-400 font-extrabold">🌸 Menstrual Cycle Phase Fitness</span>
+          <span>•</span>
+          <span>📏 Axial Spine Decompression</span>
+          <span>•</span>
+          <span className="text-teal-400 font-extrabold">👶 Pediatric Abhyanga Massage</span>
+          <span>•</span>
+          <span>🩺 Evidence-Based Disease Cures</span>
+          <span>•</span>
+          <span className="text-amber-400 font-extrabold">🥗 Full Day 7-Meal Balanced Diets</span>
+          <span>•</span>
+          <span>🔥 Instant Daily Calorie & Protein Tracker</span>
+          <span>•</span>
+          <span>⚡ 3D Anatomical Muscle Maps</span>
+          <span>•</span>
+          <span className="text-emerald-400 font-extrabold">🌸 Menstrual Cycle Phase Fitness</span>
+          <span>•</span>
+          <span>📏 Axial Spine Decompression</span>
+          <span>•</span>
+          <span className="text-teal-400 font-extrabold">👶 Pediatric Abhyanga Massage</span>
+          <span>•</span>
+          <span>🩺 Evidence-Based Disease Cures</span>
+          <span>•</span>
+          <span className="text-amber-400 font-extrabold">🥗 Full Day 7-Meal Balanced Diets</span>
+        </div>
+      </section>
+
+      {/* Pinned Stats Floating Showcase Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-reveal">
+        <div className="p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border border-slate-800 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+            {liveStats.map((st, i) => (
+              <div key={i} className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80 group hover:border-emerald-500/40 transition-all">
+                <span className="text-2xl block mb-1 group-hover:scale-125 transition-transform">{st.icon}</span>
+                <span className="text-3xl sm:text-4xl font-black font-heading text-white block bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+                  {st.val}
+                </span>
+                <span className="text-xs text-slate-400 font-medium mt-1 block">
+                  {st.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4 Core New Pillars: Women's Health, Disease Cures, Balanced Diets, Kids Care */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-reveal">
+        <div className="mb-8">
+          <span className="text-xs font-bold uppercase tracking-wider text-pink-400 bg-pink-500/10 px-3 py-1 rounded-full border border-pink-500/20">
+            Specialized Care Matrix
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-2">
+            Targeted Health, Cycle & Pediatric Guides
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 scroll-cards-grid">
           
           {/* Pillar 1: Women's Health */}
-          <div 
-            onClick={() => setActiveTab('women')}
-            class="fit-card p-6 rounded-2xl bg-gradient-to-br from-pink-950/50 via-slate-900 to-slate-900 border border-pink-500/40 hover:border-pink-500/80 transition-all flex flex-col justify-between cursor-pointer group"
-          >
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-pink-500/20 border border-pink-500/40 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-                🌸
+          <TiltCard glowColor="rgba(244, 114, 182, 0.35)" className="scroll-card-item">
+            <div 
+              onClick={() => setActiveTab('women')}
+              className="fit-card p-6 rounded-2xl bg-gradient-to-br from-pink-950/50 via-slate-900 to-slate-900 border border-pink-500/40 hover:border-pink-500/80 transition-all flex flex-col justify-between cursor-pointer group h-full"
+            >
+              <div>
+                <div className="w-12 h-12 rounded-xl bg-pink-500/20 border border-pink-500/40 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                  🌸
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/30 mb-2 inline-block">
+                  Female Health Hub
+                </span>
+                <h3 className="text-lg font-bold text-white group-hover:text-pink-300 transition-colors mb-2">
+                  Women's Health & Pregnancy
+                </h3>
+                <p className="text-xs text-slate-300 leading-relaxed mb-4">
+                  <strong>Mature cycle duration (21-35 days)</strong>, 4 cycle phases, precautions, iron-rich foods, plus safe pregnancy exercises (Kegels, walking, modified squats).
+                </p>
               </div>
-              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/30 mb-2 inline-block">
-                Female Health Hub
-              </span>
-              <h3 class="text-lg font-bold text-white group-hover:text-pink-300 transition-colors mb-2">
-                Women's Health & Pregnancy
-              </h3>
-              <p class="text-xs text-slate-300 leading-relaxed mb-4">
-                <strong>Mature cycle duration (21-35 days)</strong>, 4 cycle phases, precautions, iron-rich foods, plus safe pregnancy exercises (Kegels, walking, modified squats) with labor advantages and risks to avoid.
-              </p>
+              <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-xs font-bold text-pink-400">
+                <span>Explore Women's Health</span>
+                <span className="group-hover:translate-x-1 transition-transform">➔</span>
+              </div>
             </div>
-            <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs font-bold text-pink-400">
-              <span>Explore Women's Health Hub</span>
-              <span class="group-hover:translate-x-1 transition-transform">➔</span>
-            </div>
-          </div>
+          </TiltCard>
 
           {/* Pillar 2: Disease Management */}
-          <div 
-            onClick={() => setActiveTab('diseases')}
-            class="fit-card p-6 rounded-2xl bg-gradient-to-br from-amber-950/50 via-slate-900 to-slate-900 border border-amber-500/40 hover:border-amber-500/80 transition-all flex flex-col justify-between cursor-pointer group"
-          >
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-                🩺
+          <TiltCard glowColor="rgba(245, 158, 11, 0.35)" className="scroll-card-item">
+            <div 
+              onClick={() => setActiveTab('diseases')}
+              className="fit-card p-6 rounded-2xl bg-gradient-to-br from-amber-950/50 via-slate-900 to-slate-900 border border-amber-500/40 hover:border-amber-500/80 transition-all flex flex-col justify-between cursor-pointer group h-full"
+            >
+              <div>
+                <div className="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                  🩺
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 mb-2 inline-block">
+                  Evidence-Based Cures
+                </span>
+                <h3 className="text-lg font-bold text-white group-hover:text-amber-300 transition-colors mb-2">
+                  Disease Management & Cures
+                </h3>
+                <p className="text-xs text-slate-300 leading-relaxed mb-4">
+                  Dietary cures, harmful foods to avoid, and clinical medicines overview (Metformin, Telmisartan, Statins) for <strong>Diabetes, BP, Thyroid, Fatty Liver & Anemia</strong>.
+                </p>
               </div>
-              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 mb-2 inline-block">
-                Evidence-Based Cures
-              </span>
-              <h3 class="text-lg font-bold text-white group-hover:text-amber-300 transition-colors mb-2">
-                Disease Management & Cures
-              </h3>
-              <p class="text-xs text-slate-300 leading-relaxed mb-4">
-                Dietary cures, harmful foods to avoid, and clinical medicines overview (Metformin, Telmisartan, Statins, Levothyroxine) for <strong>Diabetes, BP, Thyroid, Fatty Liver & Anemia</strong> in males & females.
-              </p>
+              <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-xs font-bold text-amber-400">
+                <span>Explore Disease Cures</span>
+                <span className="group-hover:translate-x-1 transition-transform">➔</span>
+              </div>
             </div>
-            <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs font-bold text-amber-400">
-              <span>Explore Disease Cures</span>
-              <span class="group-hover:translate-x-1 transition-transform">➔</span>
-            </div>
-          </div>
+          </TiltCard>
 
           {/* Pillar 3: Balanced Healthy Diets */}
-          <div 
-            onClick={() => setActiveTab('diet')}
-            class="fit-card p-6 rounded-2xl bg-gradient-to-br from-emerald-950/50 via-slate-900 to-slate-900 border border-emerald-500/40 hover:border-emerald-500/80 transition-all flex flex-col justify-between cursor-pointer group"
-          >
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-                🥗
+          <TiltCard glowColor="rgba(16, 185, 129, 0.35)" className="scroll-card-item">
+            <div 
+              onClick={() => setActiveTab('diet')}
+              className="fit-card p-6 rounded-2xl bg-gradient-to-br from-emerald-950/50 via-slate-900 to-slate-900 border border-emerald-500/40 hover:border-emerald-500/80 transition-all flex flex-col justify-between cursor-pointer group h-full"
+            >
+              <div>
+                <div className="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                  🥗
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 mb-2 inline-block">
+                  Gender Nutrition Matrix
+                </span>
+                <h3 className="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors mb-2">
+                  Healthy Diets (Men & Women)
+                </h3>
+                <p className="text-xs text-slate-300 leading-relaxed mb-4">
+                  Scientific gender requirements (Calories, Protein, Iron, Calcium, Zinc) with <strong>7-meal full-day meal schedules</strong> for men and women.
+                </p>
               </div>
-              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 mb-2 inline-block">
-                Gender Nutrition Matrix
-              </span>
-              <h3 class="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors mb-2">
-                Healthy Diets (Men & Women)
-              </h3>
-              <p class="text-xs text-slate-300 leading-relaxed mb-4">
-                Scientific gender requirements (Calories, Protein, Iron, Calcium, Zinc) with <strong>7-meal full-day meal schedules</strong> for men and women with Indian vegetarian & non-veg options.
-              </p>
+              <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-xs font-bold text-emerald-400">
+                <span>View Full Day Diet Plans</span>
+                <span className="group-hover:translate-x-1 transition-transform">➔</span>
+              </div>
             </div>
-            <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs font-bold text-emerald-400">
-              <span>View Full Day Diet Plans</span>
-              <span class="group-hover:translate-x-1 transition-transform">➔</span>
-            </div>
-          </div>
+          </TiltCard>
 
           {/* Pillar 4: Kids & Infant Development */}
-          <div 
-            onClick={() => setActiveTab('kids')}
-            class="fit-card p-6 rounded-2xl bg-gradient-to-br from-teal-950/50 via-slate-900 to-slate-900 border border-teal-500/40 hover:border-teal-500/80 transition-all flex flex-col justify-between cursor-pointer group md:col-span-3 lg:col-span-1"
-          >
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-teal-500/20 border border-teal-500/40 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-                👶
+          <TiltCard glowColor="rgba(20, 184, 166, 0.35)" className="scroll-card-item">
+            <div 
+              onClick={() => setActiveTab('kids')}
+              className="fit-card p-6 rounded-2xl bg-gradient-to-br from-teal-950/50 via-slate-900 to-slate-900 border border-teal-500/40 hover:border-teal-500/80 transition-all flex flex-col justify-between cursor-pointer group h-full"
+            >
+              <div>
+                <div className="w-12 h-12 rounded-xl bg-teal-500/20 border border-teal-500/40 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                  👶
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 mb-2 inline-block">
+                  Pediatric Physical Care
+                </span>
+                <h3 className="text-lg font-bold text-white group-hover:text-teal-300 transition-colors mb-2">
+                  Kids & Infant Body Care
+                </h3>
+                <p className="text-xs text-slate-300 leading-relaxed mb-4">
+                  <strong>Infant Abhyanga oil massage</strong> (leg milking, colic relief tummy strokes), toddler motor balance, growth-plate safe pre-teen calisthenics.
+                </p>
               </div>
-              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 mb-2 inline-block">
-                Pediatric Physical Care
-              </span>
-              <h3 class="text-lg font-bold text-white group-hover:text-teal-300 transition-colors mb-2">
-                Kids & Infant Body Care
-              </h3>
-              <p class="text-xs text-slate-300 leading-relaxed mb-4">
-                <strong>Infant Abhyanga oil massage</strong> (leg milking, colic relief tummy strokes), toddler motor balance, growth-plate safe pre-teen calisthenics, and pediatric bone mineralization diet.
-              </p>
+              <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-xs font-bold text-teal-400">
+                <span>Explore Kids & Baby Care</span>
+                <span className="group-hover:translate-x-1 transition-transform">➔</span>
+              </div>
             </div>
-            <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs font-bold text-teal-400">
-              <span>Explore Kids & Baby Care</span>
-              <span class="group-hover:translate-x-1 transition-transform">➔</span>
-            </div>
-          </div>
+          </TiltCard>
 
         </div>
       </section>
 
-      {/* Featured Beginner Exercises */}
-      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between mb-8">
+      {/* Featured Beginner Exercises with Dynamic 3D Card Hover & Scroll Parallax */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-reveal">
+        <div className="flex items-center justify-between mb-8">
           <div>
-            <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Foundation Workouts</span>
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Featured Beginner Exercises</h2>
+            <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
+              Foundation Workouts
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-2">Featured Beginner Exercises</h2>
           </div>
           <button
             onClick={() => setActiveTab('exercises')}
-            class="text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 cursor-pointer"
+            className="text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 cursor-pointer hover:underline"
           >
             <span>View All Exercises (16+)</span>
             <ArrowRight size={14} />
           </button>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 scroll-cards-grid">
           {featuredExercises.map(ex => {
             const isFav = isFavorite('exercises', ex.id);
             return (
-              <div 
-                key={ex.id}
-                class="fit-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-slate-800 hover:border-emerald-500/50"
-              >
-                <div>
-                  <div class="relative h-44 w-full bg-slate-950 overflow-hidden">
-                    <img 
-                      src={getExercisePhoto(ex.id, ex.bodyPart)} 
-                      alt={ex.name} 
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy"
-                      onError={(e) => {
-                        e.currentTarget.src = "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80";
-                      }}
-                    />
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
-                    <span class="absolute top-2.5 left-2.5 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-emerald-500 text-slate-950">
-                      {ex.difficulty}
-                    </span>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleFavorite('exercises', ex.id);
-                      }}
-                      class="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-slate-900/80 text-white hover:text-rose-400 transition-colors"
-                    >
-                      <Heart size={14} fill={isFav ? "red" : "none"} color={isFav ? "red" : "white"} />
-                    </button>
-                    <span class="absolute bottom-2 left-3 right-3 text-sm font-extrabold text-white drop-shadow">
-                      {ex.name}
-                    </span>
-                  </div>
+              <TiltCard key={ex.id} glowColor="rgba(16, 185, 129, 0.25)" className="scroll-card-item">
+                <div 
+                  className="fit-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-slate-800 hover:border-emerald-500/50 h-full"
+                >
+                  <div>
+                    <div className="relative h-44 w-full bg-slate-950 overflow-hidden">
+                      <img 
+                        src={getExercisePhoto(ex.id, ex.bodyPart)} 
+                        alt={ex.name} 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                        loading="lazy"
+                        onError={(e) => {
+                          e.currentTarget.src = "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80";
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                      <span className="absolute top-2.5 left-2.5 text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 shadow flex items-center gap-1">
+                        <span>▶</span> {ex.difficulty}
+                      </span>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleFavorite('exercises', ex.id);
+                        }}
+                        className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-slate-900/80 text-white hover:text-rose-400 transition-colors"
+                      >
+                        <Heart size={14} fill={isFav ? "red" : "none"} color={isFav ? "red" : "white"} />
+                      </button>
+                      <span className="absolute bottom-2 left-3 right-3 text-sm font-extrabold text-white drop-shadow">
+                        {ex.name}
+                      </span>
+                    </div>
 
-                  <div class="p-4 space-y-2">
-                    <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">
-                      {ex.instructions}
-                    </p>
-                    <div class="flex items-center justify-between text-[11px] text-slate-400 pt-2 border-t border-slate-800">
-                      <span class="capitalize">Target: <strong class="text-slate-200">{ex.bodyPart}</strong></span>
-                      <span>Rest: <strong class="text-slate-200">{ex.restTimeSec || 45}s</strong></span>
+                    <div className="p-4 space-y-2">
+                      <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                        {ex.instructions}
+                      </p>
+                      <div className="flex items-center justify-between text-[11px] text-slate-400 pt-2 border-t border-slate-800">
+                        <span className="capitalize">Target: <strong className="text-slate-200">{ex.bodyPart}</strong></span>
+                        <span>Rest: <strong className="text-slate-200">{ex.restTimeSec || 45}s</strong></span>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div class="p-4 pt-0">
-                  <button
-                    onClick={() => openModal('exercise', ex.id)}
-                    class="w-full py-2 rounded-xl bg-slate-800 hover:bg-emerald-600 hover:text-white text-slate-300 font-bold text-xs transition-colors cursor-pointer flex items-center justify-center gap-1"
-                  >
-                    <span>View Form Guide</span>
-                    <ArrowRight size={13} />
-                  </button>
+                  <div className="p-4 pt-0">
+                    <button
+                      onClick={() => openModal('exercise', ex.id)}
+                      className="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-emerald-600 hover:text-white text-slate-300 font-bold text-xs transition-colors cursor-pointer flex items-center justify-center gap-1 shadow"
+                    >
+                      <span>Watch Video & Form</span>
+                      <ArrowRight size={13} />
+                    </button>
+                  </div>
                 </div>
-              </div>
+              </TiltCard>
             );
           })}
         </div>
       </section>
 
-      {/* Featured Nutritious Foods */}
-      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between mb-8">
+      {/* Featured Nutritious Foods with Tilt Glow & Quick Macro Highlights */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-reveal">
+        <div className="flex items-center justify-between mb-8">
           <div>
-            <span class="text-xs font-bold uppercase tracking-wider text-orange-400">Diet & Nutrition</span>
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Featured Nutrient-Dense Foods</h2>
+            <span className="text-xs font-bold uppercase tracking-wider text-orange-400 bg-orange-500/10 px-3 py-1 rounded-full border border-orange-500/20">
+              Diet & Nutrition
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-2">Featured Nutrient-Dense Foods</h2>
           </div>
           <button
             onClick={() => setActiveTab('foods')}
-            class="text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 cursor-pointer"
+            className="text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 cursor-pointer hover:underline"
           >
             <span>Search All Foods (25+)</span>
             <ArrowRight size={14} />
           </button>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredFoods.map(food => (
-            <div 
-              key={food.id}
-              class="fit-card rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 hover:border-orange-500/50 flex flex-col justify-between group"
-            >
-              <div>
-                {/* Food Image Banner */}
-                <div class="relative h-36 w-full bg-slate-950 overflow-hidden">
-                  <img
-                    src={getFoodPhoto(food.id, food.category)}
-                    alt={food.name}
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    loading="lazy"
-                    onError={(e) => {
-                      e.currentTarget.src = "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=700&auto=format&fit=crop&q=80";
-                    }}
-                  />
-                  <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 scroll-cards-grid">
+          {featuredFoods.map(food => {
+            const proteinVal = food.protein ?? food.protein_g ?? 0;
+            const carbsVal = food.carbs ?? food.carbs_g ?? 0;
+            const fatVal = food.fat ?? food.fat_g ?? 0;
+            const servingSize = food.servingSize || food.serving_size || '1 serving';
+            const hindiName = food.hindiName || food.hindi_name;
+            const foodDiet = (food.dietaryType || food.dietary_type || '').toLowerCase();
+            const isVeg = foodDiet.includes('veg') && !foodDiet.includes('non');
 
-                  <span class={`absolute top-2.5 left-2.5 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full border shadow ${
-                    food.dietary_type === 'veg' 
-                      ? 'bg-emerald-500 text-slate-950 border-emerald-400 font-sans' 
-                      : 'bg-rose-500 text-white border-rose-400 font-sans'
-                  }`}>
-                    {food.dietary_type === 'veg' ? '🌿 Veg' : '🍗 Non-Veg'}
-                  </span>
-                  <span class="absolute bottom-2 right-2.5 text-xs font-mono font-bold text-orange-400 bg-slate-900/80 px-2 py-0.5 rounded border border-slate-700/60 backdrop-blur">
-                    {food.calories} kcal
-                  </span>
-                </div>
-
-                <div class="p-4 pb-0">
-                  <h3 class="text-base font-extrabold text-white mb-0.5 group-hover:text-orange-300 transition-colors">
-                    {food.name}
-                  </h3>
-                  {food.hindi_name && (
-                    <span class="text-[11px] text-emerald-400 block mb-2 font-medium">({food.hindi_name})</span>
-                  )}
-                </div>
-
-                <div class="grid grid-cols-3 gap-1.5 p-2 rounded-xl bg-slate-950/60 border border-slate-800 text-center my-3">
-                  <div>
-                    <span class="text-[9px] text-slate-400 block">Protein</span>
-                    <strong class="text-emerald-400 text-xs">{food.protein_g}g</strong>
-                  </div>
-                  <div>
-                    <span class="text-[9px] text-slate-400 block">Carbs</span>
-                    <strong class="text-blue-400 text-xs">{food.carbs_g}g</strong>
-                  </div>
-                  <div>
-                    <span class="text-[9px] text-slate-400 block">Fat</span>
-                    <strong class="text-amber-400 text-xs">{food.fat_g}g</strong>
-                  </div>
-                </div>
-
-                <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">
-                  {food.best_use || `Serving: ${food.serving_size}`}
-                </p>
-              </div>
-
-              <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
-                <span class="text-[11px] text-slate-500">Per {food.serving_size}</span>
-                <button
-                  onClick={() => openModal('food', food.id)}
-                  class="text-xs font-bold text-orange-400 hover:text-orange-300 flex items-center gap-1 cursor-pointer"
+            return (
+              <TiltCard key={food.id} glowColor="rgba(249, 115, 22, 0.25)" className="scroll-card-item">
+                <div 
+                  className="fit-card rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 hover:border-orange-500/50 flex flex-col justify-between group h-full"
                 >
-                  <span>Nutrition Facts</span>
-                  <ArrowRight size={13} />
-                </button>
-              </div>
-            </div>
-          ))}
+                  <div>
+                    {/* Food Image Banner */}
+                    <div className="relative h-36 w-full bg-slate-950 overflow-hidden">
+                      <img
+                        src={getFoodPhoto(food.id, food.category)}
+                        alt={food.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                        loading="lazy"
+                        onError={(e) => {
+                          e.currentTarget.src = "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=700&auto=format&fit=crop&q=80";
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+
+                      <span className={`absolute top-2.5 left-2.5 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full border shadow ${
+                        isVeg 
+                          ? 'bg-emerald-500 text-slate-950 border-emerald-400 font-sans' 
+                          : 'bg-rose-500 text-white border-rose-400 font-sans'
+                      }`}>
+                        {isVeg ? '🌿 Veg' : '🍗 Non-Veg'}
+                      </span>
+                      <span className="absolute bottom-2 right-2.5 text-xs font-mono font-bold text-orange-400 bg-slate-900/80 px-2 py-0.5 rounded border border-slate-700/60 backdrop-blur">
+                        {food.calories} kcal
+                      </span>
+                    </div>
+
+                    <div className="p-4 pb-0">
+                      <h3 className="text-base font-extrabold text-white mb-0.5 group-hover:text-orange-300 transition-colors">
+                        {food.name}
+                      </h3>
+                      {hindiName && (
+                        <span className="text-[11px] text-emerald-400 block mb-2 font-medium">({hindiName})</span>
+                      )}
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-1.5 p-2 rounded-xl bg-slate-950/60 border border-slate-800 text-center my-3">
+                      <div>
+                        <span className="text-[9px] text-slate-400 block">Protein</span>
+                        <strong className="text-emerald-400 text-xs">{proteinVal}g</strong>
+                      </div>
+                      <div>
+                        <span className="text-[9px] text-slate-400 block">Carbs</span>
+                        <strong className="text-blue-400 text-xs">{carbsVal}g</strong>
+                      </div>
+                      <div>
+                        <span className="text-[9px] text-slate-400 block">Fat</span>
+                        <strong className="text-amber-400 text-xs">{fatVal}g</strong>
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                      {food.bestUseLabel || food.best_use || food.description || `Serving: ${servingSize}`}
+                    </p>
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-800 flex items-center justify-between p-4 pt-3">
+                    <span className="text-[11px] text-slate-500">Per {servingSize}</span>
+                    <button
+                      onClick={() => openModal('food', food.id)}
+                      className="text-xs font-bold text-orange-400 hover:text-orange-300 flex items-center gap-1 cursor-pointer"
+                    >
+                      <span>Nutrition Facts</span>
+                      <ArrowRight size={13} />
+                    </button>
+                  </div>
+                </div>
+              </TiltCard>
+            );
+          })}
         </div>
       </section>
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { useApp } from '../context/AppContext';
 
 export default function Footer() {
-  const { setActiveTab } = useApp();
+  const { setActiveTab, openModal } = useApp();
 
   return (
     <footer class="mt-auto border-t border-slate-800 bg-slate-950/80 text-slate-400 text-xs py-12 transition-colors">
@@ -118,6 +118,16 @@ export default function Footer() {
               <li>
                 <button onClick={() => setActiveTab('tracker')} class="hover:text-emerald-400 cursor-pointer">
                   💧 Daily Hydration & Meal Tracker
+                </button>
+              </li>
+              <li>
+                <button onClick={() => openModal('auth')} class="text-xs text-emerald-400 font-bold hover:underline flex items-center gap-1 cursor-pointer pt-1">
+                  <span>📱</span> SMS OTP Member Login
+                </button>
+              </li>
+              <li>
+                <button onClick={() => openModal('qr')} class="text-xs text-teal-400 hover:underline flex items-center gap-1 cursor-pointer">
+                  <span>🔗</span> Mobile QR Sync & Relative Share
                 </button>
               </li>
             </ul>

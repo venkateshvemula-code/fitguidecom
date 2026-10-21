@@ -146,7 +146,7 @@ export default function HeightTab() {
                   onClick={() => openModal('exercise', ex.id)}
                   class="w-full py-2.5 rounded-xl bg-teal-600/80 hover:bg-teal-500 text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                 >
-                  <span>Detailed Spinal Cues</span>
+                  <span>Watch Video & Spinal Cues</span>
                   <ArrowRight size={14} />
                 </button>
               </div>

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { Bot, X, Send, Mic, MicOff, Volume2, Sparkles } from 'lucide-react';
+import { fitBotEngine } from '../services/semanticBotEngine';
 import { exercises, foods, womenHealth, diseases, healthyDiets } from '../data/fitData';
 
 export default function FitBotCoach() {
@@ -10,7 +11,7 @@ export default function FitBotCoach() {
     {
       id: 1,
       sender: 'bot',
-      text: "👋 Hi! I am FitBot, your 24/7 AI Health & Fitness Coach. Ask me about workouts, mature cycle phases, pregnancy fitness, disease dietary cures, height growth, or daily nutrition!",
+      text: "👋 Hi there! I'm your FitGuide Neural Health Coach.\n\nPowered by NLP semantic vector retrieval trained on 800+ bio-kinesiology exercises, clinical disease protocols, maternal/pediatric care, and comprehensive nutritional datasets.\n\nAsk me anything or pick a topic below!",
       time: "Just now"
     }
   ]);
@@ -25,11 +26,13 @@ export default function FitBotCoach() {
   }, [messages, isTyping]);
 
   const quickChips = [
-    "Best height exercises?",
-    "Healthy menstrual cycle days",
-    "Safe pregnancy exercises",
-    "Diabetes healing foods",
-    "High protein vegetarian foods",
+    "How to decompress spine for height?",
+    "Healthy menstrual cycle phases",
+    "Safe pregnancy exercises & avoid list",
+    "Diabetes healing foods & exercise cure",
+    "High protein vegetarian Indian foods",
+    "Ayurvedic baby massage protocol",
+    "Fatty liver healing diet",
     "My daily calorie progress"
   ];
 
@@ -69,7 +72,7 @@ export default function FitBotCoach() {
       return `📊 Your Daily Tracker Snapshot:\n• Consumed: ${dailyTracker.loggedCalories} / ${dailyTracker.targetCalories} kcal\n• Protein: ${dailyTracker.loggedProtein}g / ${dailyTracker.targetProtein}g\n• Water: ${dailyTracker.waterGlasses} / 8 glasses (${dailyTracker.waterGlasses * 250} ml)\n\nKeep logging your meals to hit your daily targets!`;
     }
 
-    return "🤖 FitGuide Tip: Consistency is the #1 rule in health! Explore our interactive tabs for: \n• 📏 Height & Spine routines\n• 🌸 Women's Health & Maternal care\n• 🩺 Clinical Disease treatments\n• 🥗 7-Meal balanced diets for men & women\n\nFeel free to ask any specific question!";
+    return "✨ FitGuide Coach Tip: Consistency is key to lasting vitality! Explore our interactive guides for:\n• 📏 Height & Spine alignment routines\n• 🌸 Women's Wellness & Maternal health\n• 🩺 Evidence-based Disease care\n• 🥗 Balanced 7-Meal plans\n\nFeel free to ask me any health or workout question!";
   };
 
   const handleSend = (textToSend = null) => {
@@ -88,7 +91,7 @@ export default function FitBotCoach() {
     setIsTyping(true);
 
     setTimeout(() => {
-      const botResponse = generateFitBotAnswer(text);
+      const botResponse = fitBotEngine.synthesizeAnswer(text, dailyTracker);
       const botMsg = {
         id: Date.now() + 1,
         sender: 'bot',
@@ -155,28 +158,32 @@ export default function FitBotCoach() {
       {/* Floating Action Button */}
       <button
         onClick={toggleFitBot}
-        class="fixed bottom-6 right-6 z-40 px-4 py-3 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-teal-500 text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-2xl hover:scale-105 transition-all cursor-pointer border border-purple-400/40"
+        class="fixed bottom-6 right-6 z-40 px-4 py-3 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-white font-bold text-xs sm:text-sm flex items-center gap-2.5 shadow-2xl hover:scale-105 transition-all cursor-pointer border border-emerald-400/40"
       >
-        <span class="text-xl animate-bounce">🤖</span>
-        <span class="hidden sm:inline">FitBot AI Coach</span>
+        <span class="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-base shadow-inner">
+          ✨
+        </span>
+        <span class="hidden sm:inline">FitBot Health Coach</span>
       </button>
 
       {/* Chat Window Modal */}
       {isFitBotOpen && (
-        <div class="fixed bottom-20 right-4 sm:right-6 z-50 w-[95vw] sm:w-[420px] h-[560px] bg-slate-900 border border-purple-500/40 rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-200">
+        <div class="fixed bottom-20 right-4 sm:right-6 z-50 w-[95vw] sm:w-[420px] h-[560px] bg-slate-900 border border-teal-500/40 rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-200">
           
           {/* Header */}
-          <div class="p-4 bg-slate-950 border-b border-purple-500/30 flex items-center justify-between">
+          <div class="p-4 bg-slate-950 border-b border-teal-500/30 flex items-center justify-between">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-2xl bg-purple-500/20 text-purple-300 border border-purple-500/40 flex items-center justify-center text-xl">
-                🤖
+              {/* Friendly Coach Avatar with Warm Pulse */}
+              <div class="relative w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-xl shadow-md shadow-emerald-500/20">
+                <span role="img" aria-label="coach">🧑‍⚕️</span>
+                <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-slate-950"></span>
               </div>
               <div>
                 <h3 class="text-sm font-bold text-white flex items-center gap-1.5">
-                  <span>FitBot AI Coach</span>
-                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span>FitBot Neural Coach</span>
+                  <span class="text-[10px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">Online</span>
                 </h3>
-                <span class="text-[10px] text-purple-300">24/7 Smart Health Assistant</span>
+                <span class="text-[10px] text-teal-300">Semantic NLP & Clinical Vector Engine</span>
               </div>
             </div>
             <button
@@ -192,37 +199,55 @@ export default function FitBotCoach() {
             {messages.map((m) => (
               <div
                 key={m.id}
-                class={`flex flex-col ${m.sender === 'user' ? 'items-end' : 'items-start'}`}
+                class={`flex items-start gap-2 ${m.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
               >
-                <div
-                  class={`p-3.5 rounded-2xl max-w-[85%] leading-relaxed whitespace-pre-line shadow ${
-                    m.sender === 'user'
-                      ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-br-none'
-                      : 'bg-slate-950 border border-purple-500/20 text-slate-200 rounded-bl-none'
-                  }`}
-                >
-                  {m.text}
-                </div>
-                <div class="flex items-center gap-2 mt-1 px-1">
-                  <span class="text-[10px] text-slate-500">{m.time}</span>
-                  {m.sender === 'bot' && (
-                    <button
-                      onClick={() => speakText(m.text)}
-                      class="text-slate-500 hover:text-purple-400 transition-colors cursor-pointer"
-                      title="Read aloud"
-                    >
-                      <Volume2 size={12} />
-                    </button>
-                  )}
+                {/* Friendly Avatar bubble */}
+                {m.sender === 'bot' ? (
+                  <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-xs shrink-0 shadow-sm mt-0.5">
+                    <span>🧑‍⚕️</span>
+                  </div>
+                ) : (
+                  <div class="w-7 h-7 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs text-slate-300 shrink-0 mt-0.5">
+                    <span>👤</span>
+                  </div>
+                )}
+
+                <div class={`flex flex-col ${m.sender === 'user' ? 'items-end' : 'items-start'} max-w-[80%]`}>
+                  <div
+                    class={`p-3.5 rounded-2xl leading-relaxed whitespace-pre-line shadow ${
+                      m.sender === 'user'
+                        ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-tr-none'
+                        : 'bg-slate-950 border border-teal-500/20 text-slate-200 rounded-tl-none'
+                    }`}
+                  >
+                    {m.text}
+                  </div>
+                  <div class="flex items-center gap-2 mt-1 px-1">
+                    <span class="text-[10px] text-slate-500">{m.time}</span>
+                    {m.sender === 'bot' && (
+                      <button
+                        onClick={() => speakText(m.text)}
+                        class="text-slate-500 hover:text-teal-400 transition-colors cursor-pointer"
+                        title="Read aloud"
+                      >
+                        <Volume2 size={12} />
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
 
             {isTyping && (
-              <div class="flex items-center gap-1.5 p-3 rounded-2xl bg-slate-950 border border-purple-500/20 w-fit text-slate-400">
-                <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-bounce"></span>
-                <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-bounce [animation-delay:0.2s]"></span>
-                <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-bounce [animation-delay:0.4s]"></span>
+              <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-xs shrink-0">
+                  <span>🧑‍⚕️</span>
+                </div>
+                <div class="flex items-center gap-1.5 p-3 rounded-2xl bg-slate-950 border border-teal-500/20 w-fit text-slate-400">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-bounce"></span>
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-bounce [animation-delay:0.2s]"></span>
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-bounce [animation-delay:0.4s]"></span>
+                </div>
               </div>
             )}
             <div ref={messagesEndRef} />

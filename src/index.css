@@ -32,20 +32,20 @@
 }
 
 [data-theme="light"] {
-  --bg-main: #f8fafc;
+  --bg-main: #f1f5f9;
   --bg-surface: #ffffff;
   --bg-card: #ffffff;
   --bg-card-hover: #f1f5f9;
   --bg-input: #ffffff;
-  --border-subtle: #e2e8f0;
+  --border-subtle: #cbd5e1;
   --border-focus: #10b981;
   
-  --text-main: #0f172a;
+  --text-main: #1e293b;
   --text-muted: #475569;
   --text-dim: #64748b;
 
   --accent-green: #059669;
-  --accent-green-glow: rgba(5, 150, 105, 0.15);
+  --accent-green-glow: rgba(5, 150, 105, 0.1);
   
   --accent-orange: #ea580c;
   --accent-blue: #0284c7;
@@ -192,22 +192,22 @@ h1, h2, h3, h4, .font-heading {
    ========================================================================= */
 [data-theme="light"] {
   color-scheme: light;
-  --bg-main: #f8fafc;
+  --bg-main: #f1f5f9;
   --bg-surface: #ffffff;
   --bg-card: #ffffff;
   --bg-card-hover: #f1f5f9;
-  --border-subtle: #e2e8f0;
+  --border-subtle: #cbd5e1;
 }
 
 [data-theme="light"] body {
-  background-color: #f8fafc;
+  background-color: #f1f5f9;
   color: #0f172a;
 }
 
 /* Transform dark fit-cards into crisp white cards with soft elevated shadows */
 [data-theme="light"] .fit-card {
   background-color: #ffffff !important;
-  border-color: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
   box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03) !important;
 }
 
@@ -219,7 +219,7 @@ h1, h2, h3, h4, .font-heading {
 /* Light glass cards with modern subtle backdrop and border */
 [data-theme="light"] .glass-card-3d {
   background: rgba(255, 255, 255, 0.95) !important;
-  border-color: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0,0,0,0.04) !important;
 }
 
@@ -227,7 +227,7 @@ h1, h2, h3, h4, .font-heading {
 [data-theme="light"] .bg-slate-900,
 [data-theme="light"] .bg-slate-950 {
   background-color: #ffffff !important;
-  border-color: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
 }
 
 [data-theme="light"] .bg-slate-900\/90,
@@ -236,7 +236,7 @@ h1, h2, h3, h4, .font-heading {
 [data-theme="light"] .bg-slate-950\/70,
 [data-theme="light"] .bg-slate-950\/60 {
   background-color: #f8fafc !important;
-  border-color: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
 }
 
 [data-theme="light"] .bg-slate-800,
@@ -250,7 +250,7 @@ h1, h2, h3, h4, .font-heading {
 /* Hero section light gradient with subtle lively fitness mesh */
 [data-theme="light"] section.bg-gradient-to-b {
   background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.08) 0%, rgba(248, 250, 252, 1) 70%) !important;
-  border-color: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
 }
 
 /* Pillar gradient cards in light theme: fresh, energetic pastel tints */
@@ -299,7 +299,7 @@ h1, h2, h3, h4, .font-heading {
 [data-theme="light"] h3,
 [data-theme="light"] h4,
 [data-theme="light"] h5 {
-  color: #0f172a !important;
+  color: #1e293b !important;
 }
 
 [data-theme="light"] h1.text-white,
@@ -309,7 +309,7 @@ h1, h2, h3, h4, .font-heading {
 [data-theme="light"] h5.text-white,
 [data-theme="light"] strong.text-white,
 [data-theme="light"] span.text-white:not(.bg-emerald-500 span):not(.bg-teal-600 span):not(.bg-pink-600 span):not(.bg-rose-500 span):not(.bg-rose-600 span):not(.bg-emerald-600 span):not(.bg-blue-600 span) {
-  color: #0f172a !important;
+  color: #1e293b !important;
 }
 
 [data-theme="light"] .text-slate-200,
@@ -345,7 +345,7 @@ h1, h2, h3, h4, .font-heading {
 [data-theme="light"] .border-slate-700,
 [data-theme="light"] .border-slate-700\/80,
 [data-theme="light"] .border-slate-800\/80 {
-  border-color: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
 }
 
 /* Form inputs & selects */
@@ -353,7 +353,7 @@ h1, h2, h3, h4, .font-heading {
 [data-theme="light"] select,
 [data-theme="light"] textarea {
   background-color: #ffffff !important;
-  color: #0f172a !important;
+  color: #1e293b !important;
   border-color: #cbd5e1 !important;
 }
 
@@ -417,14 +417,14 @@ h1, h2, h3, h4, .font-heading {
 
 [data-theme="light"] .glass-nav .text-slate-300:hover,
 [data-theme="light"] .glass-nav .text-slate-200:hover {
-  color: #0f172a !important;
+  color: #1e293b !important;
   background-color: #f1f5f9 !important;
 }
 
 /* Navbar dropdown popup */
 [data-theme="light"] .glass-nav .bg-slate-900 {
   background: #ffffff !important;
-  border-color: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
 }
 
@@ -436,7 +436,7 @@ h1, h2, h3, h4, .font-heading {
 }
 
 [data-theme="light"] footer h4 {
-  color: #0f172a !important;
+  color: #1e293b !important;
 }
 
 [data-theme="light"] footer p {
@@ -454,4 +454,169 @@ h1, h2, h3, h4, .font-heading {
   background-color: #ecfdf5 !important;
   color: #059669 !important;
   border-color: #10b981 !important;
+}
+
+
+/* ========================================================
+   PARALLAX, SCROLL PIN & DYNAMIC INTERACTIVE EFFECTS
+   ======================================================== */
+@keyframes floatReverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(12px) rotate(-1.5deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes shimmerBeam {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-float-reverse {
+  animation: floatReverse 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+.animate-marquee {
+  display: flex;
+  width: 200%;
+  animation: marquee 32s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.shimmer-badge {
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.1), rgba(56, 189, 248, 0.35), rgba(16, 185, 129, 0.1));
+  background-size: 200% 100%;
+  animation: shimmerBeam 3s infinite linear;
+}
+
+/* 3D Dynamic Tilt Card */
+.tilt-card-wrapper {
+  transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+  transform-style: preserve-3d;
+}
+
+/* Scroll progress bar */
+.scroll-progress-line {
+  background: linear-gradient(90deg, #10b981, #06b6d4, #8b5cf6, #f59e0b);
+}
+
+/* ========================================================
+   BIOMECHANICAL EXERCISE KINETIC RIG ANIMATIONS
+   ======================================================== */
+@keyframes animSquat {
+  0%, 100% {
+    transform: translateY(0px) scaleY(1);
+  }
+  50% {
+    transform: translateY(18px) scaleY(0.82);
+  }
+}
+
+@keyframes animPress {
+  0%, 100% {
+    transform: translateY(-8px) scale(1.05);
+  }
+  50% {
+    transform: translateY(8px) scale(0.95);
+  }
+}
+
+@keyframes animPull {
+  0%, 100% {
+    transform: translateY(16px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes animCurl {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+
+@keyframes animDeadlift {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(14px) rotate(3deg);
+  }
+}
+
+@keyframes animPlank {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+.animate-anim-squat {
+  animation: animSquat 2.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.animate-anim-press {
+  animation: animPress 2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.animate-anim-pull {
+  animation: animPull 2.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.animate-anim-curl {
+  animation: animCurl 1.8s ease-in-out infinite alternate;
+}
+
+.animate-anim-deadlift {
+  animation: animDeadlift 2.6s ease-in-out infinite;
+}
+
+.animate-anim-plank {
+  animation: animPlank 3s ease-in-out infinite;
 }

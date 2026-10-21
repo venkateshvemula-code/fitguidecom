@@ -1,10 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useApp } from '../context/AppContext';
-import { ArrowRight, CheckCircle2, AlertTriangle, Pill, Activity, Sparkles, Heart } from 'lucide-react';
+import { 
+  ArrowRight, 
+  CheckCircle2, 
+  AlertTriangle, 
+  Pill, 
+  Activity, 
+  Sparkles, 
+  Heart, 
+  Search,
+  Zap,
+  Shield,
+  Stethoscope,
+  Smile,
+  Flame,
+  Droplets,
+  Layers
+} from 'lucide-react';
 import { diseases } from '../data/fitData';
 
 export default function DiseasesTab() {
   const [activeDiseaseId, setActiveDiseaseId] = useState('diabetes');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [viewMode, setViewMode] = useState('overview'); // 'overview' | 'therapies'
+  const [selectedTherapyCategory, setSelectedTherapyCategory] = useState('all');
 
   const lifestylePhotos = {
     // Diabetes: Brisk aerobic walking / glucose uptake
@@ -28,7 +47,45 @@ export default function DiseasesTab() {
   };
 
   const diseaseList = diseases || [];
-  const activeDisease = diseaseList.find(d => d.id === activeDiseaseId) || diseaseList[0];
+
+  const filteredDiseases = useMemo(() => {
+    if (!searchQuery.trim()) return diseaseList;
+    const query = searchQuery.toLowerCase();
+    return diseaseList.filter(d => 
+      d.name.toLowerCase().includes(query) ||
+      d.category.toLowerCase().includes(query) ||
+      d.overview.toLowerCase().includes(query) ||
+      (d.therapies && d.therapies.some(t => t.name.toLowerCase().includes(query) || t.type.toLowerCase().includes(query)))
+    );
+  }, [diseaseList, searchQuery]);
+
+  const activeDisease = diseaseList.find(d => d.id === activeDiseaseId) || filteredDiseases[0] || diseaseList[0];
+
+  // All therapies across all conditions for global clinical therapy repository view
+  const allTherapies = useMemo(() => {
+    const list = [];
+    diseaseList.forEach(d => {
+      if (d.therapies) {
+        d.therapies.forEach(t => {
+          list.push({ ...t, diseaseName: d.name, diseaseIcon: d.icon, diseaseId: d.id });
+        });
+      }
+    });
+    return list;
+  }, [diseaseList]);
+
+  const filteredTherapies = useMemo(() => {
+    return allTherapies.filter(th => {
+      if (selectedTherapyCategory !== 'all' && !th.type.toLowerCase().includes(selectedTherapyCategory.toLowerCase())) {
+        return false;
+      }
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        return th.name.toLowerCase().includes(q) || th.protocol.toLowerCase().includes(q) || th.diseaseName.toLowerCase().includes(q);
+      }
+      return true;
+    });
+  }, [allTherapies, selectedTherapyCategory, searchQuery]);
 
   if (!activeDisease) return null;
 
@@ -49,29 +106,83 @@ export default function DiseasesTab() {
         </p>
       </div>
 
-      {/* Disease Selection Tabs */}
-      <div class="flex items-center justify-center gap-2 flex-wrap">
-        {diseaseList.map(d => {
-          const isSelected = d.id === activeDisease.id;
-          return (
+      {/* Control Bar: Search & View Mode Switcher */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
+        
+        {/* Search */}
+        <div className="relative w-full sm:w-80">
+          <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+          <input
+            type="text"
+            placeholder="Search symptoms, therapies, cures..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-10 pr-4 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition-colors"
+          />
+          {searchQuery && (
             <button
-              key={d.id}
-              onClick={() => setActiveDiseaseId(d.id)}
-              class={`px-4 py-2.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer ${
-                isSelected
-                  ? 'bg-amber-500 text-slate-950 font-bold shadow-lg scale-105'
-                  : 'bg-slate-900 text-slate-300 hover:text-white border border-slate-800'
-              }`}
+              onClick={() => setSearchQuery('')}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs cursor-pointer"
             >
-              <span>{d.icon || '🩺'}</span>
-              <span>{d.name.split('(')[0].trim()}</span>
+              ✕
             </button>
-          );
-        })}
+          )}
+        </div>
+
+        {/* View Mode Switcher */}
+        <div className="flex items-center gap-1.5 p-1 bg-slate-950 rounded-xl border border-slate-800 self-stretch sm:self-auto">
+          <button
+            onClick={() => setViewMode('overview')}
+            className={`flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+              viewMode === 'overview'
+                ? 'bg-amber-500 text-slate-950 shadow-md'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Stethoscope size={13} />
+            <span>Condition Overview</span>
+          </button>
+          <button
+            onClick={() => setViewMode('therapies')}
+            className={`flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+              viewMode === 'therapies'
+                ? 'bg-purple-600 text-white shadow-md'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Sparkles size={13} />
+            <span>Clinical Therapy Matrix ({allTherapies.length})</span>
+          </button>
+        </div>
+
       </div>
 
-      {/* Active Disease Detail Display */}
-      <div class="fit-card p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-amber-500/40 shadow-2xl space-y-8 animate-in fade-in duration-150">
+      {/* VIEW MODE 1: CONDITION OVERVIEW */}
+      {viewMode === 'overview' && (
+        <div className="space-y-8">
+          {/* Disease Selection Tabs */}
+          <div className="flex items-center justify-center gap-2 flex-wrap">
+            {filteredDiseases.map(d => {
+              const isSelected = d.id === activeDisease.id;
+              return (
+                <button
+                  key={d.id}
+                  onClick={() => setActiveDiseaseId(d.id)}
+                  className={`px-4 py-2.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer ${
+                    isSelected
+                      ? 'bg-amber-500 text-slate-950 font-bold shadow-lg scale-105'
+                      : 'bg-slate-900 text-slate-300 hover:text-white border border-slate-800'
+                  }`}
+                >
+                  <span>{d.icon || '🩺'}</span>
+                  <span>{d.name.split('(')[0].trim()}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Active Disease Detail Display */}
+          <div className="fit-card p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-amber-500/40 shadow-2xl space-y-8 animate-in fade-in duration-150">
         
         {/* Header */}
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
@@ -213,7 +324,87 @@ export default function DiseasesTab() {
         </div>
 
       </div>
+    </div>
+  )}
+
+  {/* VIEW MODE 2: CLINICAL THERAPY MATRIX */}
+  {viewMode === 'therapies' && (
+    <div className="space-y-6 animate-in fade-in duration-200">
+      
+      {/* Category Pills Filter */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+        {[
+          { id: 'all', label: 'All Therapies', icon: '✨' },
+          { id: 'Digital', label: 'Digital & CGM', icon: '📱' },
+          { id: 'Physiological', label: 'Physiological & Muscle', icon: '💪' },
+          { id: 'Thermal', label: 'Thermal & Sauna', icon: '🔥' },
+          { id: 'Vagal', label: 'Vagal & Breathing', icon: '🫁' },
+          { id: 'Nutritional', label: 'Nutraceutical & Herbal', icon: '🌿' },
+          { id: 'Physical', label: 'Aquatic & Physical', icon: '🌊' },
+          { id: 'Cryo', label: 'Cryotherapy', icon: '❄️' }
+        ].map(cat => (
+          <button
+            key={cat.id}
+            onClick={() => setSelectedTherapyCategory(cat.id)}
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
+              selectedTherapyCategory === cat.id
+                ? 'bg-purple-600 text-white shadow-lg shadow-purple-950/50 scale-105'
+                : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
+            }`}
+          >
+            <span>{cat.icon}</span>
+            <span>{cat.label}</span>
+          </button>
+        ))}
+      </div>
+
+      <div className="flex items-center justify-between text-xs text-slate-400 px-1">
+        <span>Showing <strong className="text-purple-300">{filteredTherapies.length}</strong> clinical non-drug therapy protocols</span>
+        <span>Tap any card to view its corresponding disease cure</span>
+      </div>
+
+      {/* Therapy Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filteredTherapies.map((th, i) => (
+          <div
+            key={i}
+            onClick={() => {
+              setActiveDiseaseId(th.diseaseId);
+              setViewMode('overview');
+            }}
+            className="group fit-card p-5 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-purple-500/30 hover:border-purple-400 hover:shadow-xl hover:shadow-purple-950/40 transition-all flex flex-col justify-between cursor-pointer"
+          >
+            <div className="space-y-3">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                  {th.type}
+                </span>
+                <span className="text-xs text-slate-400 group-hover:text-amber-400 flex items-center gap-1 transition-colors">
+                  <span>{th.diseaseIcon}</span>
+                  <span className="font-semibold text-[11px]">{th.diseaseName.split('(')[0].trim()}</span>
+                </span>
+              </div>
+
+              <h4 className="text-sm font-black text-white group-hover:text-purple-300 transition-colors">
+                {th.name}
+              </h4>
+
+              <p className="text-xs text-slate-300 leading-relaxed">
+                {th.protocol}
+              </p>
+            </div>
+
+            <div className="pt-4 mt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-bold text-purple-400 group-hover:text-purple-300">
+              <span>View Full Disease Protocol</span>
+              <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+        ))}
+      </div>
 
     </div>
+  )}
+
+</div>
   );
 }

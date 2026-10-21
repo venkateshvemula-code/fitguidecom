@@ -10,6 +10,10 @@ import FoodModal from './components/FoodModal';
 import GlobalSearchModal from './components/GlobalSearchModal';
 import FavoritesDrawer from './components/FavoritesDrawer';
 import ToastContainer from './components/ToastContainer';
+import AuthModal from './components/AuthModal';
+import QrLoginModal from './components/QrLoginModal';
+import ScrollProgressBar from './components/ScrollProgressBar';
+import MouseGlow from './components/MouseGlow';
 
 // Pages
 import HomeTab from './pages/HomeTab';
@@ -63,22 +67,32 @@ export default function App() {
   };
 
   return (
-    <div class="min-h-screen flex flex-col transition-colors selection:bg-emerald-500 selection:text-slate-950">
+    <div className="min-h-screen flex flex-col transition-colors selection:bg-emerald-500 selection:text-slate-950 relative">
+      {/* Dynamic Top Scroll Progress Line */}
+      <ScrollProgressBar />
+
+      {/* Dynamic Cursor Spotlight Glowing Background */}
+      <MouseGlow />
+
       {/* Top Persistent Medical Disclaimer */}
-      <div class="bg-gradient-to-r from-amber-500/10 via-amber-500/15 to-amber-500/10 border-b border-amber-500/20 py-2 px-4 text-center text-[11px] text-amber-300 font-medium">
+      <div className="bg-gradient-to-r from-amber-500/10 via-amber-500/15 to-amber-500/10 border-b border-amber-500/20 py-2 px-4 text-center text-[11px] text-amber-300 font-medium">
         <span>⚠️ Educational fitness & nutrition platform. Always consult a qualified physician or certified trainer before beginning any new training or dietary regimen.</span>
       </div>
 
       {/* Main Navbar */}
-      <Navbar />
+      <div className="relative z-20">
+        <Navbar />
+      </div>
 
       {/* Dynamic Tab Page */}
-      <main class="flex-1">
+      <main className="flex-1 relative z-10">
         {renderActiveTab()}
       </main>
 
       {/* Footer */}
-      <Footer />
+      <div className="relative z-10">
+        <Footer />
+      </div>
 
       {/* Modals & Overlays */}
       <ExerciseModal />
@@ -86,6 +100,8 @@ export default function App() {
       <GlobalSearchModal />
       <FavoritesDrawer />
       <FitBotCoach />
+      <AuthModal />
+      <QrLoginModal />
       <ToastContainer />
     </div>
   );
