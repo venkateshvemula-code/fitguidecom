@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Play, Pause, Activity, ExternalLink, RefreshCw } from 'lucide-react';
+import { Play, Activity, ExternalLink, AlertTriangle, RefreshCw } from 'lucide-react';
 import { getExerciseYouTube } from '../data/exerciseYouTube';
 
 export default function ExerciseVideoPlayer({ 
@@ -9,36 +9,50 @@ export default function ExerciseVideoPlayer({
   className = "" 
 }) {
   const [isPlaying, setIsPlaying] = useState(true);
+  const [embedBlocked, setEmbedBlocked] = useState(false);
   const ytData = getExerciseYouTube(exerciseId);
-  const videoId = ytData.videoId;
+  const videoId = ytData?.videoId || "IODxDxX7oi4";
 
-  // Construct YouTube Embed URL with autoplay, mute, loop, and no annoying related controls
-  const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=1&modestbranding=1&rel=0`;
+  // Use youtube-nocookie.com without restrictive playlist params for maximum embed reliability
+  const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1`;
+
+  const fallbackPoster = poster || `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 
   return (
     <div className={`relative overflow-hidden rounded-2xl bg-black group select-none border border-slate-800 ${className}`}>
-      {isPlaying ? (
-        <iframe
-          src={embedUrl}
-          title={title || ytData.title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-          className="w-full h-full border-0 absolute inset-0 z-10"
-        />
+      {isPlaying && !embedBlocked ? (
+        <div className="relative w-full h-full">
+          <iframe
+            src={embedUrl}
+            title={title || ytData.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            className="w-full h-full border-0 absolute inset-0 z-10"
+          />
+        </div>
       ) : (
         <div 
-          onClick={() => setIsPlaying(true)}
+          onClick={() => {
+            setEmbedBlocked(false);
+            setIsPlaying(true);
+          }}
           className="w-full h-full relative cursor-pointer overflow-hidden flex items-center justify-center bg-black"
         >
           <img
-            src={poster || `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+            src={fallbackPoster}
             alt={title}
             className="w-full h-full object-cover"
+            onError={(e) => {
+              e.currentTarget.src = "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80";
+            }}
           />
-          <div className="absolute inset-0 bg-black/40 flex items-center justify-center z-10">
+          <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center gap-2 z-10">
             <div className="w-14 h-14 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all">
               <Play size={24} fill="currentColor" className="ml-0.5" />
             </div>
+            <span className="text-xs text-white font-medium bg-slate-900/80 px-3 py-1 rounded-full border border-slate-700">
+              Click to Play Tutorial
+            </span>
           </div>
         </div>
       )}
@@ -49,17 +63,31 @@ export default function ExerciseVideoPlayer({
         <span>HD Video Tutorial</span>
       </div>
 
-      {/* Direct YouTube Link Badge in top right */}
+      {/* Always-accessible Watch on YouTube Button */}
       <a
         href={`https://www.youtube.com/watch?v=${videoId}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="absolute top-3 right-3 z-20 flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-600/90 hover:bg-red-600 text-white text-[10px] font-bold shadow transition-all cursor-pointer"
-        title="Open in YouTube"
+        className="absolute top-3 right-3 z-30 flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-600 hover:bg-red-500 text-white text-[11px] font-bold shadow-lg transition-all cursor-pointer hover:scale-105"
+        title="Watch directly on YouTube"
       >
-        <span>YouTube</span>
-        <ExternalLink size={11} />
+        <span>Watch on YouTube</span>
+        <ExternalLink size={12} />
       </a>
+
+      {/* Quick Switch to Poster / Fallback if owner disabled embeds */}
+      <div className="absolute bottom-3 right-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setEmbedBlocked(!embedBlocked);
+          }}
+          className="px-2.5 py-1 rounded-lg bg-slate-900/90 text-slate-300 hover:text-white border border-slate-700 text-[10px] font-semibold flex items-center gap-1 cursor-pointer"
+        >
+          <RefreshCw size={10} />
+          <span>{embedBlocked ? "Try Embedded Video" : "Show Poster"}</span>
+        </button>
+      </div>
     </div>
   );
 }
