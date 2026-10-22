@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>FitGuide</title>
+  <script>
+    // GitHub Pages SPA Single-Page Router Redirect:
+    // If a user refreshes or visits https://venkateshvemula-code.github.io/fitguidecom/exercises
+    // redirect them to https://venkateshvemula-code.github.io/fitguidecom/#exercises so the React SPA loads.
+    var pathSegments = window.location.pathname.split('/').filter(Boolean);
+    var repoName = 'fitguidecom';
+    var repoIdx = pathSegments.indexOf(repoName);
+    var route = '';
+    if (repoIdx !== -1 && repoIdx < pathSegments.length - 1) {
+      route = pathSegments.slice(repoIdx + 1).join('/');
+    }
+    var target = window.location.origin + '/' + repoName + '/#' + (route || '');
+    window.location.replace(target);
+  </script>
+</head>
+<body>
+  <p>Redirecting to <a href="./">FitGuide</a>...</p>
+</body>
+</html>
