@@ -14,6 +14,8 @@ import AuthModal from './components/AuthModal';
 import QrLoginModal from './components/QrLoginModal';
 import ScrollProgressBar from './components/ScrollProgressBar';
 import MouseGlow from './components/MouseGlow';
+import FloatingDock from './components/FloatingDock';
+import MagneticCursor from './components/MagneticCursor';
 
 // Pages
 import HomeTab from './pages/HomeTab';
@@ -73,6 +75,12 @@ export default function App() {
 
       {/* Dynamic Cursor Spotlight Glowing Background */}
       <MouseGlow />
+
+      {/* Luxury Spring Magnetic Cursor */}
+      <MagneticCursor />
+
+      {/* Floating Apple-Style Glassmorphism Quick Dock */}
+      <FloatingDock />
 
       {/* Top Persistent Medical Disclaimer */}
       <div className="bg-gradient-to-r from-amber-500/10 via-amber-500/15 to-amber-500/10 border-b border-amber-500/20 py-2 px-4 text-center text-[11px] text-amber-300 font-medium">
