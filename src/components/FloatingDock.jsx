@@ -11,7 +11,8 @@ import {
   Flame,
   Search,
   Bot,
-  Sparkles
+  Sparkles,
+  Headphones
 } from 'lucide-react';
 
 export default function FloatingDock() {
@@ -55,6 +56,7 @@ export default function FloatingDock() {
     { id: 'diet', label: 'Diet Plans', icon: Salad, gradient: 'from-green-500 to-emerald-500' },
     { id: 'diseases', label: 'Care Protocols', icon: HeartPulse, gradient: 'from-rose-500 to-pink-500' },
     { id: 'tracker', label: 'Tracker', icon: Flame, gradient: 'from-orange-500 to-red-500' },
+    { id: 'music', label: 'Workout Beats', icon: Headphones, special: 'music', gradient: 'from-fuchsia-500 to-rose-600' },
     { id: 'search', label: 'Search', icon: Search, special: 'search', gradient: 'from-sky-500 to-blue-600' },
     { id: 'bot', label: 'FitBot AI', icon: Bot, special: 'bot', gradient: 'from-emerald-400 to-teal-400' }
   ];
@@ -108,6 +110,8 @@ export default function FloatingDock() {
       openModal('search');
     } else if (item.special === 'bot') {
       toggleFitBot();
+    } else if (item.special === 'music') {
+      openModal('indian_music');
     } else {
       setActiveTab(item.id);
     }

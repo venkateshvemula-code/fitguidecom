@@ -11,7 +11,8 @@ import {
   ChevronDown,
   Dumbbell,
   Sparkles,
-  Smartphone
+  Smartphone,
+  Headphones
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -220,6 +221,16 @@ export default function Navbar() {
           {/* Right Header Actions: Distinct, Prominent & Non-Congested */}
           <div class="flex items-center gap-2 sm:gap-3 shrink-0">
             
+            {/* Indian Workout Music Beats Button */}
+            <button
+              onClick={() => openModal('indian_music')}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-fuchsia-500/40 bg-gradient-to-r from-fuchsia-500/20 via-pink-500/20 to-rose-500/20 text-fuchsia-200 hover:text-white text-xs font-bold hover:scale-105 transition-all cursor-pointer shadow-md shadow-fuchsia-500/10"
+              title="Play Indian Workout Music (Telugu, Hindi, Tamil, Punjabi...)"
+            >
+              <Headphones size={13} className="text-fuchsia-400 animate-pulse" />
+              <span className="font-heading">Workout Beats 🇮🇳</span>
+            </button>
+
             {/* FitBot AI Button */}
             <button 
               onClick={toggleFitBot}

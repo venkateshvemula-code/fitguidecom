@@ -16,6 +16,7 @@ import ScrollProgressBar from './components/ScrollProgressBar';
 import MouseGlow from './components/MouseGlow';
 import FloatingDock from './components/FloatingDock';
 import MagneticCursor from './components/MagneticCursor';
+import IndianWorkoutPlaylistsModal from './components/IndianWorkoutPlaylistsModal';
 
 // Pages
 import HomeTab from './pages/HomeTab';
@@ -33,7 +34,7 @@ import GymsTab from './pages/GymsTab';
 import KidsFitnessTab from './pages/KidsFitnessTab';
 
 export default function App() {
-  const { activeTab } = useApp();
+  const { activeTab, activeModal, closeModal } = useApp();
 
   const renderActiveTab = () => {
     switch (activeTab) {
@@ -110,6 +111,10 @@ export default function App() {
       <FitBotCoach />
       <AuthModal />
       <QrLoginModal />
+      <IndianWorkoutPlaylistsModal 
+        isOpen={activeModal?.type === 'indian_music'} 
+        onClose={closeModal} 
+      />
       <ToastContainer />
     </div>
   );
