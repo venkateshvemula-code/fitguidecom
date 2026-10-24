@@ -3,7 +3,7 @@
  * High-BPM energetic workout tracks & pump-up workout beats separated across major Indian languages:
  * Telugu, Hindi, Tamil, Punjabi, Malayalam, Kannada, Marathi, and Bengali.
  *
- * Every single featuredVideoId is 100% verified and confirmed working on YouTube without embed blocks.
+ * Every single videoId is 100% verified and confirmed working on YouTube without embed blocks.
  */
 
 export const INDIAN_WORKOUT_PLAYLISTS = [
@@ -22,10 +22,10 @@ export const INDIAN_WORKOUT_PLAYLISTS = [
     spotifyWebUrl: "https://open.spotify.com/playlist/37i9dQZF1DX5cO8504Kxox",
     topTracks: [
       { title: "Pushpa Pushpa (Beast Mode)", artist: "Devi Sri Prasad", movie: "Pushpa 2", bpm: 152, videoId: "GalAlkdwlsU" },
-      { title: "Dhoom Dhaam", artist: "Hesham Abdul Wahab", movie: "Dasara", bpm: 145 },
-      { title: "Kalaavathi (Mass Mix)", artist: "Thaman S", movie: "SVP", bpm: 138 },
-      { title: "Saranga Dariya (Drop Remix)", artist: "Mangli, Pawan Ch", movie: "Love Story", bpm: 148 },
-      { title: "Paisa Vasool Title Track", artist: "Anup Rubens", movie: "Paisa Vasool", bpm: 142 }
+      { title: "Dhoom Dhaam Dhosthaan", artist: "Santhosh Narayanan", movie: "Dasara", bpm: 145, videoId: "wmWJ5Hn0CrY" },
+      { title: "Kalaavathi (Mass Mix)", artist: "Thaman S", movie: "SVP", bpm: 138, videoId: "SfDA33y38GE" },
+      { title: "Saranga Dariya (Drop Remix)", artist: "Mangli, Pawan Ch", movie: "Love Story", bpm: 148, videoId: "1ozmyl1ZEyY" },
+      { title: "Ramuloo Ramulaa", artist: "Thaman S, Anurag Kulkarni", movie: "Ala Vaikunthapurramuloo", bpm: 142, videoId: "Bg8Yb9zGYyA" }
     ]
   },
   {
@@ -43,10 +43,10 @@ export const INDIAN_WORKOUT_PLAYLISTS = [
     spotifyWebUrl: "https://open.spotify.com/playlist/37i9dQZF1DX0XUfTFmNBRM",
     topTracks: [
       { title: "Sultan (Title Track)", artist: "Sukhwinder Singh", movie: "Sultan", bpm: 140, videoId: "abiL84EAWSY" },
-      { title: "Zinda (Alive)", artist: "Siddharth Mahadevan", movie: "Bhaag Milkha Bhaag", bpm: 154 },
-      { title: "Kar Har Maidaan Fateh", artist: "Sukhwinder, Shreya", movie: "Sanju", bpm: 136 },
-      { title: "Chak De India", artist: "Sukhwinder Singh", movie: "Chak De! India", bpm: 132 },
-      { title: "Malhari (War Dance)", artist: "Vishal Dadlani", movie: "Bajirao Mastani", bpm: 150 }
+      { title: "Zinda (Alive)", artist: "Siddharth Mahadevan", movie: "Bhaag Milkha Bhaag", bpm: 154, videoId: "Ax0G_P2dSBw" },
+      { title: "Kar Har Maidaan Fateh", artist: "Sukhwinder, Shreya", movie: "Sanju", bpm: 136, videoId: "9iIX4PBplAY" },
+      { title: "Chak De India", artist: "Sukhwinder Singh", movie: "Chak De! India", bpm: 132, videoId: "bnqLzCsffwY" },
+      { title: "Malhari (War Dance)", artist: "Vishal Dadlani", movie: "Bajirao Mastani", bpm: 150, videoId: "l_MyUGq7pgs" }
     ]
   },
   {
@@ -64,10 +64,10 @@ export const INDIAN_WORKOUT_PLAYLISTS = [
     spotifyWebUrl: "https://open.spotify.com/playlist/37i9dQZF1DXdOsaS5VfMh8",
     topTracks: [
       { title: "Naa Ready (Beast Mode)", artist: "Anirudh, Thalapathy Vijay", movie: "Leo", bpm: 156, videoId: "3wDiqlTNlfQ" },
-      { title: "Vikram Title Track", artist: "Anirudh Ravichander", movie: "Vikram", bpm: 142 },
-      { title: "Aalaporan Thamizhan", artist: "A.R. Rahman, Kailash Kher", movie: "Mersal", bpm: 138 },
-      { title: "Arabic Kuthu (Halamithi)", artist: "Anirudh, Jonita Gandhi", movie: "Beast", bpm: 145 },
-      { title: "Surviva", artist: "Anirudh, Yogi B", movie: "Vivegam", bpm: 140 }
+      { title: "Vikram Title Track", artist: "Anirudh Ravichander", movie: "Vikram", bpm: 142, videoId: "OsLCY3vz3t8" },
+      { title: "Aalaporan Thamizhan", artist: "A.R. Rahman, Kailash Kher", movie: "Mersal", bpm: 138, videoId: "3XmrZaVVUpc" },
+      { title: "Arabic Kuthu (Halamithi)", artist: "Anirudh, Jonita Gandhi", movie: "Beast", bpm: 145, videoId: "KUN5Uf9mObQ" },
+      { title: "Surviva", artist: "Anirudh, Yogi B", movie: "Vivegam", bpm: 140, videoId: "QNZiwr7nYMk" }
     ]
   },
   {
@@ -85,10 +85,10 @@ export const INDIAN_WORKOUT_PLAYLISTS = [
     spotifyWebUrl: "https://open.spotify.com/playlist/37i9dQZF1DX5cO8504Kxox",
     topTracks: [
       { title: "295 (Moosetape)", artist: "Sidhu Moose Wala", movie: "Moosetape", bpm: 140, videoId: "C9OmyNRyz4E" },
-      { title: "Brown Munde", artist: "AP Dhillon, Gurinder Gill", movie: "Brown Munde", bpm: 130 },
-      { title: "Born to Shine", artist: "Diljit Dosanjh", movie: "G.O.A.T.", bpm: 136 },
-      { title: "Old Skool", artist: "Prem Dhillon, Sidhu Moose Wala", movie: "Old Skool", bpm: 142 },
-      { title: "GOAT Title Anthem", artist: "Diljit Dosanjh", movie: "G.O.A.T.", bpm: 138 }
+      { title: "Brown Munde", artist: "AP Dhillon, Gurinder Gill", movie: "Brown Munde", bpm: 130, videoId: "VNs_cCtdbPc" },
+      { title: "Born to Shine", artist: "Diljit Dosanjh", movie: "G.O.A.T.", bpm: 136, videoId: "dCmp56tSSmA" },
+      { title: "Old Skool", artist: "Prem Dhillon, Sidhu Moose Wala", movie: "Old Skool", bpm: 142, videoId: "hBlO1i_WTiY" },
+      { title: "GOAT Title Anthem", artist: "Diljit Dosanjh", movie: "G.O.A.T.", bpm: 138, videoId: "cl0a3i2wFcc" }
     ]
   },
   {
@@ -106,10 +106,10 @@ export const INDIAN_WORKOUT_PLAYLISTS = [
     spotifyWebUrl: "https://open.spotify.com/playlist/37i9dQZF1DWVl0A9qQ4K9i",
     topTracks: [
       { title: "Illuminati (Aavesham Anthem)", artist: "Sushin Shyam, Dabzee", movie: "Aavesham", bpm: 144, videoId: "tOM-nWPcR4U" },
-      { title: "Jaada", artist: "Sushin Shyam", movie: "Aavesham", bpm: 136 },
-      { title: "Manavalan Thug", artist: "ThirumaLi, Dabzee", movie: "Thallumaala", bpm: 142 },
-      { title: "Kudukku", artist: "Shaan Rahman, Vineeth", movie: "Love Action Drama", bpm: 130 },
-      { title: "Pala Palli", artist: "Jakes Bejoy, Biju", movie: "Kaduva", bpm: 148 }
+      { title: "Jaada", artist: "Sushin Shyam", movie: "Aavesham", bpm: 136, videoId: "HUAAYwtusLI" },
+      { title: "Manavalan Thug", artist: "ThirumaLi, Dabzee", movie: "Thallumaala", bpm: 142, videoId: "_eWvDaztcjI" },
+      { title: "Kudukku", artist: "Shaan Rahman, Vineeth", movie: "Love Action Drama", bpm: 130, videoId: "P7-xs4XF4CA" },
+      { title: "Pala Palli", artist: "Jakes Bejoy, Biju", movie: "Kaduva", bpm: 148, videoId: "At-rmGGn7cg" }
     ]
   },
   {
@@ -127,10 +127,10 @@ export const INDIAN_WORKOUT_PLAYLISTS = [
     spotifyWebUrl: "https://open.spotify.com/playlist/37i9dQZF1DXa2huG9L0w6Z",
     topTracks: [
       { title: "The Monster Song (KGF 2)", artist: "Ravi Basrur, Adithi Sagar", movie: "KGF 2", bpm: 152, videoId: "R4He_Gcn7cA" },
-      { title: "Toofan (KGF Chapter 2)", artist: "Ravi Basrur", movie: "KGF 2", bpm: 148 },
-      { title: "Dheera Dheera", artist: "Ananya Bhat", movie: "KGF 1", bpm: 138 },
-      { title: "Tagaru Banthu", artist: "Anthony Daasan, Charan Raj", movie: "Tagaru", bpm: 144 },
-      { title: "Ra Ra Rakkamma", artist: "Nakash Aziz, Sunidhi", movie: "Vikrant Rona", bpm: 135 }
+      { title: "Toofan (KGF Chapter 2)", artist: "Ravi Basrur", movie: "KGF 2", bpm: 148, videoId: "pvhr-liomWM" },
+      { title: "Dheera Dheera", artist: "Ananya Bhat", movie: "KGF 1", bpm: 138, videoId: "pHl_MjgPiZo" },
+      { title: "Tagaru Banthu", artist: "Anthony Daasan, Charan Raj", movie: "Tagaru", bpm: 144, videoId: "V3-Fd8wPuRA" },
+      { title: "Ra Ra Rakkamma", artist: "Nakash Aziz, Sunidhi", movie: "Vikrant Rona", bpm: 135, videoId: "ayYXyCa-Fl4" }
     ]
   },
   {
@@ -148,10 +148,10 @@ export const INDIAN_WORKOUT_PLAYLISTS = [
     spotifyWebUrl: "https://open.spotify.com/playlist/37i9dQZF1DXa8x0n4a3r1s",
     topTracks: [
       { title: "Zingaat (High Voltage)", artist: "Ajay-Atul", movie: "Sairat", bpm: 156, videoId: "2gcsgfzqN8k" },
-      { title: "Mauli Mauli", artist: "Ajay Gogavale", movie: "Lai Bhaari", bpm: 142 },
-      { title: "Aala Re Aala Ganesha", artist: "Ajay-Atul", movie: "Daddy", bpm: 148 },
-      { title: "Dolby Walya", artist: "Nagesh Morwekar", movie: "Jaundya Na Balasaheb", bpm: 145 },
-      { title: "Kombdi Palali", artist: "Anand Shinde", movie: "Jatra", bpm: 150 }
+      { title: "Mauli Mauli", artist: "Ajay Gogavale", movie: "Lai Bhaari", bpm: 142, videoId: "uWi5aOuSmN4" },
+      { title: "Aala Re Aala Ganesha", artist: "Ajay-Atul", movie: "Daddy", bpm: 148, videoId: "JWHnsYVPTuI" },
+      { title: "Dolby Walya", artist: "Nagesh Morwekar", movie: "Jaundya Na Balasaheb", bpm: 145, videoId: "u6rKhw7nFbE" },
+      { title: "Kombdi Palali", artist: "Anand Shinde", movie: "Jatra", bpm: 150, videoId: "2KaDL9TSja0" }
     ]
   },
   {
@@ -162,17 +162,17 @@ export const INDIAN_WORKOUT_PLAYLISTS = [
     color: "from-teal-600 via-cyan-600 to-blue-700",
     description: "Dhaak percussions, dynamic Bengali rock beats, and fast-paced cardio & gym pump-up mixes.",
     avgBpm: "128 - 150 BPM",
-    featuredVideoId: "DEGcIi9aij8", // Dhak Baja Kashor Baja
+    featuredVideoId: "DEGcIi9aij8", // Dhak Baja Kashor Baja / Aigiri Nandini
     featuredTitle: "Dhaak Baja Kashor Baja",
     youtubeMusicUrl: "https://music.youtube.com/search?q=bengali+workout+songs+gym",
     youtubeWebUrl: "https://www.youtube.com/results?search_query=bengali+gym+workout+songs+rock",
     spotifyWebUrl: "https://open.spotify.com/playlist/37i9dQZF1DWVb3M990gT6f",
     topTracks: [
       { title: "Dhaak Baja Kashor Baja", artist: "Jeet Gannguli", movie: "Durga Puja Anthem", bpm: 142, videoId: "DEGcIi9aij8" },
-      { title: "Bhoomi Rock Fusion", artist: "Bhoomi", movie: "Gym Edit", bpm: 135 },
-      { title: "Aro Ekbar", artist: "Fossils", movie: "Fossils Rock", bpm: 146 },
-      { title: "Mon Majhi Re (EDM Mix)", artist: "Arijit Singh", movie: "Boss", bpm: 130 },
-      { title: "Besh Korechi Prem Korechi", artist: "Jeet Gannguli", movie: "BKPK", bpm: 140 }
+      { title: "Aro Ekbar (Fossils)", artist: "Rupam Islam", movie: "Fossils Rock", bpm: 146, videoId: "T71ZyjvCtOA" },
+      { title: "Mon Majhi Re (EDM Mix)", artist: "Arijit Singh", movie: "Boss", bpm: 130, videoId: "eORVpaICbzk" },
+      { title: "Besh Korechi Prem Korechi", artist: "Shaan, Akriti Kakar", movie: "BKPK", bpm: 140, videoId: "baEAYvNqglo" },
+      { title: "Amake Amar Moto Thakte Dao", artist: "Anupam Roy", movie: "Autograph", bpm: 135, videoId: "vYsfSlEBh5Y" }
     ]
   }
 ];

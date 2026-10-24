@@ -18,13 +18,21 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
 
   const currentPlaylist = INDIAN_WORKOUT_PLAYLISTS.find(p => p.id === selectedLang) || INDIAN_WORKOUT_PLAYLISTS[0];
   const currentVideoId = activeVideoId || currentPlaylist.featuredVideoId;
+  const currentTrack = currentPlaylist.topTracks.find(t => t.videoId === currentVideoId) || currentPlaylist.topTracks[0];
 
   // Direct video embed URL with autoplay, audio enabled, and infinite loop
   const embedUrl = `https://www.youtube.com/embed/${currentVideoId}?autoplay=1&mute=0&playsinline=1&rel=0&modestbranding=1&loop=1&playlist=${currentVideoId}`;
 
   const handleLangChange = (id) => {
     setSelectedLang(id);
-    setActiveVideoId(null); // Reset to new language featured video
+    const newPlaylist = INDIAN_WORKOUT_PLAYLISTS.find(p => p.id === id) || INDIAN_WORKOUT_PLAYLISTS[0];
+    setActiveVideoId(newPlaylist.featuredVideoId);
+  };
+
+  const handleTrackSelect = (track) => {
+    if (track.videoId) {
+      setActiveVideoId(track.videoId);
+    }
   };
 
   return (
@@ -102,7 +110,7 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
               <span>{currentPlaylist.avgBpm}</span>
             </span>
             <span className="text-xs text-slate-300 font-medium truncate max-w-[280px] sm:max-w-none">
-              Now Playing: <strong className="text-white">{currentPlaylist.featuredTitle}</strong>
+              Now Playing: <strong className="text-white">{currentTrack ? `${currentTrack.title} (${currentTrack.artist})` : currentPlaylist.featuredTitle}</strong>
             </span>
           </div>
 
@@ -139,40 +147,50 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {currentPlaylist.topTracks.map((track, i) => (
-                <div
-                  key={i}
-                  onClick={() => {
-                    if (track.videoId) {
-                      setActiveVideoId(track.videoId);
-                    }
-                  }}
-                  className={`p-3.5 rounded-xl border flex items-center justify-between group transition-all cursor-pointer ${
-                    activeVideoId === track.videoId
-                      ? 'bg-emerald-500/20 border-emerald-500/60 shadow-lg'
-                      : 'bg-slate-950/60 border-slate-800/80 hover:border-emerald-500/40'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-black text-xs font-mono border border-emerald-500/20">
-                      0{i + 1}
+              {currentPlaylist.topTracks.map((track, i) => {
+                const isPlaying = currentVideoId === track.videoId;
+                return (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => handleTrackSelect(track)}
+                    className={`w-full text-left p-3.5 rounded-xl border flex items-center justify-between group transition-all cursor-pointer ${
+                      isPlaying
+                        ? 'bg-emerald-500/20 border-emerald-400 shadow-lg ring-1 ring-emerald-400/50'
+                        : 'bg-slate-950/60 border-slate-800/80 hover:border-emerald-500/50 hover:bg-slate-900'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-black text-xs font-mono border transition-colors ${
+                        isPlaying
+                          ? 'bg-emerald-500 text-slate-950 border-emerald-400 animate-pulse'
+                          : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 group-hover:bg-emerald-500/20'
+                      }`}>
+                        {isPlaying ? '▶' : `0${i + 1}`}
+                      </div>
+                      <div>
+                        <h4 className={`text-xs font-bold transition-colors ${
+                          isPlaying ? 'text-emerald-300 font-extrabold' : 'text-white group-hover:text-emerald-400'
+                        }`}>
+                          {track.title}
+                        </h4>
+                        <p className="text-[11px] text-slate-400">
+                          {track.artist} • <span className="text-slate-500">{track.movie}</span>
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors">
-                        {track.title}
-                      </h4>
-                      <p className="text-[11px] text-slate-400">
-                        {track.artist} • <span className="text-slate-500">{track.movie}</span>
-                      </p>
-                    </div>
-                  </div>
 
-                  <span className="px-2 py-0.5 rounded bg-slate-800/90 text-slate-300 text-[10px] font-mono font-bold border border-slate-700 flex items-center gap-1">
-                    <span>{track.bpm} BPM</span>
-                    <Play size={9} fill="currentColor" className="text-emerald-400" />
-                  </span>
-                </div>
-              ))}
+                    <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border flex items-center gap-1 transition-colors ${
+                      isPlaying
+                        ? 'bg-emerald-500 text-slate-950 border-emerald-400'
+                        : 'bg-slate-800/90 text-slate-300 border-slate-700'
+                    }`}>
+                      <span>{track.bpm} BPM</span>
+                      <Play size={9} fill="currentColor" className={isPlaying ? 'text-slate-950' : 'text-emerald-400'} />
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 

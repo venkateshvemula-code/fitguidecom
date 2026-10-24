@@ -2892,28 +2892,32 @@ export const FIT_DATA = {
           hormones: "Estrogen & Progesterone are at their lowest; uterine lining (endometrium) sheds.",
           energyLevel: "Lower energy, reflective mindset, natural physical rest required.",
           exerciseAdvice: "Gentle walking, restorative yin yoga, light stretching, pelvic breathing. Avoid strenuous HIIT and heavy core compression.",
-          keyNutrients: "Iron, Vitamin C, Magnesium, Warm Broths, Hydrating herbal teas."
+          keyNutrients: "Iron, Vitamin C, Magnesium, Warm Broths, Hydrating herbal teas.",
+          nutritionFocus: "Iron & Vitamin C to rebuild hemoglobin lost in menses, Magnesium for cramp relief, warm nourishing broths & constant hydration."
         },
         {
           phase: "Follicular Phase (Days 6 - 13)",
           hormones: "FSH stimulates follicle growth; Estrogen rises steadily; uterine lining rebuilds.",
           energyLevel: "Rising energy, high mental focus, improved insulin sensitivity.",
           exerciseAdvice: "Ideal time for progressive strength training, compound barbell lifts, running, and high-intensity resistance.",
-          keyNutrients: "Lean proteins, sprouted seeds, fermented foods (curd, kimchi), cruciferous greens (metabolizes excess estrogen)."
+          keyNutrients: "Lean proteins, sprouted seeds, fermented foods (curd, kimchi), cruciferous greens (metabolizes excess estrogen).",
+          nutritionFocus: "Lean clean proteins to support muscle synthesis, sprouted seeds, fermented foods (curd/kefir) & cruciferous greens to metabolize estrogen."
         },
         {
           phase: "Ovulatory Phase (Days 14 - 16)",
           hormones: "Luteinizing Hormone (LH) surge triggers egg release; Estrogen & Testosterone peak.",
           energyLevel: "Peak physical stamina, maximum neuromuscular strength, highest social confidence.",
           exerciseAdvice: "High-intensity interval training (HIIT), sprint intervals, heavy resistance personal records (PRs).",
-          keyNutrients: "Fiber-rich vegetables, zinc, glutathione-rich berries, light clean proteins."
+          keyNutrients: "Fiber-rich vegetables, zinc, glutathione-rich berries, light clean proteins.",
+          nutritionFocus: "Antioxidant-rich berries, Zinc & Glutathione to support egg quality, high-fiber greens & light clean proteins."
         },
         {
           phase: "Luteal Phase (Days 17 - 28)",
           hormones: "Progesterone dominates to prepare uterine lining; basal metabolic rate increases by 100-300 kcal/day.",
           energyLevel: "Gradual energy taper; potential PMS symptoms (bloating, breast tenderness, cravings).",
           exerciseAdvice: "Moderate resistance training, pilates, steady-state cardio, brisk incline walking.",
-          keyNutrients: "Complex carbs (sweet potatoes, oats), Vitamin B6, Magnesium, healthy fats (avocado, nuts) to calm cravings."
+          keyNutrients: "Complex carbs (sweet potatoes, oats), Vitamin B6, Magnesium, healthy fats (avocado, nuts) to calm cravings.",
+          nutritionFocus: "Slow complex carbs (sweet potatoes, oats) to sustain 100-300 kcal higher metabolic rate, Vitamin B6, Magnesium & healthy fats for PMS."
         }
       ],
       precautions: [
