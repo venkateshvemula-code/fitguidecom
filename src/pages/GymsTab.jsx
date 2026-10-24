@@ -1,360 +1,325 @@
 import React, { useState, useMemo } from 'react';
-import { useApp } from '../context/AppContext';
-import { MapPin, Phone, Clock, Search, ExternalLink, Navigation, Globe, Compass, Sparkles } from 'lucide-react';
-import { gyms } from '../data/fitData';
+import { 
+  MapPin, 
+  Phone, 
+  Clock, 
+  Search, 
+  ExternalLink, 
+  Navigation, 
+  Compass, 
+  Sparkles,
+  Building2,
+  CheckCircle2,
+  AlertCircle
+} from 'lucide-react';
+import { EXTENDED_GYMS_DATABASE } from '../data/gymsDatabase';
 
 export default function GymsTab() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedRegion, setSelectedRegion] = useState('all');
-  const [customCitySearch, setCustomCitySearch] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+  const [selectedPreset, setSelectedPreset] = useState('all');
+  const [postalInfo, setPostalInfo] = useState(null);
+  const [isLoadingPostal, setIsLoadingPostal] = useState(false);
 
-  // Global presets: Major Indian cities & Global fitness metropolises
-  const regions = [
-    { id: 'all', label: 'All Curated' },
-    { id: 'Vizag & AP', label: 'Vizag & AP 🇮🇳' },
-    { id: 'Hyderabad', label: 'Hyderabad' },
-    { id: 'Bangalore', label: 'Bangalore' },
-    { id: 'Mumbai & Delhi', label: 'Mumbai & Delhi' },
-    { id: 'Global', label: 'Global Cities 🌍' }
+  // Quick Area / District Shortcuts
+  const presetShortcuts = [
+    { label: 'All Locations', value: 'all' },
+    { label: 'Sheelanagar (530012)', value: '530012' },
+    { label: 'Gajuwaka (530026)', value: '530026' },
+    { label: 'Dwarakanagar (530016)', value: '530016' },
+    { label: 'MVP Colony (530017)', value: '530017' },
+    { label: 'Hyderabad (500081)', value: '500081' },
+    { label: 'Bangalore (560034)', value: '560034' },
+    { label: 'Mumbai & Delhi', value: 'Mumbai' }
   ];
 
-  // Extended Worldwide Gym Database + Curated Local Hubs
-  const allGyms = useMemo(() => {
-    const baseList = (gyms || []).map(g => ({
-      ...g,
-      region: 'Vizag & AP',
-      location: g.location || g.area || `${g.city || 'Visakhapatnam'}, AP`,
-      timing: g.timing || g.hours || '5:30 AM - 10:00 PM',
-      mapsQuery: g.mapQuery || `${g.name} ${g.area || g.city || 'Visakhapatnam'}`
-    }));
+  // Live query logic: matches Pin Code, District, City, or Name
+  const searchResults = useMemo(() => {
+    const query = searchInput.trim().toLowerCase();
 
-    // Additional Pan-India & Global Top Tier Gyms
-    const globalAdditions = [
-      {
-        id: 'gym-cult-hyd',
-        name: 'Cult.fit Elite Fitness Center',
-        region: 'Hyderabad',
-        city: 'Hyderabad',
-        location: 'Jubilee Hills / Madhapur, Hyderabad',
-        rating: 4.9,
-        timing: '5:00 AM - 11:00 PM',
-        phone: '+91 80 4718 2000',
-        amenities: ['Strength Floor', 'Boxing Ring', 'Yoga Studio', 'CrossFit Rig', 'Certified Athletes'],
-        mapsQuery: 'Cult.fit Jubilee Hills Hyderabad',
-        highlight: 'Premier functional fitness and strength training academy in Hyderabad.'
-      },
-      {
-        id: 'gym-nitrro-hyd',
-        name: 'Nitrro Wellness & Fitness Hub',
-        region: 'Hyderabad',
-        city: 'Hyderabad',
-        location: 'Road No 36, Jubilee Hills, Hyderabad',
-        rating: 4.8,
-        timing: '6:00 AM - 11:00 PM',
-        phone: '+91 91000 88888',
-        amenities: ['Skyline View', 'Olympic Free Weights', 'Cardio Cinema', 'Spa & Recovery'],
-        mapsQuery: 'Nitrro Wellness Jubilee Hills Hyderabad',
-        highlight: 'Luxury world-class bodybuilding and athletic performance sanctuary.'
-      },
-      {
-        id: 'gym-volt-blr',
-        name: 'Volt Energy Club & Fitness',
-        region: 'Bangalore',
-        city: 'Bangalore',
-        location: 'Indiranagar / 100ft Road, Bangalore',
-        rating: 4.9,
-        timing: '5:30 AM - 10:30 PM',
-        phone: '+91 80 4123 4567',
-        amenities: ['Eleiko Competition Plates', 'Power Racks', 'HIIT Studio', 'Nutrition Bar'],
-        mapsQuery: 'Volt Fitness Indiranagar Bangalore',
-        highlight: 'High-intensity powerlifting and conditioning facility with biomechanical setups.'
-      },
-      {
-        id: 'gym-cult-blr',
-        name: 'Cult.fit HSR Strength & Conditioning',
-        region: 'Bangalore',
-        city: 'Bangalore',
-        location: 'HSR Layout Sector 1, Bangalore',
-        rating: 4.8,
-        timing: '5:00 AM - 10:00 PM',
-        phone: '+91 80 4718 2000',
-        amenities: ['Kettlebell Arena', 'Functional Rig', 'Athletic Conditioning', 'Locker Rooms'],
-        mapsQuery: 'Cult fit HSR Layout Sector 1 Bangalore',
-        highlight: 'Group workout classes and elite strength barbell training.'
-      },
-      {
-        id: 'gym-golds-mumbai',
-        name: "Gold's Gym Flagship Center",
-        region: 'Mumbai & Delhi',
-        city: 'Mumbai',
-        location: 'Bandra West, Mumbai',
-        rating: 4.8,
-        timing: '6:00 AM - 11:00 PM',
-        phone: '+91 22 6699 9999',
-        amenities: ['Hammer Strength Units', 'Dumbbells up to 60kg', 'Pro Bodybuilder Trainers', 'Steam/Sauna'],
-        mapsQuery: "Gold's Gym Bandra West Mumbai",
-        highlight: 'The iconic mecca of Indian celebrity fitness and hardcore resistance training.'
-      },
-      {
-        id: 'gym-anytime-delhi',
-        name: 'Anytime Fitness 24/7 Strength Club',
-        region: 'Mumbai & Delhi',
-        city: 'New Delhi',
-        location: 'South Extension II / Connaught Place, New Delhi',
-        rating: 4.7,
-        timing: 'Open 24 Hours (24/7)',
-        phone: '+91 11 4100 5555',
-        amenities: ['24/7 Keycard Access', 'Precor Cardio', 'Free Weights Area', 'Virtual Coaching'],
-        mapsQuery: 'Anytime Fitness South Extension New Delhi',
-        highlight: 'Round-the-clock modern international fitness club.'
-      },
-      {
-        id: 'gym-golds-venice',
-        name: "Gold's Gym Venice (The Mecca)",
-        region: 'Global',
-        city: 'Los Angeles',
-        location: 'Venice Beach, California, USA',
-        rating: 4.9,
-        timing: '5:00 AM - 11:00 PM',
-        phone: '+1 310-392-6004',
-        amenities: ['Historic Outdoor Pit', 'Heavy Dumbbells up to 200lbs', 'World Champions Wall'],
-        mapsQuery: "Gold's Gym Venice Beach California",
-        highlight: 'The legendary birthplace of modern bodybuilding and global fitness culture.'
-      },
-      {
-        id: 'gym-puregym-london',
-        name: 'PureGym Central 24/7 Athletic Center',
-        region: 'Global',
-        city: 'London',
-        location: 'Piccadilly / Oxford St, London, UK',
-        rating: 4.8,
-        timing: 'Open 24 Hours (24/7)',
-        phone: '+44 345 013 3499',
-        amenities: ['220+ Training Stations', 'Olympic Lifting Platforms', 'Functional Turf Track'],
-        mapsQuery: 'PureGym Central London UK',
-        highlight: 'State-of-the-art European functional training and strength warehouse.'
-      },
-      {
-        id: 'gym-fitnessfirst-dubai',
-        name: 'Fitness First Platinum Club',
-        region: 'Global',
-        city: 'Dubai',
-        location: 'Downtown Dubai / Marina, UAE',
-        rating: 4.9,
-        timing: '5:30 AM - 11:00 PM',
-        phone: '+971 4 330 0000',
-        amenities: ['Infinity Lap Pool', 'Technogym BioStrength', 'Hydrotherapy Suites', 'Skyline Deck'],
-        mapsQuery: 'Fitness First Platinum Downtown Dubai',
-        highlight: 'Ultra-luxury high performance fitness club overlooking the Burj Khalifa.'
-      }
-    ];
-
-    return [...baseList, ...globalAdditions];
-  }, []);
-
-  // Filtered list based on region and search query
-  const filteredGyms = useMemo(() => {
-    return allGyms.filter(g => {
-      // Search term filter
-      if (searchTerm.trim()) {
-        const term = searchTerm.toLowerCase();
-        const matchesName = g.name.toLowerCase().includes(term);
-        const matchesLoc = g.location && g.location.toLowerCase().includes(term);
-        const matchesCity = g.city && g.city.toLowerCase().includes(term);
-        const matchesRegion = g.region && g.region.toLowerCase().includes(term);
-        if (!matchesName && !matchesLoc && !matchesCity && !matchesRegion) return false;
+    return EXTENDED_GYMS_DATABASE.filter(g => {
+      // 1. Check preset shortcut first
+      if (selectedPreset !== 'all') {
+        const matchesPreset = 
+          g.pincode === selectedPreset || 
+          g.district?.toLowerCase().includes(selectedPreset.toLowerCase()) ||
+          g.city?.toLowerCase().includes(selectedPreset.toLowerCase()) ||
+          g.area?.toLowerCase().includes(selectedPreset.toLowerCase());
+        if (!matchesPreset) return false;
       }
 
-      // Region preset filter
-      if (selectedRegion !== 'all' && g.region !== selectedRegion) {
-        return false;
+      // 2. If user typed in search bar
+      if (query) {
+        const matchesPin = g.pincode?.includes(query);
+        const matchesDistrict = g.district?.toLowerCase().includes(query);
+        const matchesCity = g.city?.toLowerCase().includes(query);
+        const matchesArea = g.area?.toLowerCase().includes(query);
+        const matchesName = g.name?.toLowerCase().includes(query);
+        const matchesAddress = g.address?.toLowerCase().includes(query);
+        const matchesAmenity = (g.amenities || []).some(a => a.toLowerCase().includes(query));
+
+        if (!matchesPin && !matchesDistrict && !matchesCity && !matchesArea && !matchesName && !matchesAddress && !matchesAmenity) {
+          return false;
+        }
       }
 
       return true;
     });
-  }, [allGyms, searchTerm, selectedRegion]);
+  }, [searchInput, selectedPreset]);
 
-  // Handle instant worldwide live satellite search
-  const handleLiveGlobalSearch = (e) => {
-    e.preventDefault();
-    const query = customCitySearch.trim() || searchTerm.trim() || 'gyms near me';
-    const mapsSearchUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('gyms fitness strength in ' + query)}`;
-    window.open(mapsSearchUrl, '_blank', 'noopener,noreferrer');
+  // When user inputs a 6-digit Indian PIN code, fetch live district details from Indian Postal API
+  const handleSearchChange = async (e) => {
+    const val = e.target.value;
+    setSearchInput(val);
+
+    const trimmed = val.trim();
+    // Check if user entered a 6-digit Indian Postal Code
+    if (/^\d{6}$/.test(trimmed)) {
+      setIsLoadingPostal(true);
+      try {
+        const res = await fetch(`https://api.postalpincode.in/pincode/${trimmed}`);
+        const data = await res.json();
+        if (data && data[0]?.Status === 'Success') {
+          const po = data[0].PostOffice?.[0];
+          setPostalInfo({
+            district: po.District,
+            state: po.State,
+            circle: po.Circle,
+            names: data[0].PostOffice.map(p => p.Name).slice(0, 5)
+          });
+        } else {
+          setPostalInfo(null);
+        }
+      } catch (err) {
+        setPostalInfo(null);
+      } finally {
+        setIsLoadingPostal(false);
+      }
+    } else {
+      if (postalInfo) setPostalInfo(null);
+    }
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8 animate-in fade-in duration-200">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 animate-in fade-in duration-200">
       
-      {/* Header */}
-      <div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30 flex items-center gap-1.5">
-            <Globe size={13} className="text-emerald-400" />
-            <span>Worldwide Fitness Directory</span>
-          </span>
-          <span className="text-xs font-bold text-teal-400 bg-teal-500/10 px-2.5 py-0.5 rounded-full border border-teal-500/20">
-            Satellite GPS Directions
-          </span>
+      {/* Header Banner */}
+      <div className="relative p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-emerald-950/80 via-slate-900 to-slate-900 border border-emerald-500/30 overflow-hidden shadow-2xl">
+        <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none text-9xl font-black">
+          🏋️
         </div>
 
-        <h1 className="text-3xl sm:text-5xl font-black font-heading text-white tracking-tight mt-3">
-          Find Fitness Gyms & Strength Centers
-        </h1>
-        <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed">
-          Search and navigate top-rated gyms across your neighborhood, major Indian cities (Vizag, Hyderabad, Bangalore, Mumbai, Delhi), 
-          or tap to pinpoint fitness centers anywhere across the world via live Google Maps GPS.
-        </p>
+        <div className="relative z-10 max-w-3xl space-y-3">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30 flex items-center gap-1.5">
+              <Compass size={13} className="text-emerald-400 animate-pulse" />
+              <span>Pincode & District Fitness Locator</span>
+            </span>
+            <span className="text-xs font-bold text-teal-300 bg-teal-500/10 px-2.5 py-0.5 rounded-full border border-teal-500/20">
+              India & Worldwide Direct GPS
+            </span>
+          </div>
+
+          <h1 className="text-3xl sm:text-5xl font-black font-heading text-white tracking-tight">
+            Find Gyms by PIN Code or District
+          </h1>
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Enter your <strong>6-digit PIN code</strong> (e.g. <span className="text-emerald-400 font-mono font-bold">530012</span>, <span className="text-emerald-400 font-mono font-bold">530016</span>, <span className="text-emerald-400 font-mono font-bold">500081</span>) or <strong>district / area name</strong> (e.g. <em>Visakhapatnam, Sheelanagar, Gajuwaka, Hyderabad, Bangalore</em>) to instantly view local fitness centers, equipment specs, contact numbers, and satellite directions.
+          </p>
+        </div>
       </div>
 
-      {/* Global Live Search Bar (Any City on Earth) */}
-      <form onSubmit={handleLiveGlobalSearch} className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-slate-900 border border-emerald-500/30 shadow-xl flex flex-col sm:flex-row items-center gap-3">
-        <div className="relative flex-1 w-full">
+      {/* Main Search & Postal Lookup Box */}
+      <div className="p-5 sm:p-6 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-4 shadow-xl">
+        <div className="relative">
           <input
             type="text"
-            placeholder="Type ANY city, area, or landmark on Earth (e.g. New York, London, Tokyo, Vizag, Gajuwaka)..."
-            value={customCitySearch}
-            onChange={(e) => setCustomCitySearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 shadow-inner"
+            placeholder="Enter PIN code (e.g. 530012) or district / area name (e.g. Visakhapatnam, Sheelanagar, Hyderabad)..."
+            value={searchInput}
+            onChange={handleSearchChange}
+            className="w-full pl-11 pr-4 py-3.5 bg-slate-950 border border-slate-700 rounded-xl text-sm sm:text-base text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 shadow-inner font-medium"
           />
-          <Compass size={17} className="text-emerald-400 absolute left-3.5 top-3.5" />
-        </div>
-        <button
-          type="submit"
-          className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-95 cursor-pointer whitespace-nowrap"
-        >
-          <Search size={16} />
-          <span>Search Worldwide on Maps</span>
-          <ExternalLink size={14} />
-        </button>
-      </form>
-
-      {/* Search & Region Filter Bar */}
-      <div className="fit-card p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Filter by gym name, location, or amenities..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-9 pr-3 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
-            />
-            <Search size={15} className="absolute left-3 top-3 text-slate-500" />
-          </div>
-
-          <div className="flex items-center gap-1.5 flex-wrap">
-            {regions.map(reg => (
-              <button
-                key={reg.id}
-                onClick={() => setSelectedRegion(reg.id)}
-                className={`px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  selectedRegion === reg.id
-                    ? 'bg-emerald-500 text-slate-950 shadow-md'
-                    : 'bg-slate-950 text-slate-400 border border-slate-700 hover:text-white'
-                }`}
-              >
-                {reg.label}
-              </button>
-            ))}
-          </div>
-
+          <Search size={19} className="text-emerald-400 absolute left-4 top-4" />
+          {searchInput && (
+            <button
+              onClick={() => {
+                setSearchInput('');
+                setPostalInfo(null);
+              }}
+              className="absolute right-3.5 top-3.5 text-xs text-slate-400 hover:text-white bg-slate-800 px-2 py-0.5 rounded cursor-pointer"
+            >
+              Clear
+            </button>
+          )}
         </div>
 
-        <div className="text-xs text-slate-400 pt-2 border-t border-slate-800 flex items-center justify-between flex-wrap gap-2">
-          <span>Showing <strong className="text-emerald-400">{filteredGyms.length}</strong> fitness centers</span>
-          <span className="text-[11px] text-slate-400">💡 Tap any gym for direct Google Maps satellite navigation and route times.</span>
+        {/* Live Postal API Verification Badge */}
+        {postalInfo && (
+          <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between text-xs text-emerald-300 animate-in fade-in">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+              <span>
+                Verified Postal Region: <strong>{postalInfo.district} District</strong>, {postalInfo.state} ({postalInfo.names.join(', ')})
+              </span>
+            </div>
+            <span className="font-mono text-[10px] bg-emerald-500/20 px-2 py-0.5 rounded text-emerald-300">
+              India Post Verified
+            </span>
+          </div>
+        )}
+
+        {/* Preset Shortcuts */}
+        <div className="flex items-center gap-1.5 flex-wrap pt-1">
+          <span className="text-xs text-slate-400 font-semibold mr-1 flex items-center gap-1">
+            <Building2 size={13} />
+            <span>Popular Hubs:</span>
+          </span>
+          {presetShortcuts.map((ps) => (
+            <button
+              key={ps.value}
+              onClick={() => {
+                setSelectedPreset(ps.value);
+                setSearchInput(ps.value === 'all' ? '' : ps.value);
+              }}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+                selectedPreset === ps.value
+                  ? 'bg-emerald-500 text-slate-950 border-emerald-400 shadow-md'
+                  : 'bg-slate-950 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white'
+              }`}
+            >
+              {ps.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Results Meta Info */}
+      <div className="flex items-center justify-between text-xs text-slate-400 px-1 flex-wrap gap-2">
+        <div>
+          Showing <strong className="text-emerald-400 text-sm font-mono">{searchResults.length}</strong> matching fitness gyms & strength centers
+        </div>
+        <div className="text-slate-400">
+          Showing results for <span className="text-white font-semibold">{searchInput || selectedPreset}</span>
         </div>
       </div>
 
       {/* Gym Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredGyms.map(gym => {
-          const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(gym.mapsQuery || gym.name + ' ' + gym.location)}`;
-          return (
-            <div
-              key={gym.id}
-              className="fit-card p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-emerald-500/50 flex flex-col justify-between group transition-all"
-            >
-              <div className="space-y-3">
-                <div className="flex items-start justify-between">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center font-bold text-lg">
-                    🏋️
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] uppercase font-bold text-slate-300 bg-slate-800 px-2 py-0.5 rounded border border-slate-700">
-                      {gym.region || gym.city}
-                    </span>
-                    <span className="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20">
-                      ★ {gym.rating || '4.8'}
-                    </span>
-                  </div>
-                </div>
-
-                <h3 className="text-lg font-black text-white group-hover:text-emerald-400 transition-colors">
-                  {gym.name}
-                </h3>
-
-                <div className="space-y-1.5 text-xs text-slate-300">
-                  <div className="flex items-start gap-2 text-slate-300">
-                    <MapPin size={15} className="text-emerald-400 shrink-0 mt-0.5" />
-                    <span>{gym.location}</span>
-                  </div>
-
-                  {gym.phone && (
-                    <div className="flex items-center gap-2 text-slate-300">
-                      <Phone size={14} className="text-teal-400 shrink-0" />
-                      <a href={`tel:${gym.phone}`} className="hover:text-teal-300">{gym.phone}</a>
+      {searchResults.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {searchResults.map((gym) => {
+            const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(gym.name + ' ' + gym.address)}`;
+            
+            return (
+              <div
+                key={gym.id}
+                className="p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-emerald-500/50 flex flex-col justify-between group transition-all shadow-lg hover:shadow-emerald-500/10"
+              >
+                <div className="space-y-3.5">
+                  <div className="flex items-start justify-between">
+                    <div className="w-11 h-11 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center font-bold text-xl shadow-inner">
+                      🏋️
                     </div>
-                  )}
-
-                  {gym.timing && (
-                    <div className="flex items-center gap-2 text-slate-400">
-                      <Clock size={14} className="text-slate-500 shrink-0" />
-                      <span>{gym.timing}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20">
+                        ★ {gym.rating}
+                      </span>
                     </div>
-                  )}
+                  </div>
 
-                  {gym.highlight && (
-                    <p className="text-[11px] text-slate-400 italic pt-1 line-clamp-2">
-                      "{gym.highlight}"
-                    </p>
-                  )}
-                </div>
+                  <div>
+                    <h3 className="text-lg font-black text-white group-hover:text-emerald-400 transition-colors">
+                      {gym.name}
+                    </h3>
+                    <div className="flex items-center gap-2 mt-1 flex-wrap">
+                      <span className="text-[10px] font-mono font-bold text-emerald-300 bg-emerald-950/70 border border-emerald-500/30 px-2 py-0.5 rounded">
+                        PIN: {gym.pincode}
+                      </span>
+                      <span className="text-[10px] uppercase font-bold text-slate-300 bg-slate-800 px-2 py-0.5 rounded border border-slate-700">
+                        {gym.district}
+                      </span>
+                    </div>
+                  </div>
 
-                {/* Amenities Badges */}
-                {gym.amenities && (
-                  <div className="flex gap-1.5 flex-wrap pt-2">
-                    {gym.amenities.slice(0, 4).map((a, i) => (
-                      <span key={i} className="text-[10px] px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">
-                        {a}
-                      </span>
-                    ))}
-                    {gym.amenities.length > 4 && (
-                      <span className="text-[10px] px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">
-                        +{gym.amenities.length - 4} more
-                      </span>
+                  <div className="space-y-2 text-xs text-slate-300 pt-1">
+                    <div className="flex items-start gap-2">
+                      <MapPin size={15} className="text-emerald-400 shrink-0 mt-0.5" />
+                      <span className="text-slate-300 leading-snug">{gym.address}</span>
+                    </div>
+
+                    {gym.phone && (
+                      <div className="flex items-center gap-2">
+                        <Phone size={14} className="text-teal-400 shrink-0" />
+                        <a href={`tel:${gym.phone}`} className="hover:text-teal-300 font-mono font-semibold">
+                          {gym.phone}
+                        </a>
+                      </div>
+                    )}
+
+                    {gym.timing && (
+                      <div className="flex items-center gap-2 text-slate-400">
+                        <Clock size={14} className="text-slate-500 shrink-0" />
+                        <span>{gym.timing}</span>
+                      </div>
+                    )}
+
+                    {gym.highlight && (
+                      <p className="text-[11px] text-slate-400 italic pt-1 bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/80">
+                        "{gym.highlight}"
+                      </p>
                     )}
                   </div>
-                )}
-              </div>
 
-              <div className="pt-5 mt-4 border-t border-slate-800">
-                <a
-                  href={mapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md"
-                >
-                  <Navigation size={14} />
-                  <span>Get Google Maps Directions</span>
-                  <ExternalLink size={12} />
-                </a>
+                  {/* Amenities Badges */}
+                  {gym.amenities && (
+                    <div className="flex gap-1.5 flex-wrap pt-2">
+                      {gym.amenities.map((a, i) => (
+                        <span key={i} className="text-[10px] px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800">
+                          {a}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="pt-5 mt-4 border-t border-slate-800">
+                  <a
+                    href={mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md"
+                  >
+                    <Navigation size={14} />
+                    <span>Get Directions & Satellite Route</span>
+                    <ExternalLink size={12} />
+                  </a>
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      ) : (
+        /* Empty State */
+        <div className="p-12 text-center rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+          <div className="w-14 h-14 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center mx-auto text-2xl">
+            🔍
+          </div>
+          <h3 className="text-base font-bold text-white">
+            No gyms found for "{searchInput}" in local directory
+          </h3>
+          <p className="text-xs text-slate-400 max-w-md mx-auto leading-relaxed">
+            Don't worry! You can search live gyms around PIN code / area <strong>"{searchInput}"</strong> directly on Google Maps Satellite.
+          </p>
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('gyms fitness strength near ' + searchInput)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-lg transition-all"
+          >
+            <Navigation size={14} />
+            <span>Search Live Gyms for "{searchInput}" on Maps</span>
+            <ExternalLink size={13} />
+          </a>
+        </div>
+      )}
 
     </div>
   );

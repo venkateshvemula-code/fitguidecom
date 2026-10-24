@@ -19,7 +19,7 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
   const currentPlaylist = INDIAN_WORKOUT_PLAYLISTS.find(p => p.id === selectedLang) || INDIAN_WORKOUT_PLAYLISTS[0];
   const currentVideoId = activeVideoId || currentPlaylist.featuredVideoId;
 
-  // Direct video embed URL with autoplay and loop
+  // Direct video embed URL with autoplay, audio enabled, and infinite loop
   const embedUrl = `https://www.youtube.com/embed/${currentVideoId}?autoplay=1&mute=0&playsinline=1&rel=0&modestbranding=1&loop=1&playlist=${currentVideoId}`;
 
   const handleLangChange = (id) => {
@@ -53,11 +53,11 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
                     Desi Workout Beats
                   </h2>
                   <span className="text-xs bg-black/40 backdrop-blur px-2.5 py-0.5 rounded-full border border-white/20 font-bold uppercase tracking-wider">
-                    Verified Audio/Video
+                    In-App Audio Player
                   </span>
                 </div>
                 <p className="text-xs text-white/90 font-medium mt-0.5">
-                  High-BPM adrenaline, mass beats & motivation in your native tongue
+                  Plays directly inside the app with zero redirect or delay
                 </p>
               </div>
             </div>
@@ -101,24 +101,14 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
               <Zap size={11} />
               <span>{currentPlaylist.avgBpm}</span>
             </span>
-            <span className="text-xs text-slate-300 font-medium truncate max-w-[200px] sm:max-w-none">
+            <span className="text-xs text-slate-300 font-medium truncate max-w-[280px] sm:max-w-none">
               Now Playing: <strong className="text-white">{currentPlaylist.featuredTitle}</strong>
             </span>
           </div>
 
-          <div className="flex items-center gap-2 text-xs">
-            <a
-              href={currentPlaylist.youtubeMusicUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold transition-all flex items-center gap-1.5 shadow"
-              title="Open YouTube Music search"
-            >
-              <Music2 size={12} />
-              <span>Play in YouTube Music</span>
-              <ExternalLink size={11} />
-            </a>
-          </div>
+          <span className="text-xs text-emerald-400 font-bold bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20">
+            ✓ Playing In-App (No External Redirects)
+          </span>
         </div>
 
         {/* Main Content Area */}
@@ -138,27 +128,6 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
             </div>
           </div>
 
-          {/* Quick Direct Play Search on YouTube Button */}
-          <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 flex-wrap gap-3">
-            <div className="flex items-center gap-2.5">
-              <Radio size={16} className="text-red-400 animate-pulse" />
-              <span className="text-xs text-slate-300">
-                Want continuous background streaming while you workout?
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <a
-                href={currentPlaylist.youtubeWebUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 transition-all border border-slate-700"
-              >
-                <span>Full {currentPlaylist.language} Gym Mix</span>
-                <ExternalLink size={12} />
-              </a>
-            </div>
-          </div>
-
           {/* Top Handpicked Anthems for this Language */}
           <div>
             <div className="flex items-center justify-between mb-3">
@@ -166,7 +135,7 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
                 <Flame size={15} className="text-orange-400" />
                 <span>Featured {currentPlaylist.language} Workout Anthems</span>
               </h3>
-              <span className="text-[11px] text-slate-400">Tap to load track instantly</span>
+              <span className="text-[11px] text-slate-400">Tap any song to play immediately inside this window</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -176,8 +145,6 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
                   onClick={() => {
                     if (track.videoId) {
                       setActiveVideoId(track.videoId);
-                    } else {
-                      window.open(`https://music.youtube.com/search?q=${encodeURIComponent(track.title + ' ' + track.movie)}`, '_blank');
                     }
                   }}
                   className={`p-3.5 rounded-xl border flex items-center justify-between group transition-all cursor-pointer ${
