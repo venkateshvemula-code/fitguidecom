@@ -12,11 +12,20 @@ import { INDIAN_WORKOUT_PLAYLISTS } from '../data/indianWorkoutPlaylists';
 
 export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
   const [selectedLang, setSelectedLang] = useState('telugu');
-  const [playerType, setPlayerType] = useState('youtube'); // Default to instant YouTube without Spotify login delay
+  const [activeVideoId, setActiveVideoId] = useState(null);
 
   if (!isOpen) return null;
 
   const currentPlaylist = INDIAN_WORKOUT_PLAYLISTS.find(p => p.id === selectedLang) || INDIAN_WORKOUT_PLAYLISTS[0];
+  const currentVideoId = activeVideoId || currentPlaylist.featuredVideoId;
+
+  // Direct video embed URL with autoplay and loop
+  const embedUrl = `https://www.youtube.com/embed/${currentVideoId}?autoplay=1&mute=0&playsinline=1&rel=0&modestbranding=1&loop=1&playlist=${currentVideoId}`;
+
+  const handleLangChange = (id) => {
+    setSelectedLang(id);
+    setActiveVideoId(null); // Reset to new language featured video
+  };
 
   return (
     <div 
@@ -44,7 +53,7 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
                     Desi Workout Beats
                   </h2>
                   <span className="text-xs bg-black/40 backdrop-blur px-2.5 py-0.5 rounded-full border border-white/20 font-bold uppercase tracking-wider">
-                    Instant Play
+                    Verified Audio/Video
                   </span>
                 </div>
                 <p className="text-xs text-white/90 font-medium mt-0.5">
@@ -69,7 +78,7 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
               return (
                 <button
                   key={p.id}
-                  onClick={() => setSelectedLang(p.id)}
+                  onClick={() => handleLangChange(p.id)}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer border ${
                     isSelected
                       ? 'bg-white text-slate-950 border-white shadow-lg scale-105'
@@ -87,47 +96,26 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
 
         {/* Player Controls Bar */}
         <div className="px-6 py-3 bg-slate-950/80 border-b border-slate-800 flex items-center justify-between flex-wrap gap-3">
-          <div className="flex items-center gap-3">
-            <span className="text-xs text-slate-400 font-medium">Player Source:</span>
-            <div className="flex items-center bg-slate-900 rounded-lg p-0.5 border border-slate-800">
-              <button
-                onClick={() => setPlayerType('youtube')}
-                className={`px-3 py-1 rounded-md text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                  playerType === 'youtube'
-                    ? 'bg-red-600 text-white shadow'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                <Play size={11} fill="currentColor" />
-                <span>YouTube (Direct Video / Audio)</span>
-              </button>
-              <button
-                onClick={() => setPlayerType('spotify')}
-                className={`px-3 py-1 rounded-md text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                  playerType === 'spotify'
-                    ? 'bg-emerald-500 text-slate-950 shadow'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                <Music2 size={11} />
-                <span>Spotify</span>
-              </button>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2 text-xs">
-            <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono font-bold flex items-center gap-1">
+          <div className="flex items-center gap-2">
+            <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono font-bold flex items-center gap-1 text-xs">
               <Zap size={11} />
               <span>{currentPlaylist.avgBpm}</span>
             </span>
+            <span className="text-xs text-slate-300 font-medium truncate max-w-[200px] sm:max-w-none">
+              Now Playing: <strong className="text-white">{currentPlaylist.featuredTitle}</strong>
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2 text-xs">
             <a
               href={currentPlaylist.youtubeMusicUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-2.5 py-1 rounded-lg bg-red-600/20 text-red-400 border border-red-500/30 hover:bg-red-600 hover:text-white transition-colors flex items-center gap-1 font-bold"
-              title="Open in YouTube Music app"
+              className="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold transition-all flex items-center gap-1.5 shadow"
+              title="Open YouTube Music search"
             >
-              <span>YouTube Music</span>
+              <Music2 size={12} />
+              <span>Play in YouTube Music</span>
               <ExternalLink size={11} />
             </a>
           </div>
@@ -138,55 +126,34 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
           
           {/* Active Audio / Video Embed Stream */}
           <div className="rounded-2xl overflow-hidden border border-slate-800 bg-black shadow-xl">
-            {playerType === 'youtube' ? (
-              <div className="h-64 sm:h-80 w-full relative">
-                <iframe
-                  src={`${currentPlaylist.youtubeEmbedUrl}&autoplay=1`}
-                  title={`${currentPlaylist.language} YouTube Workout Playlist`}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="w-full h-full border-0"
-                />
-              </div>
-            ) : (
+            <div className="h-64 sm:h-80 w-full relative">
               <iframe
-                src={currentPlaylist.spotifyEmbedUrl || "https://open.spotify.com/embed/playlist/37i9dQZF1DX5cO8504Kxox?utm_source=generator&theme=0"}
-                width="100%"
-                height="152"
-                frameBorder="0"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-                title={`${currentPlaylist.language} Spotify Workout`}
-                className="w-full"
+                key={currentVideoId}
+                src={embedUrl}
+                title={`${currentPlaylist.language} Workout Track`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full border-0"
               />
-            )}
+            </div>
           </div>
 
           {/* Quick Direct Play Search on YouTube Button */}
-          <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-950/80 border border-slate-800">
+          <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 flex-wrap gap-3">
             <div className="flex items-center gap-2.5">
               <Radio size={16} className="text-red-400 animate-pulse" />
               <span className="text-xs text-slate-300">
-                Want ad-free high fidelity streaming in your background music app?
+                Want continuous background streaming while you workout?
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <a
-                href={currentPlaylist.youtubeMusicUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow"
-              >
-                <span>Play in YT Music</span>
-                <ExternalLink size={12} />
-              </a>
               <a
                 href={currentPlaylist.youtubeWebUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 transition-all border border-slate-700"
               >
-                <span>Open YouTube Mix</span>
+                <span>Full {currentPlaylist.language} Gym Mix</span>
                 <ExternalLink size={12} />
               </a>
             </div>
@@ -197,16 +164,27 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-bold text-white flex items-center gap-2">
                 <Flame size={15} className="text-orange-400" />
-                <span>Featured {currentPlaylist.language} Workout Bangers</span>
+                <span>Featured {currentPlaylist.language} Workout Anthems</span>
               </h3>
-              <span className="text-[11px] text-slate-400">Curated for Heavy Sets & Cardio</span>
+              <span className="text-[11px] text-slate-400">Tap to load track instantly</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {currentPlaylist.topTracks.map((track, i) => (
                 <div
                   key={i}
-                  className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800/80 hover:border-emerald-500/40 flex items-center justify-between group transition-all"
+                  onClick={() => {
+                    if (track.videoId) {
+                      setActiveVideoId(track.videoId);
+                    } else {
+                      window.open(`https://music.youtube.com/search?q=${encodeURIComponent(track.title + ' ' + track.movie)}`, '_blank');
+                    }
+                  }}
+                  className={`p-3.5 rounded-xl border flex items-center justify-between group transition-all cursor-pointer ${
+                    activeVideoId === track.videoId
+                      ? 'bg-emerald-500/20 border-emerald-500/60 shadow-lg'
+                      : 'bg-slate-950/60 border-slate-800/80 hover:border-emerald-500/40'
+                  }`}
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-black text-xs font-mono border border-emerald-500/20">
@@ -222,16 +200,10 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
                     </div>
                   </div>
 
-                  <a
-                    href={`https://music.youtube.com/search?q=${encodeURIComponent(track.title + ' ' + track.movie + ' ' + track.artist)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-2 py-0.5 rounded bg-slate-800/90 hover:bg-red-600 hover:text-white text-slate-300 text-[10px] font-mono font-bold border border-slate-700 transition-colors flex items-center gap-1"
-                    title="Play track in YouTube Music"
-                  >
+                  <span className="px-2 py-0.5 rounded bg-slate-800/90 text-slate-300 text-[10px] font-mono font-bold border border-slate-700 flex items-center gap-1">
                     <span>{track.bpm} BPM</span>
-                    <Play size={9} fill="currentColor" />
-                  </a>
+                    <Play size={9} fill="currentColor" className="text-emerald-400" />
+                  </span>
                 </div>
               ))}
             </div>
