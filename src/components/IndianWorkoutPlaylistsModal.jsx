@@ -1,22 +1,18 @@
 import React, { useState } from 'react';
 import { 
   Play, 
-  Pause, 
-  Music, 
-  Volume2, 
   ExternalLink, 
   Flame, 
-  Radio, 
-  Sparkles,
   Zap,
-  Headphones
+  Headphones,
+  Radio,
+  Music2
 } from 'lucide-react';
 import { INDIAN_WORKOUT_PLAYLISTS } from '../data/indianWorkoutPlaylists';
-import TiltCard from '../components/TiltCard';
 
 export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
   const [selectedLang, setSelectedLang] = useState('telugu');
-  const [playerType, setPlayerType] = useState('spotify'); // 'spotify' | 'youtube'
+  const [playerType, setPlayerType] = useState('youtube'); // Default to instant YouTube without Spotify login delay
 
   if (!isOpen) return null;
 
@@ -48,7 +44,7 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
                     Desi Workout Beats
                   </h2>
                   <span className="text-xs bg-black/40 backdrop-blur px-2.5 py-0.5 rounded-full border border-white/20 font-bold uppercase tracking-wider">
-                    Indian Workout Music
+                    Instant Play
                   </span>
                 </div>
                 <p className="text-xs text-white/90 font-medium mt-0.5">
@@ -92,18 +88,8 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
         {/* Player Controls Bar */}
         <div className="px-6 py-3 bg-slate-950/80 border-b border-slate-800 flex items-center justify-between flex-wrap gap-3">
           <div className="flex items-center gap-3">
-            <span className="text-xs text-slate-400 font-medium">Platform:</span>
+            <span className="text-xs text-slate-400 font-medium">Player Source:</span>
             <div className="flex items-center bg-slate-900 rounded-lg p-0.5 border border-slate-800">
-              <button
-                onClick={() => setPlayerType('spotify')}
-                className={`px-3 py-1 rounded-md text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                  playerType === 'spotify'
-                    ? 'bg-emerald-500 text-slate-950 shadow'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                <span>Spotify</span>
-              </button>
               <button
                 onClick={() => setPlayerType('youtube')}
                 className={`px-3 py-1 rounded-md text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
@@ -112,7 +98,19 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
-                <span>YouTube Music</span>
+                <Play size={11} fill="currentColor" />
+                <span>YouTube (Direct Video / Audio)</span>
+              </button>
+              <button
+                onClick={() => setPlayerType('spotify')}
+                className={`px-3 py-1 rounded-md text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  playerType === 'spotify'
+                    ? 'bg-emerald-500 text-slate-950 shadow'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <Music2 size={11} />
+                <span>Spotify</span>
               </button>
             </div>
           </div>
@@ -123,13 +121,14 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
               <span>{currentPlaylist.avgBpm}</span>
             </span>
             <a
-              href={playerType === 'spotify' ? currentPlaylist.spotifyWebUrl : `https://www.youtube.com/playlist?list=${currentPlaylist.youtubePlaylistId}`}
+              href={currentPlaylist.youtubeMusicUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-400 hover:text-white flex items-center gap-1 hover:underline font-semibold"
+              className="px-2.5 py-1 rounded-lg bg-red-600/20 text-red-400 border border-red-500/30 hover:bg-red-600 hover:text-white transition-colors flex items-center gap-1 font-bold"
+              title="Open in YouTube Music app"
             >
-              <span>Open in App</span>
-              <ExternalLink size={12} />
+              <span>YouTube Music</span>
+              <ExternalLink size={11} />
             </a>
           </div>
         </div>
@@ -137,21 +136,10 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
         {/* Main Content Area */}
         <div className="p-6 overflow-y-auto space-y-6 flex-1 bg-slate-900/60">
           
-          {/* Active Audio Embed Stream */}
+          {/* Active Audio / Video Embed Stream */}
           <div className="rounded-2xl overflow-hidden border border-slate-800 bg-black shadow-xl">
-            {playerType === 'spotify' ? (
-              <iframe
-                src={currentPlaylist.spotifyEmbedUrl}
-                width="100%"
-                height="152"
-                frameBorder="0"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-                title={`${currentPlaylist.language} Spotify Workout`}
-                className="w-full"
-              />
-            ) : (
-              <div className="h-64 sm:h-72 w-full">
+            {playerType === 'youtube' ? (
+              <div className="h-64 sm:h-80 w-full relative">
                 <iframe
                   src={`${currentPlaylist.youtubeEmbedUrl}&autoplay=1`}
                   title={`${currentPlaylist.language} YouTube Workout Playlist`}
@@ -160,7 +148,48 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
                   className="w-full h-full border-0"
                 />
               </div>
+            ) : (
+              <iframe
+                src={currentPlaylist.spotifyEmbedUrl || "https://open.spotify.com/embed/playlist/37i9dQZF1DX5cO8504Kxox?utm_source=generator&theme=0"}
+                width="100%"
+                height="152"
+                frameBorder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                title={`${currentPlaylist.language} Spotify Workout`}
+                className="w-full"
+              />
             )}
+          </div>
+
+          {/* Quick Direct Play Search on YouTube Button */}
+          <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-950/80 border border-slate-800">
+            <div className="flex items-center gap-2.5">
+              <Radio size={16} className="text-red-400 animate-pulse" />
+              <span className="text-xs text-slate-300">
+                Want ad-free high fidelity streaming in your background music app?
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <a
+                href={currentPlaylist.youtubeMusicUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow"
+              >
+                <span>Play in YT Music</span>
+                <ExternalLink size={12} />
+              </a>
+              <a
+                href={currentPlaylist.youtubeWebUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 transition-all border border-slate-700"
+              >
+                <span>Open YouTube Mix</span>
+                <ExternalLink size={12} />
+              </a>
+            </div>
           </div>
 
           {/* Top Handpicked Anthems for this Language */}
@@ -193,25 +222,21 @@ export default function IndianWorkoutPlaylistsModal({ isOpen, onClose }) {
                     </div>
                   </div>
 
-                  <span className="px-2 py-0.5 rounded bg-slate-800/90 text-slate-300 text-[10px] font-mono font-bold border border-slate-700">
-                    {track.bpm} BPM
-                  </span>
+                  <a
+                    href={`https://music.youtube.com/search?q=${encodeURIComponent(track.title + ' ' + track.movie + ' ' + track.artist)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-2 py-0.5 rounded bg-slate-800/90 hover:bg-red-600 hover:text-white text-slate-300 text-[10px] font-mono font-bold border border-slate-700 transition-colors flex items-center gap-1"
+                    title="Play track in YouTube Music"
+                  >
+                    <span>{track.bpm} BPM</span>
+                    <Play size={9} fill="currentColor" />
+                  </a>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Motivation Quote Banner */}
-          <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-transparent border border-emerald-500/20 flex items-center justify-between">
-            <div>
-              <span className="text-xs font-bold text-emerald-400 block uppercase tracking-wider">
-                Workout Energy Tip
-              </span>
-              <p className="text-xs text-slate-300 mt-0.5">
-                Listening to 130–160 BPM music in your mother tongue boosts motor coordination, delays perceived fatigue by up to 15%, and elevates dopamine during heavy sets.
-              </p>
-            </div>
-          </div>
         </div>
 
       </div>

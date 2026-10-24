@@ -177,21 +177,21 @@ export default function ExercisesTab() {
                     className="relative h-48 w-full bg-slate-950 overflow-hidden cursor-pointer"
                   >
                     <img
-                      src={isHovered ? animData.animUrl : getExercisePhoto(ex.id, ex.bodyPart)}
+                      src={getExercisePhoto(ex.id, ex.bodyPart)}
                       alt={ex.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
                       loading="lazy"
                       onError={(e) => {
-                        e.currentTarget.src = getExercisePhoto(ex.id, ex.bodyPart);
+                        e.currentTarget.src = "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80";
                       }}
                     />
 
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent pointer-events-none"></div>
                     
-                    {/* Animated Movement Badge */}
+                    {/* Video Tutorial Badge */}
                     <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-950/80 backdrop-blur border border-emerald-500/40 text-[10px] font-bold text-emerald-400 shadow">
-                      <Video size={11} className={isHovered ? "animate-pulse" : ""} />
-                      <span>{isHovered ? "Playing Motion" : "Hover For Motion"}</span>
+                      <Video size={11} className={isHovered ? "animate-pulse text-emerald-300" : ""} />
+                      <span>HD Video Tutorial</span>
                     </div>
 
                     <button
