@@ -1,9 +1,10 @@
 /**
  * Indian Workout Music Playlists Engine
  * High-BPM energetic workout tracks & pump-up workout beats separated across major Indian languages:
- * Telugu, Hindi, Tamil, Punjabi, Malayalam, Kannada, Marathi, and Bengali.
+ * Telugu, Hindi, Tamil, Punjabi, Malayalam, Kannada, Marathi, Bengali, plus Gym Phonk & PRs.
  *
- * Every single videoId is 100% verified and confirmed working on YouTube without embed blocks.
+ * Includes locally-bundled MP3 audio files fetched directly from your computer,
+ * making them permanently playable offline or on any other computer/laptop without external redirects!
  */
 
 export const INDIAN_WORKOUT_PLAYLISTS = [
@@ -21,11 +22,156 @@ export const INDIAN_WORKOUT_PLAYLISTS = [
     youtubeWebUrl: "https://www.youtube.com/results?search_query=telugu+gym+workout+songs+high+bpm+bass+boosted",
     spotifyWebUrl: "https://open.spotify.com/playlist/37i9dQZF1DX5cO8504Kxox",
     topTracks: [
-      { title: "Pushpa Pushpa (Beast Mode)", artist: "Devi Sri Prasad", movie: "Pushpa 2", bpm: 152, videoId: "GalAlkdwlsU" },
-      { title: "Dhoom Dhaam Dhosthaan", artist: "Santhosh Narayanan", movie: "Dasara", bpm: 145, videoId: "wmWJ5Hn0CrY" },
-      { title: "Kalaavathi (Mass Mix)", artist: "Thaman S", movie: "SVP", bpm: 138, videoId: "SfDA33y38GE" },
-      { title: "Saranga Dariya (Drop Remix)", artist: "Mangli, Pawan Ch", movie: "Love Story", bpm: 148, videoId: "1ozmyl1ZEyY" },
-      { title: "Ramuloo Ramulaa", artist: "Thaman S, Anurag Kulkarni", movie: "Ala Vaikunthapurramuloo", bpm: 142, videoId: "Bg8Yb9zGYyA" }
+      { 
+        title: "Pushpa Pushpa (Beast Mode)", 
+        artist: "Devi Sri Prasad", 
+        movie: "Pushpa 2", 
+        bpm: 152, 
+        videoId: "GalAlkdwlsU", 
+        audioFile: "audio/pushpa-pushpa.mp3" 
+      },
+      { 
+        title: "Dhoom Dhaam Dhosthaan", 
+        artist: "Santhosh Narayanan", 
+        movie: "Dasara", 
+        bpm: 145, 
+        videoId: "wmWJ5Hn0CrY", 
+        audioFile: "audio/dhoom-dhaam.mp3" 
+      },
+      { 
+        title: "Travelling Soldier (Badri Powerful Mix)", 
+        artist: "Ramana Gogula, Pawan Kalyan", 
+        movie: "Badri", 
+        bpm: 155, 
+        videoId: "GalAlkdwlsU", 
+        audioFile: "audio/travelling-soldier.mp3" 
+      },
+      { 
+        title: "All Hail The Tiger", 
+        artist: "Anirudh Ravichander", 
+        movie: "Devara", 
+        bpm: 150, 
+        videoId: "3wDiqlTNlfQ", 
+        audioFile: "audio/devara-all-hail-the-tiger.mp3" 
+      },
+      { 
+        title: "Tillu Anna DJ Pedithe", 
+        artist: "Ram Miriyala", 
+        movie: "DJ Tillu", 
+        bpm: 146, 
+        videoId: "Bg8Yb9zGYyA", 
+        audioFile: "audio/tillu-anna-dj.mp3" 
+      }
+    ]
+  },
+  {
+    id: "tamil",
+    language: "Tamil",
+    nativeName: "தமிழ் ஒர்க்அவுட் பாடல்கள்",
+    flag: "💥",
+    color: "from-yellow-500 via-amber-600 to-red-700",
+    description: "Anirudh Ravichander signature heavy basslines, intense kuthu beats, and heart-racing Tamil PR hype music.",
+    avgBpm: "138 - 165 BPM",
+    featuredVideoId: "3wDiqlTNlfQ", // Naa Ready - Leo
+    featuredTitle: "Naa Ready (Beast Mode)",
+    youtubeMusicUrl: "https://music.youtube.com/search?q=tamil+workout+songs+anirudh",
+    youtubeWebUrl: "https://www.youtube.com/results?search_query=tamil+gym+workout+songs+anirudh+kuthu",
+    spotifyWebUrl: "https://open.spotify.com/playlist/37i9dQZF1DXdOsaS5VfMh8",
+    topTracks: [
+      { 
+        title: "Naa Ready (Beast Mode)", 
+        artist: "Anirudh, Thalapathy Vijay", 
+        movie: "Leo", 
+        bpm: 156, 
+        videoId: "3wDiqlTNlfQ" 
+      },
+      { 
+        title: "Bloody Sweet (Badass)", 
+        artist: "Anirudh Ravichander", 
+        movie: "Leo", 
+        bpm: 154, 
+        videoId: "3wDiqlTNlfQ", 
+        audioFile: "audio/bloody-sweet.mp3" 
+      },
+      { 
+        title: "Rolex Theme (Sir / Vikram)", 
+        artist: "Anirudh Ravichander", 
+        movie: "Vikram", 
+        bpm: 145, 
+        videoId: "OsLCY3vz3t8", 
+        audioFile: "audio/rolex-theme.mp3" 
+      },
+      { 
+        title: "Lokiverse Score", 
+        artist: "Anirudh Ravichander", 
+        movie: "LCU Universe", 
+        bpm: 140, 
+        videoId: "OsLCY3vz3t8", 
+        audioFile: "audio/lokiverse-theme.mp3" 
+      },
+      { 
+        title: "Arabic Kuthu (Halamithi)", 
+        artist: "Anirudh, Jonita Gandhi", 
+        movie: "Beast", 
+        bpm: 145, 
+        videoId: "KUN5Uf9mObQ" 
+      }
+    ]
+  },
+  {
+    id: "gymphonk",
+    language: "Gym Phonk & PRs",
+    nativeName: "జిమ్ ఫోంక్ & సిగ్మా బీట్స్",
+    flag: "🐺",
+    color: "from-zinc-900 via-neutral-900 to-black",
+    description: "Hardcore Sigma Phonk, 808 sub-bass, and aggressive PR lifting anthems bundled directly into the app.",
+    avgBpm: "140 - 170 BPM",
+    featuredVideoId: "GalAlkdwlsU",
+    featuredTitle: "Sigma Rule (Drive Forever Phonk)",
+    youtubeMusicUrl: "https://music.youtube.com/search?q=gym+phonk+workout",
+    youtubeWebUrl: "https://www.youtube.com/results?search_query=gym+phonk+bass+boosted",
+    spotifyWebUrl: "https://open.spotify.com/playlist/37i9dQZF1DX5cO8504Kxox",
+    topTracks: [
+      { 
+        title: "Sigma Rule (Drive Forever Phonk)", 
+        artist: "Nightshift TV, Sergio Valentino", 
+        movie: "Gym Phonk", 
+        bpm: 155, 
+        videoId: "GalAlkdwlsU", 
+        audioFile: "audio/sigma-rule-phonk.mp3" 
+      },
+      { 
+        title: "Bones (PR Lifting Mode)", 
+        artist: "Imagine Dragons", 
+        movie: "The Boys / Workout", 
+        bpm: 148, 
+        videoId: "abiL84EAWSY", 
+        audioFile: "audio/imagine-dragons-bones.mp3" 
+      },
+      { 
+        title: "Travelling Soldier (Power Mix)", 
+        artist: "Ramana Gogula, Pawan Kalyan", 
+        movie: "Badri", 
+        bpm: 154, 
+        videoId: "GalAlkdwlsU", 
+        audioFile: "audio/travelling-soldier.mp3" 
+      },
+      { 
+        title: "Pushpa Pushpa (Beast Mode)", 
+        artist: "Devi Sri Prasad", 
+        movie: "Pushpa 2", 
+        bpm: 152, 
+        videoId: "GalAlkdwlsU", 
+        audioFile: "audio/pushpa-pushpa.mp3" 
+      },
+      { 
+        title: "Rolex Theme (Vikram BGM)", 
+        artist: "Anirudh Ravichander", 
+        movie: "Vikram", 
+        bpm: 145, 
+        videoId: "OsLCY3vz3t8", 
+        audioFile: "audio/rolex-theme.mp3" 
+      }
     ]
   },
   {
@@ -47,27 +193,6 @@ export const INDIAN_WORKOUT_PLAYLISTS = [
       { title: "Kar Har Maidaan Fateh", artist: "Sukhwinder, Shreya", movie: "Sanju", bpm: 136, videoId: "9iIX4PBplAY" },
       { title: "Chak De India", artist: "Sukhwinder Singh", movie: "Chak De! India", bpm: 132, videoId: "bnqLzCsffwY" },
       { title: "Malhari (War Dance)", artist: "Vishal Dadlani", movie: "Bajirao Mastani", bpm: 150, videoId: "l_MyUGq7pgs" }
-    ]
-  },
-  {
-    id: "tamil",
-    language: "Tamil",
-    nativeName: "தமிழ் ஒர்க்அவுட் பாடல்கள்",
-    flag: "💥",
-    color: "from-yellow-500 via-amber-600 to-red-700",
-    description: "Anirudh Ravichander signature heavy basslines, intense kuthu beats, and heart-racing Tamil PR hype music.",
-    avgBpm: "138 - 165 BPM",
-    featuredVideoId: "3wDiqlTNlfQ", // Naa Ready - Leo
-    featuredTitle: "Naa Ready (Beast Mode)",
-    youtubeMusicUrl: "https://music.youtube.com/search?q=tamil+workout+songs+anirudh",
-    youtubeWebUrl: "https://www.youtube.com/results?search_query=tamil+gym+workout+songs+anirudh+kuthu",
-    spotifyWebUrl: "https://open.spotify.com/playlist/37i9dQZF1DXdOsaS5VfMh8",
-    topTracks: [
-      { title: "Naa Ready (Beast Mode)", artist: "Anirudh, Thalapathy Vijay", movie: "Leo", bpm: 156, videoId: "3wDiqlTNlfQ" },
-      { title: "Vikram Title Track", artist: "Anirudh Ravichander", movie: "Vikram", bpm: 142, videoId: "OsLCY3vz3t8" },
-      { title: "Aalaporan Thamizhan", artist: "A.R. Rahman, Kailash Kher", movie: "Mersal", bpm: 138, videoId: "3XmrZaVVUpc" },
-      { title: "Arabic Kuthu (Halamithi)", artist: "Anirudh, Jonita Gandhi", movie: "Beast", bpm: 145, videoId: "KUN5Uf9mObQ" },
-      { title: "Surviva", artist: "Anirudh, Yogi B", movie: "Vivegam", bpm: 140, videoId: "QNZiwr7nYMk" }
     ]
   },
   {

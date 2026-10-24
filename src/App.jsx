@@ -112,7 +112,7 @@ export default function App() {
       <AuthModal />
       <QrLoginModal />
       <IndianWorkoutPlaylistsModal 
-        isOpen={activeModal?.type === 'indian_music'} 
+        isOpen={activeModal === 'indian_music' || activeModal?.type === 'indian_music'} 
         onClose={closeModal} 
       />
       <ToastContainer />
